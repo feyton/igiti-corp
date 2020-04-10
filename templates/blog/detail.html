@@ -1,0 +1,89 @@
+{% extends 'base.html'%} {% load i18n %}
+{% load static %}
+
+
+{% block title%}
+<link rel="stylesheet" href="{% static 'style/forestry.css' %}">
+
+
+{% endblock%}
+
+
+{%block content%}
+<!-- Content -->
+<div class="content clearfix">
+    <div class="main-content">
+        <h2 class="trending-post-title single">{{ blog_post.title }}</h2>
+        <br>
+        <div class="published">
+            <ul>
+                <li><span>Category:</span>&nbsp;{{ blog_post.category }}</li>
+                <li><span>Author:</span>&nbsp;{{blog_post.author}}</li>
+                <li><span>Published:</span>&nbsp;{{ blog_post.pub_date|date }}</li>
+                <!--<li><span>Views:</span>&nbsp;1000</li>-->
+            </ul>
+        </div>
+
+        <div class="post-preview single">
+            {{ blog_post.text|safe }}
+
+
+        </div>
+        <div class="author">
+            <div class="author-image">
+                <img src="{{blog_post.get_author_image}}" alt="">
+                <h1 class="name"><a href="">{{blog_post.author}}</a> </h1>
+            </div>
+            <div class="info">
+
+                <p class="bio">{{ blog_post.get_bio}}</p>
+                <b>Follow me:</b>
+                <br>
+                <ul class="social-author">
+                    {% if blog_post.author.telephone%}
+                    <li><a href="https://wa.me/{{ blog_post.author.telephone|safe}}"><i class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a></li>
+                    {% endif%}
+                    {% if blog_post.author.facebook%}
+                    <li><a href="https://{{ blog_post.author.facebook|safe}}"><i class="fab fa-facebook"></i>&nbsp;Facebook</a></li>
+                    {% endif%}
+                    {% if blog_post.author.twitter%}
+                    <li><a href="https://{{ blog_post.author.twitter}}"><i class="fab fa-twitter"></i>&nbsp;Twitter</a></li>
+                    {% endif%}
+                </ul>
+
+            </div>
+        </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar single">
+            <div class="section popular">
+                <h2 class="section-title">Popular Posts</h2>
+                {% for i in blog_recent %}
+                <div class="post-popular clearfix">
+
+                    {% if i.image%}
+                    <img src="{{ i.image.url }}" alt="">
+                    {% endif%}
+                    <a href="{{ i.get_absolute_url }}" class="title">
+                        <h4>{{i.title}}</h4>
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="section topics">
+                <h2 class="section-title">Categories</h2>
+                <ul>
+                    {% for cat in categories%}
+                    <li><a href="#">{{cat.title}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- //SIDEBAR -->
+    </div>
+    <!-- //content -->
+
+    {% endblock%}

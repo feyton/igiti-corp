@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="10; url=/">
+    <!-- TITLE -->
+    <title>Subscibed | Igiti Corp</title>
+</head>
+<style>
+    body {
+        background: rgb(224, 223, 223);
+
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .thank-you-pop {
+        width: fit-content;
+        padding: 20px 30px;
+        text-align: left;
+        background: whitesmoke;
+        margin: 10% auto;
+        border-radius: 8%;
+
+    }
+
+    .thank-you-pop img {
+        width: 70px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        margin-bottom: 25px;
+    }
+
+    .thank-you-pop h1 {
+        font-size: 35px;
+        margin-bottom: 25px;
+        color: #5C5C5C;
+        font-family: 'Josephin Slab';
+    }
+
+    .thank-you-pop p {
+        font-size: 20px;
+        color: rgb(43, 40, 40);
+        padding: 0px;
+        margin: 1px;
+    }
+
+    .thank-you-pop h3 {
+        margin-top: 20px;
+    }
+
+    .thank-you-pop h3.cupon-pop {
+        font-size: 25px;
+        margin-bottom: auto;
+        color: #222;
+        display: inline-block;
+        text-align: center;
+        padding: 5px 20px;
+        border: 1px solid rgb(82, 80, 80);
+        clear: both;
+        font-weight: normal;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .thank-you-pop h3.cupon-pop span {
+        color: rgb(49, 94, 116);
+    }
+
+    @media only screen and (max-width: 530px) {
+        h1 {
+            font-size: 18px;
+        }
+
+        h3.cupon-pop {
+            font-size: 15px;
+            text-align: left;
+            padding: 5px;
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="thank-you-pop">
+            <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+            <h1>Thank You {{name}}!</h1>
+            <p>You have successfully subscribed.</p>
+            <p>You will be redirected in 10 seconds.</p>
+            <h3 class="cupon-pop">Your Email: <span>{{email}}</span></h3>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

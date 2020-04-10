@@ -1,0 +1,432 @@
+/* *****************
+MAIN STORE
+*******************/
+:root {
+    --main-color: #e74c3c;
+}
+.btn {
+    padding: .4rem 1rem;
+    background: rgba(12, 156, 149, 0.74);
+    color: white;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: 0.5s;
+}
+.product-container {
+    display: block;
+}
+
+.col-md-3 {
+margin: 10px 0px 10px 0px;
+padding-left: 0px;
+}
+
+.product-grid {
+    position: relative;
+    font-family: 'Oswald';
+
+}
+.product-grid .product-image {
+    overflow: hidden;
+    position: relative;
+}
+.product-grid .product-image:before {
+    content: "";
+    background: rgba(0,0,0,0.3);
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: all 0.4s ease-out 0s;
+
+}
+
+.product-grid:hover .product-image:before {
+    opacity: 1;
+}
+.product-grid .product-image a {
+    display: block;
+}
+
+.product-grid .product-image img {
+    width: 100%;
+    min-width: 200px;
+    height: auto;
+    min-height: 200px;
+    max-height: 300px;
+}
+
+.product-image .pic-1 {
+    opacity: 1;
+    backface-visibility: hidden;
+    transition: all 0.4s ease-out 0s;
+} 
+.product-grid:hover .product-image .pic-1 {
+    opacity: 0;
+}
+
+.product-image .pic-2 {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    backface-visibility: hidden;
+    transform: scale(3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.4s ease-out 0s;
+}
+
+.product-grid:hover .product-image .pic-2 {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.2s ease-out 0s;
+}
+.product-image .product-trend-label,
+.product-image .product-discount-label {
+    content: "";
+    color: white;
+    background-color: orange;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 28px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 0 7px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+    
+}
+.product-image .product-discount-label {
+    background-color: var(--main-color);
+    left: auto;
+    right: 12px;
+}
+
+.product-grid .image-link {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    z-index: 5;
+
+
+}
+
+.product-grid .image-link li {
+    margin: 0 0 12px;
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: transform 0.3s ease-out 0s;
+}
+
+.product-grid:hover .image-link li {
+    opacity: 1;
+    transform: translateX(0);
+    line-height: 10px;
+}
+
+.product-grid:hover .image-link li:nth-child(2) {
+    transition-delay: 0.1s;
+}
+.product-grid:hover .image-link li:nth-child(3) {
+    transition-delay: 0.2s;
+}
+.product-grid:hover .image-link li:nth-child(4) {
+    transition-delay: 0.3s;
+}
+
+.product-grid .image-link a {
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+.product-grid .image-link li a:hover { color: var(--main-color); }
+.product-grid .image-link li a:before,
+ .product-grid .image-link li a:after{
+    content: attr(data-tip);
+    color: #000;
+    background: #fff;
+    font-size: 14px;
+    padding: 5px 10px;
+    white-space: nowrap;
+    display: none;
+    transform: translateY(-50%);
+    position: absolute;
+    left: 33px;
+    top: 50%;
+    transition: all 0.3s;
+}
+
+.product-grid .image-link li a:after{
+    content: '';
+    background: linear-gradient(-45deg, #fff 49%, transparent 50%);
+    width: 10px;
+    height: 10px;
+    top: 40%;
+    left: 20px;
+}
+.product-grid .image-link li a:hover:before,
+.product-grid .image-link li a:hover:after{
+      display: block;
+}
+
+.product-grid .product-content {
+    padding: 12px 0;
+}
+
+.product-content .title {
+    font-size: 20px;
+    color: rgb(34, 30, 30);
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0 0 5px;
+}
+.product-content a {
+    color: rgb(13, 24, 37);
+    transition: .2s;
+}
+
+.product-content a:hover {
+    color: rgb(25, 75, 90);
+    transition: .2s;
+    padding-left: 5px;
+}
+
+.product-content .price {
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+
+
+/* **************
+    PRODUCT PAGE
+***************/
+
+.content {
+    width: 100%;
+    margin: 30px auto 30px;
+}
+.main-content {
+    width: 70%;
+    float: left;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.main-content .trending-post-title {
+    margin: 10px auto;
+    text-align: center;
+}
+
+.main-content .trending-post {
+    width: 95%;
+    height: 270px;
+    margin: 10px auto;
+    border-radius: 7px;
+    background: #fff;
+    position: relative;
+}
+.main-content img {
+    width: 40%;
+    height: 90%;
+    float: left;
+    border-radius: 10px;
+}
+
+.main-content .post-preview {
+    width: 60%;
+    float: right;
+    padding: 10px;
+}
+.main-content .post-preview p {
+    line-height: 1.5em;
+    font-size: 1.03em;
+    color: #444;
+}
+.main-content .post-preview h2 a {
+    color: rgb(11, 55, 97);
+    font-weight: 300;
+    transition: 0.5s;
+}
+.main-content .post-preview h2 a:hover {
+    color: rgb(0, 112, 192);
+    transition: 0.5s;
+}
+.main-content span {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.main-content .readmore {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.sidebar {
+    width: 30%;
+    float: left;
+    height: auto;
+}
+
+.card{text-align: center; 
+border: none; 
+border-radius: 5px;-webkit-box-shadow: 12px 14px 22px 2px rgba(0,0,0,0.75);
+-moz-box-shadow: 12px 14px 22px 2px rgba(0,0,0,0.75);
+box-shadow: 12px 14px 22px 2px rgba(0,0,0,0.75);
+margin-bottom: 100px;
+}
+
+.media img {
+border-radius: 5px;
+}
+
+/* ******************
+SIDEBAR
+**********************/
+.content .sidebar .section {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.content .sidebar .section.search {
+    margin-top: 10px;
+
+}
+.content .sidebar .section.topics ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    border-top: 2px solid#444;
+}
+.content .sidebar .section.topics a {
+    display: block;
+    padding: 10px 10px;
+    border-bottom: 2px solid#444;
+    color:  rgb(11, 55, 97);
+    font-family: 'Martel';
+    transition: 0.5s;
+}
+.content .sidebar .section.topics a:hover {
+    padding-left: 20px;
+    transition: 0.5s;
+    color: rgb(0, 112, 192);
+}
+
+.content .sidebar .section .section-title {
+    font-family: 'Josefin Slab';
+    margin: 10px;
+}
+
+/* *******************
+PRODUCT
+**********************/
+.main-content .product-image {
+    height: 100%;
+    width: 100%;
+}
+
+.related-products .title.related {
+    text-align: center;
+    
+}
+
+/* PRODUCT CARD */
+.information-card {
+    background: no-repeat;
+    background: center;
+    width: 100%;
+    height: 400px;
+    margin: 10px auto;
+}
+.information-card .card-title {
+    text-align: center;
+}
+.card-content {
+    display: flex;
+}
+
+.basic-info,
+.planting-info {
+    flex: 1;
+    border: 2px solid blue;
+}
+
+
+
+/* *******************
+MEDIA QUERIES
+*********************/
+@media only screen and (max-width:990px){
+    .product-grid{ margin-bottom: 30px; }
+}
+
+
+@media only screen and (max-width: 700px) {
+    .next {
+        right: 5px;
+    }
+    .prev {
+        left: 5px;
+    }
+    .content {
+        margin: 10px 5px;
+        width: 100%;
+        height: auto;
+    }
+    .main-content {
+        width: 100%;
+    }
+
+    .main-content img {
+        width: 30%;
+        height: 70%;
+        margin: auto;
+    }
+     .main-content .post-preview {
+         width: 70%;
+     }
+     .sidebar {
+         width: 100%;
+         padding: 10px;
+         height: auto;
+     }
+     .main-content .post-preview.single {
+         width: 99%;
+         border-radius: 5px;
+     }
+}
+
+@media only screen and (max-width: 500px) {
+    .main-content .readmore {
+        position: static;
+        width: 80%;
+        display: block;
+        margin: auto;
+    }
+    .row {
+        padding: 10px 10px;
+    }
+    .reviews {
+        padding: 0px 15px;
+    }
+
+}
+
+@media only screen and (max-width: 350px) {
+    .main-content .readmore {
+        width: 100%;
+    }
+}
