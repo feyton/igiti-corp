@@ -1,18 +1,29 @@
 
 import os
-
+from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+PUBLIC_ROOT = '/home/igityopp/notes.igiti.co.rw/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
+# Environment Wrapper
+
+def get_env_value(env_variable):
+    try:
+      	return os.environ[env_variable]
+    except KeyError:
+        error_msg = 'Set the {} environment variable'.format(var_name)
+        raise ImproperlyConfigured(error_msg)
+
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+un81yzcs6d@g78eg*iqudcsv=ys^0o02m9_#-z7xh7g^=7v%6'
+SECRET_KEY = str(os.environ['SECRET_KEY'])
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['notes.igiti.co.rw', 'www.notes.igiti.co.rw', "127.0.0.1", "localhost"]
 
@@ -26,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # MY APPS
     'index',
     'user',
     'forestry',
@@ -33,8 +45,7 @@ INSTALLED_APPS = [
     # CK Editor
     'ckeditor',
     'ckeditor_uploader',
-    # CUSTOM APPS
-        # Form tweaks
+    # Form tweaks
     'widget_tweaks',
 ]
 
@@ -79,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'igityopp_corp',
         'USER': 'igityopp_fahrer',
-        'PASSWORD': '10186feyton25.06.',
+        'PASSWORD': get_env_value('DB_PASS'),
         'HOST': '127.0.0.1',
         'PORT': '',
     }
@@ -149,7 +160,7 @@ STATIC_URL = '/static/'
 
 
 # media root folder
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/home/igityopp/notes.igiti.co.rw/media'
 MEDIA_URL = '/media/'
 
 SITE_ID = 1
