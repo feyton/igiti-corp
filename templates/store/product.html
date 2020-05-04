@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'style/store.css' %}">
+<link rel="stylesheet" href="{% static 'style/store/product.css' %}" class="css">
+{% endblock title %}
+
+
+<!-- icon and site title -->
+
+{% block site_name %}
+<link rel="icon" type="image/gif" href="images/profile.png" />
+<title>Igiti Corp</title>
+{% endblock site_name %}
+
+
+
+
+
+{% block content %}
+
+
+
+<!-- Content -->
+<div class="content clearfix">
+	<!-- MAIN PRODUCTS CONTAINER -->
+	<div class="main-content">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							{% if product.image1%}
+							<div class="carousel-item active"> <img class="d-block w-100" src="{{product.image1.url}}"
+									alt="product image 1"> </div>
+							{% endif%}
+							{% if product.image2%}
+							<div class="carousel-item"> <img class="d-block w-100" src="{{product.image2.url}}"
+									alt="product image 2"> </div>
+
+							{% endif%}
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+							data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+								class="sr-only">Previous</span> </a> <a class="carousel-control-next"
+							href="#carouselExampleControls" role="button" data-slide="next"> <span
+								class="carousel-control-next-icon" aria-hidden="true"></span> <span
+								class="sr-only">Next</span> </a>
+					</div>
+
+					<div class="row md-12 ml-10">
+
+
+
+						{% if product.short_note %}
+
+						<h4>Overview:</h4>
+
+						<p>{{product.short_note|truncatechars:200}}</strong></p>
+
+						{% endif %}
+						<a href="{% url 'store:generate-card' product.slug%}" class="btn card">Generate a card for this product</a>
+
+					</div>
+
+
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<h2>{{ product.scientific_name}}</h2>
+					</div>
+					<div class="row">
+						<h1 class="price">{{ product.price|intcomma}} Rwf</h1>
+					</div>
+					<!-- Species properties -->
+					{% if product.seeds_kg %}
+					<div class="row">
+						<p><i class="text-success fa fa-check-square"></i> <strong>Seeds/Kg:</strong> {{ product.seeds_kg|intcomma}}
+							Seeds
+						</p>
+					</div>
+					{% endif %}
+					{% if product.germination_rate %}
+					<div class="row">
+						<p><i class="text-success fa fa-check-square"></i> <strong>Germination rate:</strong>
+							{{ product.germination_rate}}&nbsp;%
+						</p>
+					</div>
+					{% endif %}
+					{% if product.seed_type %}
+					<div class="row">
+						<p><i class="text-success fa fa-check-square"></i> <strong>Seeds type:</strong> {{ product.seed_type|safe}}
+						</p>
+					</div>
+					{% endif %}
+					<!-- // Species properties -->
+					<div class="row">
+						<form action="{{ product.get_add_to_cart_url}}">
+							{% csrf_token %}
+							<div class="quantity buttons_added" data-children-count="1"><a href="javascript:void(0)"
+									class="minus">-</a>
+								<input type="text" id="quantity_5ea093f3a2b82" class="input-text qty text" step="1"
+									min="1" max="" name="quantity" value="1" title="Qty" size="4" placeholder=""
+									inputmode="numeric">
+								<a href="" class="plus">+</a>
+							</div>
+							<input type="submit" value="Add to Cart" class="add-cart">
+						</form>
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Sidebar -->
+	<div class="sidebar">
+		<div class="section search">
+			<form action="" method="get">
+				<div class="search-input">
+					<input class="text-input" type="text-input" name="search" placeholder="Search product here..">
+					<button type="submit">Search</button>
+
+				</div>
+			</form>
+		</div>
+
+		<div class="section topics">
+			<h2 class="section-title text-center">What's new!!!</h2>
+			<div class="post-popular clearfix">
+				<img src="images/products/prunus_africana.png" alt="" height="100px" width="90px">
+				<a href="single.html" class="title">
+					<h4>Grevillia robusta</h4>
+					<h6>25000 Frw</h6>
+				</a>
+
+			</div>
+			<div class="post-popular clearfix">
+				<img src="images/products/prunus_africana.png" alt="" height="100px" width="90px">
+				<a href="single.html" class="title">
+					<h4>Best tree management practices</h4>
+				</a>
+			</div>
+			<div class="post-popular clearfix">
+				<img src="images/products/prunus_africana.png" alt="" height="100px" width="90px">
+				<a href="single.html" class="title">
+					<h4>Best tree management practices</h4>
+				</a>
+			</div>
+			<div class="post-popular clearfix">
+				<img src="images/products/prunus_africana.png" alt="" height="100px" width="90px">
+				<a href="single.html" class="title">
+					<h4>Best tree management practices</h4>
+				</a>
+			</div>
+			<div class="post-popular clearfix">
+				<img src="images/products/prunus_africana.png" alt="">
+				<a href="single.html" class="title">
+					<h4>Best tree management practices</h4>
+				</a>
+			</div>
+		</div>
+
+	</div>
+	<!-- //SIDEBAR -->
+</div>
+
+<div class="related-products">
+	<h1 class="title related">Related Products</h1>
+	<!-- Product -->
+	<div class="destination item">
+		<div class="product-grid">
+			<div class="product-image">
+				<a href="">
+					<img class="pic-1" src="images/products/destination_1.jpg" alt="">
+					<img class="pic-2" src="images/products/destination_2.jpg" alt="">
+				</a>
+				<span class="product-trend-label">RECOMMENDED</span>
+				<span class="product-discount-label">20%</span>
+				<ul class="image-link">
+					<li><a data-tip="Add to Cart" href=""><i class="fa fa-shopping-cart"></i></a></li>
+					<li><a data-tip="Wishlist" href=""><i class="fa fa-heart"></i></a></li>
+					<li><a data-tip="Compare" href=""><i class="fa fa-random"></i></a></li>
+					<li><a data-tip="Quick View" href=""><i class="fa fa-search"></i></a></li>
+				</ul>
+			</div>
+			<div class="product-content">
+				<h3 class="title"> <a href="">Grevillia robusta</a> </h3>
+				<div class="price">Rwf 25,000</div>
+			</div>
+
+		</div>
+
+	</div>
+	<!-- //Product -->
+</div>
+
+{% endblock content %}
+<!-- //content -->
+
+
+
+{% block extra_java %}
+
+{% endblock extra_java %}

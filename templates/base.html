@@ -1,6 +1,6 @@
 
 {% load static %}
-
+{% load cart_template_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,24 +22,39 @@
 	
 	{% block title %}
 	
-	{% endblock%}
+	{% endblock title%}
 	
+	{% block site_name %}
 	<!-- icon and site title -->
 	<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
 	<title>Igiti Corp</title>
+	{% endblock site_name %}
 
 
 </head>
 
 <body>
+    {% block facebook %}
 	<!-- Facebook Plugin -->
 	<div id="fb-root"></div>
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0">
 	</script>
 	<!-- End -->
+	{% endblock facebook %}
+		{% if messages%}
+
+	{% for message in messages %}
+	<div class="notification box-color " id="notification">
+		<p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+		<div class="progress"></div>
+	</div>
+	{% endfor %}
+	{% endif%}
+	
 	<div class="container">
+	    {% block nav_bar %}
 		<header>
-			<a href="/"><img src="{% static 'images/fixed-logo.png' %}" alt="logo" width="275" height="60"
+			<a href="{% url 'home' %}"><img src="{% static 'images/fixed-logo.png' %}" alt="logo" width="275" height="60"
 					class="fixed-logo"></a>
 			<i class="fa fa-bars menu-toggle" id="menu-show" onclick="menu_show()"></i>
 			<ul class="nav-bar showing" id="nav-bar">
@@ -51,27 +66,40 @@
 						<li><a href="#">Events</a></li>
 					</ul>
 				</li>
-				<li><a href="/store">STORE</a></li>
+				<li><a href="{% url 'store:store' %}">STORE&nbsp;<i class="fas fa-chevron-down"></i></a>
+				{%if user.is_authenticated%}
+					<ul>
+						<li><a href="{% url 'store:order-summary' %}">Cart <span
+									class="cart-number">&nbsp;{{ request.user|cart_item_count}}</span></a></li>
+						<li><a href="{% url 'store:checkout' %}">Checkout</a></li>
+					</ul>
+					{% endif %}
+				</li>
 				{% if user.is_authenticated %}
 				<li><a href="#"><i class="fas fa-user"></i>&nbsp;{{ user.first_name}} <i class="fas fa-chevron-down"></i></a>
 					<ul>
-						<li><a href="/admin">Dashboard</a> </li>
-						<li class="logout"><a href="/logout">Logout</a></li>
+						<li><a href="{% url 'dashboard' %}">Dashboard</a> </li>
+						<li class="logout"><a href="{% url 'account_logout' %}">Logout</a></li>
 					</ul>
 				</li>
 				{% else %}
 				<li><a href="#">ACCOUNT&nbsp;<i class="fas fa-chevron-down"></i></a>
                     <ul>
-						<li><a href="/login">Login</a> </li>
-						<li><a href="/register">Register</a></li>
+						<li><a href="{% url 'account_login' %}">Login</a> </li>
+						<li><a href="{% url 'account_signup' %}">Register</a></li>
 					</ul>
                 </li> 
 				{% endif%}
 			</ul>
 
 		</header>
+		{% endblock nav_bar %}
 {% block content %}
+
+
 {% endblock %}
+
+{% block footer_content %}
 		<!-- Footer -->
 		<footer>
 			<div class="footer-content">
@@ -98,13 +126,11 @@
 
 						<li><a href="#"><i class="fas fa-link"></i>&nbsp;Events</a></li>
 
-						<li><a href="#"><i class="fas fa-link"></i>&nbsp;Calculator</a></li>
+						<li><a href="#"><i class="fas fa-link"></i>&nbsp;About Us</a></li>
 
-						<li><a href="about.html"><i class="fas fa-link"></i>&nbsp;About Us</a></li>
+						<li><a href="{% url 'terms' %}"><i class="fas fa-link"></i>&nbsp;Terms and Conditions</a></li>
 
-						<li><a href="/terms"><i class="fas fa-link"></i>&nbsp;Terms and Conditions</a></li>
-
-						<li><a href="/privacy"><i class="fas fa-link"></i>&nbsp;Privacy Policy</a></li>
+						<li><a href="{% url 'privacy' %}"><i class="fas fa-link"></i>&nbsp;Privacy Policy</a></li>
 					</ul>
 				</div>
 				<div class="footer-section contact">
@@ -124,8 +150,10 @@
 			</div>
 		</footer>
 		<!-- end footer -->
+		{% endblock footer_content %}
 	</div>
 </div>
+{% block script %}
 
 <script>
 	var menu = document.getElementById("menu-show");
@@ -134,7 +162,10 @@
 	function menu_show() {
 		nav.classList.toggle('showing')
 	}
+	var notification = document.getElementById("notification");
+	setTimeout(function () { notification.classList.toggle('box-active'); }, 5);
 </script>
+{% endblock script %}
 <!-- SCRIPT LINKS-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -146,7 +177,8 @@
 
     <!-- CUSTOM SCRIPT -->
 	<!--<script type="text/javascript" src="style/script.js"></script>-->
-	
+{% block extra_java %}
+{% endblock extra_java %}
 
 {% block footer %} 
 {% endblock %}

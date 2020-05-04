@@ -1,8 +1,9 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import User
 
-class CreateUserForm(forms.ModelForm):
+class CreateUserForm(UserCreationForm):
     """
     New User Form. Requires password confirmation.
     """

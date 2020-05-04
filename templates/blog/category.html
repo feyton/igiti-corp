@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title%}
+<link rel="stylesheet" href="{% static 'style/forestry.css' %}">
+
+{% endblock%}
+
+
+{% block content %}
+    
+
+    
+<!-- Content -->
+<div class="content clearfix">
+    <div class="main-content">
+        <h1 class="trending-post-title">Trending Posts</h1>
+        <!-- Trending post -->
+        {% for post in blog_posts %}
+        <div class="trending-post clearfix">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="" class="post-image">
+            {%endif%}
+            <div class="post-preview">
+                <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                <i class="far fa-user"></i>&nbsp;<span>{{post.author}}</span> &nbsp;<i
+                    class="far fa-calendar"></i>&nbsp;<span>{{ post.pub_date|date }}</span>
+                <p class="preview-text">{{ post.description|truncatechars:220 }}</p>
+                <a href="{{ post.get_absolute_url }}" class="btn readmore">Read More</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+
+
+    </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="section search">
+            <h2 class="section-title">Search</h2>
+            <form action="{% url 'forestry:search' %}" method="get">
+                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|safe}}">
+            </form>
+        </div>
+
+        <div class="section topics">
+            <h2 class="section-title">Categories</h2>
+            <ul>
+                {% for cat in categories%}
+                <li><a href="{{ cat.get_absolute_url}}">{{ cat.title}}</a></li>
+                {% endfor%}
+            </ul>
+        </div>
+        <div class="section twitter">
+            <a class="twitter-timeline" data-height="400"
+                href="https://twitter.com/igiticorp?ref_src=twsrc%5Etfw">Tweets by igiticorp</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+
+    </div>
+    <!-- //SIDEBAR -->
+</div>
+<!-- //content -->
+{% endblock%}

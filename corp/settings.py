@@ -28,6 +28,9 @@ DEBUG = False
 ALLOWED_HOSTS = ['notes.igiti.co.rw', 'www.notes.igiti.co.rw', "127.0.0.1", "localhost"]
 
 
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,10 +40,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.humanize',
+    
+    # AllAuth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.google',
     # MY APPS
     'index',
     'user',
     'forestry',
+    'store',
     
     # CK Editor
     'ckeditor',
@@ -72,6 +87,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # `allauth` needs this from django
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -85,14 +102,15 @@ WSGI_APPLICATION = 'corp.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'igityopp_corp',
         'USER': 'igityopp_fahrer',
         'PASSWORD': get_env_value('DB_PASS'),
         'HOST': '127.0.0.1',
         'PORT': '',
+        'OPTIONS': {
+            'sql_mode': 'STRICT_TRANS_TABLES',
+        }
     }
 }
 
@@ -116,8 +134,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # REGISTRATION-LOGIN URLS
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGIN_URL = 'account_login'
+LOGOUT_URL = 'account_logout'
 LOGIN_REDIRECT_URL = 'home'
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
@@ -133,7 +151,11 @@ CKEDITOR_CONFIGS = {
 
 
 AUTH_USER_MODEL = 'user.User'
-
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -169,3 +191,72 @@ SITE_ID = 1
 if DEBUG == False:
      SESSION_COOKIE_SECURE = True
      CSRF_COOKIE_SECURE = True
+     
+# All Auth SETTINGS 
+SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_FORM_CLASS = SIGNUP_FORM_CLASS
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'updated_time',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request:'en_US',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.12',
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        }
+    }
+}
+
+
+# EMAIL SETTINGS
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.igiti.co.rw'
+EMAIL_USE_TLS = False
+EMAIL_PORT = 26
+EMAIL_HOST_USER = 'admin@igiti.co.rw'
+EMAIL_HOST_PASSWORD = get_env_value('EMAIL_HOST_PASSWORD')
+
+# STRIPE
+
+STRIPE_PUBLISHABLE_KEY = ''
+STRIPE_SECRET_KEY = ''
+
+# DEPLOYMENT CHECKLIST
+SECURE_SSL_REDIRECT = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+ADMINS = [('Feyton', 'info@igiti.co.rw'), ('Fabrice', 'tumbafabruce@gmail.com')]

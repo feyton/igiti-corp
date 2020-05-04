@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'checkout/cart.css' %}" class="css">
+{% endblock title %}
+
+<!-- PAGE STYLE -->
+{% block site_name %}
+<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
+<title>Cart | Store</title>
+{% endblock site_name %}
+
+{% block content %}
+<main class="page">
+    <section class="shopping-cart dark">
+        <div class="container">
+
+            <div class="block-heading">
+                <h2>Shopping Cart</h2>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="items">
+
+                            <!-- PRODUCT -->
+                            {% for order_item in object.items.all%}
+
+                            <div class="product">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="col-md-4 product-name">
+
+                                                    <h1 class="title">{{order_item.item.scientific_name}}</h1>
+                                                    <div class="product-info">
+
+                                                        {% if order_item.item.seeds_kg %}
+                                                        <div>Seeds/Kg: <span
+                                                                class="value">{{ order_item.item.seeds_kg|intcomma}}</span>
+                                                        </div>
+                                                        {% endif %}
+
+                                                        {% if order_item.item.germination_rate %}
+                                                        <div>Germination rate: <span
+                                                                class="value">{{ order_item.item.germination_rate}}%</span>
+                                                        </div>
+                                                        {% endif %}
+
+                                                        {% if order_item.get_total_seedlings %}
+                                                        <div>Total Seedlings: <span
+                                                                class="value">{{ order_item.get_total_seedlings|intcomma}}</span>
+                                                        </div>
+
+                                                        {% endif %}
+
+
+
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-3 quantity">
+                                                    <h1 class="title">Quantity</h1>
+                                                    <div class="product-info quantity">
+                                                        <div class="quantity buttons_added" data-children-count="1"><a
+                                                                href="{% url 'store:remove-single-item-from-cart' order_item.item.slug%}"
+                                                                class="minus">-</a>
+                                                            <input type="text" id="quantity_5ea093f3a2b82"
+                                                                class="input-text qty text" step="1" min="1" max=""
+                                                                name="quantity" value="{{order_item.quantity}}"
+                                                                title="Qty" size="4" placeholder="" inputmode="numeric">
+                                                            <a href="{% url 'store:add-to-cart' order_item.item.slug%}"
+                                                                class="plus">+</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 price">
+                                                    <h1 class="title">Price (Rwf)</h1>
+                                                    <div class="product-info price">
+                                                        <div>
+
+                                                            {% if order_item.item.discount_price %}
+                                                            <span
+                                                                class="discount"><del>{{order_item.item.price|intcomma}}</del></span>&nbsp;{{order_item.item.discount_price}}
+
+                                                            {% else %}
+
+                                                            {{order_item.item.price|intcomma}}
+                                                            {% endif%}
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-2 action">
+                                                    <h1 class="title">Action</h1>
+                                                    <div class="product-info">
+                                                        <a
+                                                            href="{% url 'store:remove-from-cart' order_item.item.slug%}"><i
+                                                                class="fa fa-trash"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            {% empty %}
+
+                            <div class="product">
+                                <div class="row">
+
+                                    <div class="col-md-12 empty">
+                                        <h1 class="empty-title">Your Cart is empty.</h1>
+                                        <a href="{% url 'store:store' %}" class="btn">Continue Shopping</a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- //PRODUCT -->
+                            {% endfor%}
+                        </div>
+                    </div>
+
+
+
+                    <!-- //Product -->
+
+                    <!-- SECTION -->
+                    <div class="col-md-12 col-lg-4">
+                        <div class="summary">
+                            <a href="{% url 'store:store' %}" class="back-button"><i class="fas fa-reply-all"></i></a>
+                            <h3>Summary</h3>
+                            <div class="summary-item"><span class="text">Subtotal</span><span
+                                    class="price">{{ object.subtotal|intcomma}}&nbsp;Rwf</span>
+                            </div>
+
+                            {% if object.get_total_amount_saved %}
+                            <div class="summary-item"><span class="text">Amount Saved</span><span
+                                    class="price">{{ object.get_total_amount_saved|intcomma}}</span>
+                            </div>
+                            {% endif %}
+                            <div class="summary-item"><span class="text">Shipping</span><span class="price">0 Rwf</span>
+                            </div>
+                            <div class="summary-item"><span class="text">Total</span><span
+                                    class="price">{{ object.get_total|intcomma}}&nbsp;Rwf</span>
+                            </div>
+                            <a href="{% url 'store:checkout' %}" class="btn btn-primary btn-lg btn-block">Checkout</a>
+                        </div>
+                    </div>
+                    <!-- //SECTION -->
+                </div>
+    </section>
+</main>
+
+{% endblock content %}
+{% block extra_java %}
+
+{% endblock extra_java %}
+
+
+
+
+{% block footer_content %}
+
+{% endblock footer_content %}

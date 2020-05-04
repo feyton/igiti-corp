@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import DetailView, ListView
 
 from .models import BlogPost
@@ -27,13 +27,26 @@ class BlogPostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(BlogPostDetailView, self).get_context_data(**kwargs)
         context['categories'] =  Category.objects.all()
-        context['blog_recent'] = BlogPost.objects.order_by('pub_date')[0:5]
+        context['blog_recent'] = BlogPost.objects.filter(published=True).order_by('-pub_date')[0:5]
         return context
 
 
 
-# def forestry(request):
-#     return render(request, 'forestry.html')
+
+def category_view(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    qs = BlogPost.objects.filter(category = category)
+    if qs.exists():
+        categories = Category.objects.all()
+        context = {
+            'blog_posts': qs,
+            'categories': categories
+        }
+        return render(request, 'blog/category.html', context)
+
+    else:
+        messages.info(request, 'This category does not have posts yet')
+        return redirect('home')
 
 
 

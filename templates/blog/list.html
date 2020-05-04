@@ -92,7 +92,7 @@
             <h2 class="section-title">Categories</h2>
             <ul>
                 {% for cat in categories%}
-                <li><a href="#">{{ cat.title}}</a></li>
+                <li><a href="{{ cat.get_absolute_url}}">{{ cat.title}}</a></li>
                 {% endfor%}
             </ul>
         </div>

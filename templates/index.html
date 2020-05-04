@@ -1,6 +1,12 @@
 
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
+
+{% block title%}
+<link rel="stylesheet" href="{% static 'style/store.css' %}">
+
+{% endblock%}
 
 
 {% block content %}
@@ -124,36 +130,64 @@
 				<div class="row destinations_row">
 					<div class="col">
 						<div class="destinations_container item_grid">
+						    
+						    <!-- PRODUCT-->
 
-							<!-- Destination -->
-							<div class="destination item">
-								<div class="destination_image">
-									<img src="{% static 'images/products/destination_2.jpg' %}" alt="">
-									<div class="spec_offer text-center"><a href="#">Recommended</a></div>
-								</div>
-								<div class="destination_content">
-									<div class="destination_title"><a href="destinations.html">Grevillia robusta</a></div>
-									<div class="destination_subtitle">
-										<p>Nulla pretium tincidunt felis, nec.</p>
-									</div>
-									<div class="destination_price">From 25,000 Rwf/Kg</div>
-								</div>
-							</div>
+							{% for product in seed %}
 
-							
-							<div class="destination item">
-								<div class="destination_image">
-									<img src="{% static 'images/products/destination_2.jpg' %}" alt="">
-									<div class="spec_offer text-center"><a href="#">Recommended</a></div>
-								</div>
-								<div class="destination_content">
-									<div class="destination_title"><a href="destinations.html">Eucalyptus maculata</a></div>
-									<div class="destination_subtitle">
-										<p>Nulla pretium tincidunt felis, nec.</p>
-									</div>
-									<div class="destination_price">From 25,000 Rwf/Kg</div>
-								</div>
-							</div>
+                        <div class="destination item">
+                            <div class="product-grid">
+                                <div class="product-image">
+                                    <a href="">
+                                        {% if product.image1%}
+                                        <img class="pic-1" src="{{product.image1.url}}"
+                                            alt="{{ product.scientific_name}}">
+                                        {% else %}
+                                        <img class="pic-1" src="{% static 'images/products/destination_1.jpg' %}"
+                                            alt="{{ product.scientific_name}}">
+                                        {%endif%}
+
+                                        {% if product.image2 %}
+                                        <img class="pic-2" src="{{product.image2.url}}"
+                                            alt="{{ product.scientific_name}}">
+                                        {% else %}
+                                        <img class="pic-2" src="{% static 'images/products/destination_2.jpg' %}"
+                                            alt="{{ product.scientific_name}}">
+                                        {% endif %}
+
+
+                                    </a>
+
+                                    {% if product.recommended %}
+
+                                    <span class="product-trend-label">RECOMMENDED</span>
+                                    {% endif %}
+
+                                    {% if  product.discount_price%}
+                                    <span class="product-discount-label">{{ product.get_discount_percent}}%</span>
+                                    {% endif %}
+                                    <ul class="image-link">
+                                        <li><a data-tip="Add to Cart" href="{{product.get_add_to_cart_url}}"><i
+                                                    class="fa fa-shopping-cart"></i></a>
+                                        </li>
+                                        <li><a data-tip="Wishlist" href=""><i class="fa fa-heart"></i></a></li>
+                                        <li><a data-tip="Compare" href=""><i class="fa fa-random"></i></a></li>
+                                        <li><a data-tip="Quick View" href="{{product.get_absolute_url}}"><i
+                                                    class="fa fa-search"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-content">
+                                    <h3 class="title"> <a
+                                            href="{{product.get_absolute_url}}">{{ product.scientific_name}}</a> </h3>
+                                    <div class="price">Rwf {{ product.price|intcomma}}</div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- //Product -->
+                        {% endfor %}
+							<!--// END PRODUCT-->
 
 
 

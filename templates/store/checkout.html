@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+<!-- PAGE STYLE -->
+<link rel="stylesheet" href="{% static 'style/store/checkout-form.css' %}" class="css">
+{% endblock title %}
+
+
+
+{% block site_name %}
+<!-- icon and site title -->
+<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
+<title>Check-Out Form | Igiti Corp</title>
+{% endblock site_name %}
+
+
+
+
+
+{% block content %}
+
+
+
+<main class="page">
+    <section class="shopping-cart dark">
+        <div class="container">
+
+            <div class="block-heading">
+                <h2>CHECK-OUT FORM</h2>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="items">
+
+                            <form action="." method="post">
+                                {% csrf_token %}
+                                <div class="form-container">
+                                    <div class="personal-information">
+                                        <h1>Shipping Address Information</h1>
+                                    </div> <!-- end of personal-information -->
+                                    <div class="shipping">
+
+                                        <input id="column-left" type="text" name="first_name"
+                                            placeholder="First Name" value="{{ request.user.first_name}}" />
+                                        <input id="column-right" type="text" name="last_name" placeholder="Surname" value="{{ request.user.last_name}}" />
+                                        <input id="input-field" type="text" name="mobile_number" placeholder="Telephone number"
+                                            title="12-15 Mobile Number Digits" maxlength="15" />
+                                        <input id="column-left" type="text" name="shipping_city" placeholder="City" />
+                                        <input id="column-right" type="text" name="shipping_district"
+                                            placeholder="District" />
+                                        <input id="input-field" type="text" name="shipping_street_address"
+                                            autocomplete="on" maxlength="45" placeholder="Street Address" />
+                                        {{ form.shipping_country}}
+
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                name="set_default_shipping" id="set_default_shipping">
+                                            <label class="custom-control-label" for="set_default_shipping">Set
+                                                as default
+                                                address</label>
+                                        </div>
+                                        {% if default_shipping_address%}
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                name="use_default_shipping" id="use_default_shipping">
+                                            <label class="custom-control-label" for="use_default_shipping">Use default
+                                                address: {{ default_shipping_address.street_address}}</label>
+                                        </div>
+                                        {% endif%}
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="same_as_billing"
+                                                id="same_as_billing">
+                                            <label class="custom-control-label" for="same_as_billing">Same as billing
+                                                address.</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="personal-information">
+                                        <h1>Billing Address Information</h1>
+                                    </div>
+                                    <div class="billing">
+
+                                        <input id="input-field" type="text" name="billing_street_address"
+                                            autocomplete="on" maxlength="45" placeholder="Street Address" />
+                                        <input id="column-left" type="text" name="billing_city" autocomplete="on"
+                                            maxlength="20" placeholder="City" />
+                                        <input id="column-right" type="text" name="billing_district" autocomplete="on"
+                                            maxlength="30" placeholder="District" />
+
+                                        <input id="input-field" type="email" name="email" autocomplete="on"
+                                            maxlength="40" placeholder="Contact Email" />
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                name="set_default_billing" id="set_default_billing">
+                                            <label class="custom-control-label" for="set_default_billing">Set
+                                                as default billing
+                                                address</label>
+                                        </div>
+                                        
+                                        {% if default_billing_address %}
+                                            
+                                       
+                                            
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                name="use_default_billing" id="use_default_billing">
+                                            <label class="custom-control-label" for="use_default_billing">Use default
+                                                billing
+                                                address: {{ default_billing_address.street_address}}</label>
+                                        </div>
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="personal-information">
+                                        <h1>Payment Option</h1>
+                                    </div>
+                                    <div class="radio-group">
+
+                                        <label for="stripe" class="radio">
+                                            <input type="radio" name="payment_option" id="stripe" value="S"
+                                                required><img src="{% static 'images/store/stripe.png' %}" alt="strip">
+                                            <span></span>
+                                        </label>
+                                        <label for="momo_pay" class="radio">
+                                            <input type="radio" name="payment_option" id="momo_pay" value="M" required><img
+                                                src="{% static 'images/store/mtn_momo.png' %}" alt="momo_pay">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <input id="input-button" type="submit" value="PROCEED TO CHECKOUT" />
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                    <!-- //Product -->
+
+                    <!-- SECTION -->
+                    <div class="col-md-12 col-lg-4">
+                        <div class="summary">
+                            <a href="{% url 'store:order-summary' %}" class="back-button"><i
+                                    class="fas fa-reply-all"></i></a>
+                            <h3>Order Summary</h3>
+                            <div class="summary-item"><span class="text">Subtotal</span><span
+                                    class="price">{{ order.subtotal|intcomma}}&nbsp;Rwf</span>
+                            </div>
+                            {% if order.get_total_amount_saved %}
+                            <div class="summary-item"><span class="text">Amount Saved</span><span
+                                    class="price">{{ order.get_total_amount_saved|intcomma}}</span>
+                            </div>
+                            {% endif%}
+                            <div class="summary-item"><span class="text">Shipping</span><span class="price">0 Rwf</span>
+                            </div>
+                            <div class="summary-item"><span class="text">Total</span><span
+                                    class="price">{{order.get_total|intcomma}} Rwf</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- //SECTION -->
+                </div>
+    </section>
+</main>
+{% endblock content %}
+</div>
+
+{% block footer_content %}
+<div class="footer-added">
+    &copy; Igiti Corp | Powered by Feyton Inc
+</div>
+{% endblock footer_content %}
+
+
+
+{% block extra_java %}
+
+{% endblock extra_java %}

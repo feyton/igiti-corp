@@ -1,0 +1,68 @@
+{% load static%}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+<!-- fontawesome scripts -->
+    <link rel="stylesheet" href="{% static 'style/registration.css' %}" type="text/css">
+    <link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
+    <title>Register</title>
+</head>
+
+<body>
+
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <button type="button" class="btn toggle-btn">REGISTER HERE</button>
+            </div>
+
+            <form id="login" action="{% url 'account_signup' %}" method="post" class="input-group"
+                data-validate-username-url="{% url 'validate_email' %}">
+                {% csrf_token%}
+                {% render_field form.email class="input-field" placeholder="Enter Valid Email"  %}
+                {% render_field form.first_name class="input-field" placeholder="First name" %}
+                {% render_field form.last_name class="input-field" placeholder="Last name" %}
+                {% render_field form.password1 class="input-field" placeholder="Password" %}
+                {% render_field form.password2 class="input-field" placeholder="Confirm password" %}
+                <div class="action-box agree">
+                    <p>I agree with <a href="{% url 'terms' %}">Terms and Conditions</a></p>
+                </div>
+                <button class="submit-btn" type="submit">REGISTER</button>
+
+                {% if form.errors %}
+                {% for field in form %}
+                {% for error in field.errors %}
+                <p class="text-left">
+                    {{ error|escape }}
+                </p>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <p class="text-left">
+                    {{ error|escape }}
+                </p>
+                {% endfor %}
+                {% endif %}
+
+            </form>
+            <div class="action-box">
+                <p>Already Have An Account?&nbsp; <a href="{% url 'account_login'%}">Login Here</a></p>
+            </div>
+
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="{% static 'script/registration.js' %}"></script>
+</body>
+
+</html>

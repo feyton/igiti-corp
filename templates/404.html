@@ -1,0 +1,86 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
+
+    <title>404 Not Found | Igiti Corp</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,900" rel="stylesheet">
+
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/8d71393779.js" crossorigin="anonymous"></script>
+    <!--<link rel="stylesheet" href="{% static 'style/fontawesome/css/all.css' %}">-->
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{% static 'style/404.css' %}" />
+
+</head>
+
+<body>
+
+    <div id="notfound">
+        <div class="notfound-bg" style="background-image: url({% static 'images/2.jpg' %});"></div>
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>404</h1>
+            </div>
+            <h2>we are sorry, but the page you requested was not found</h2>
+            <a href="/" class="home-btn">Go Home</a>
+            <a class="contact-btn" id="contact" onclick="contact_form()">Contact us</a>
+            <div class="notfound-social">
+                <a href="fb.me/igiticorp"><i class="fab fa-facebook"></i></a>
+                <a href="twitter.com/igiticorp"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="panel panel-right show" id="form" style="background-image: url({% static 'images/1.jpg' %});">
+            <div class="back" id="back" onclick="contact_form()"><i class="fas fa-reply-all"></i></div>
+            <div class="panel-content">
+                <form action="{% url 'error' %}" method="post">
+                    {% csrf_token %}
+                <div class="form">
+                    <h1>Contact Us</h1>
+                    {% if user.is_authenticated%}
+                    <div class="group">
+                        <input type="email" required name="email" value="{{ user.email}}">
+                        <span class="highlight"></span>
+                        <label><i class="fas fa-at"></i>&nbsp;Your Email</label>
+                    </div>
+                    {% else %}
+                    <div class="group">
+                        <input type="email" required name="email" >
+                        <span class="highlight"></span>
+                        <label><i class="fas fa-at"></i>&nbsp;Your Email</label>
+                    </div>
+                    {% endif%}
+                    <div class="group">
+                        <input type="text" required name="message">
+                        <span class="highlight"></span>
+                        <label><i class="far fa-comment-dots"></i>&nbsp;Message</label>
+                    </div>
+                    <button type="submit" class="send-btn"><i class="far fa-paper-plane"></i>&nbsp;Send</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var contact = document.getElementById('contact');
+        var form = document.getElementById('form');
+
+        function contact_form() {
+            form.classList.toggle('show')
+        }
+    </script>
+
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

@@ -4,6 +4,10 @@ MAIN STORE
 :root {
     --main-color: #e74c3c;
 }
+
+.main-container {
+    background: white;
+}
 .btn {
     padding: .4rem 1rem;
     background: rgba(12, 156, 149, 0.74);
@@ -207,13 +211,57 @@ padding-left: 0px;
     font-weight: 400;
 }
 
+/* ******************
+PAGINATION
+****************/
+.paginator {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 40px;
+    box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.5);
+}
 
+
+.paginator li {
+    display: inline-block;
+    list-style: none;
+}
+
+.paginator li a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #fff;
+    text-align: center;
+    text-decoration: none;
+    color: #252525;
+    border-radius: 4px;
+    margin: 5px;
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.paginator li a:hover, .paginator li a.active_page {
+    color: #fff;
+    background-color: #80c4b8;
+  }
+.paginator li:first-child a {
+    border-radius: 40px 0 0 40px;
+  }
+.paginator li:last-child a {
+    border-radius: 0 40px 40px 0;
+  }
 
 
 /* **************
     PRODUCT PAGE
 ***************/
-
 .content {
     width: 100%;
     margin: 30px auto 30px;
@@ -273,6 +321,18 @@ padding-left: 0px;
     right: 10px;
 }
 
+.card {
+    margin-top: 10px;
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.price {
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
 .sidebar {
     width: 30%;
     float: left;
@@ -303,8 +363,38 @@ SIDEBAR
 
 .content .sidebar .section.search {
     margin-top: 10px;
+    background: whitesmoke;
+
 
 }
+
+.content .sidebar .section.search input {
+    border: 1px solid rgb(43, 43, 44);
+    border-right: none;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-right: 0px;
+}
+.content .sidebar .search-input {
+    display: flex;
+    /* border: 1px solid black; */
+    /* border-radius: 20px; */
+    /* padding: 5px 10px; */
+}
+.content .sidebar .search-input button {
+    width: auto;
+    color: white;
+    background: rgb(66, 94, 112);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.content .sidebar .search-input .text-input {
+    border: none;
+}
+
 .content .sidebar .section.topics ul {
     list-style: none;
     margin: 0px;

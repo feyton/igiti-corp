@@ -30,6 +30,11 @@ GENERAL
     transition: 0.5s;
 }
 
+.text-left {
+    text-align: left;
+    margin-left: 20px;
+    padding-left: 20px;
+}
 
 .form-box {
     width: 380px;

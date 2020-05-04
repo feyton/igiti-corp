@@ -19,9 +19,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+        
+    def get_absolute_url(self):
+        return reverse('forestry:category', kwargs={'pk': self.id})
 
-    # def get_absolute_url(self):
-    #     return reverse('category:detail', kwargs={'title': self.title})
 
 
 class Author(models.Model):
