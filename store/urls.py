@@ -1,4 +1,5 @@
 from django.urls import path
+from user.views import edit_product
 
 from .views import (AddCouponView, CheckoutView, HomeView, SeedProductDetailView,
                     OrderSummaryView, PaymentView, RequestRefundView,
@@ -24,4 +25,5 @@ urlpatterns = [
     path('request-refund/', RequestRefundView.as_view(), name='request-refund'),
     path('generate-card/<slug>', generate_card, name='generate-card'),
     path('download/pdf/<slug>/', download_pdf, name='download-pdf'),
+    path('edit-product/<pk>/', edit_product, name='edit_product'),
 ]

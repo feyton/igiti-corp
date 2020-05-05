@@ -430,6 +430,7 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
+        # context['recent'] = SeedProduct.objects.filter(available=True).order_by('-created_on')[:10]
 
         return context
 
@@ -451,6 +452,12 @@ class SeedProductDetailView(DetailView):
     model = SeedProduct
     template_name = "store/product.html"
     context_object_name = 'product'
+    
+    def get_context_data(self, **kwargs):
+        context = super(SeedProductDetailView, self).get_context_data(**kwargs)
+        context['related'] = SeedProduct.objects.filter(available=True)
+        context['new_products'] = SeedProduct.objects.filter(available=True).order_by('-created_on')[:5]
+        return context
 
 
 @login_required

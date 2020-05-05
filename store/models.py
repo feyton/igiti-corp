@@ -49,6 +49,7 @@ class TypesOfSeed(models.Model):
     min_years       = models.IntegerField(_('Min storage years'), blank=True)
     max_moisture    = models.IntegerField(blank=True, verbose_name='Max Storage Moisture')
     min_moisture    = models.IntegerField(blank=True, verbose_name='Min Storage Moisture')
+    overview        = RichTextUploadingField(_('overview'), blank=True, null=True)
 
     # FUNCTIONS
 
@@ -77,7 +78,7 @@ class SeedPretreatment(models.Model):
         verbose_name_plural = 'Seed Pre-Treatments'
 
     def __str__(self):
-        return '{}-{}'.format(self.title, self.types)
+        return '{} <{}>'.format(self.title, self.types)
 
     def get_absolute_url(self):
         pass
@@ -110,11 +111,11 @@ class SeedProduct(models.Model):
     
     # ADDITIONAL INFO CARD
     seeds_kg                = models.IntegerField(_('Seeds per Kilogram'), blank=True)
-    seed_type               = models.OneToOneField(TypesOfSeed, on_delete=models.SET_NULL, null=True)
+    seed_type               = models.ForeignKey(TypesOfSeed, on_delete=models.SET_NULL, null=True, blank=True)
     germination_rate        = models.FloatField(verbose_name='Germination Rate')
     seed_source             = models.CharField(max_length=255, verbose_name='Seed source', blank=True)
     short_note              = models.TextField(_('Short description'), blank=True, null=True)
-    pre_treatment           = models.ManyToManyField(SeedPretreatment, blank=True)
+    pre_treatment           = models.ForeignKey(SeedPretreatment,on_delete=models.SET_NULL, null=True, blank=True)
     
     
     # FUNCTIONS
@@ -153,6 +154,11 @@ class SeedProduct(models.Model):
     def download_pdf_url(self):
         return reverse('store:download-pdf', kwargs={'slug': self.slug})
         
+    def edit_url(self):
+        return reverse('store:edit_product', kwargs={'pk': self.id})
+
+
+        
         
 class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -165,17 +171,23 @@ class OrderItem(models.Model):
     
     
     def get_total_item_price(self):
+        if self.item.discount_price:
+            return self.quantity * self.item.discount_price
         return self.quantity * self.item.price
 
     def get_total_discount_item_price(self):
-        total = 1
+        total = 0
         if self.item.discount_price:
             total = float(self.quantity) * self.item.discount_price
             return total
         return total
 
     def get_amount_saved(self):
-        return self.get_total_item_price() - self.get_total_discount_item_price()
+        saved = 0
+        if self.item.discount_price:
+            saved = (self.item.price - self.item.discount_price) * self.quantity
+            return saved
+        return saved
 
     def get_final_price(self):
         if self.item.discount_price:
@@ -241,6 +253,10 @@ class Order(models.Model):
 
     def subtotal(self):
         return self.get_total() + self.get_total_amount_saved()
+        
+    def order_detail_url(self):
+        return reverse('store:order-detail', kwargs={'pk': self.id})
+
 
 
 class Address(models.Model):

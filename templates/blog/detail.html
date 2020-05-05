@@ -41,13 +41,13 @@
                 <br>
                 <ul class="social-author">
                     {% if blog_post.author.telephone%}
-                    <li><a href="https://wa.me/{{ blog_post.author.telephone|safe}}"><i class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a></li>
+                    <li><a href="https://wa.me/{{ blog_post.author.telephone|safe}}" target="_blank"><i class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a></li>
                     {% endif%}
                     {% if blog_post.author.facebook%}
-                    <li><a href="https://{{ blog_post.author.facebook|safe}}"><i class="fab fa-facebook"></i>&nbsp;Facebook</a></li>
+                    <li><a href="https://{{ blog_post.author.facebook|safe}}" target="_blank"><i class="fab fa-facebook"></i>&nbsp;Facebook</a></li>
                     {% endif%}
                     {% if blog_post.author.twitter%}
-                    <li><a href="https://{{ blog_post.author.twitter}}"><i class="fab fa-twitter"></i>&nbsp;Twitter</a></li>
+                    <li><a href="https://{{ blog_post.author.twitter}}" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i>&nbsp;Twitter</a></li>
                     {% endif%}
                 </ul>
 

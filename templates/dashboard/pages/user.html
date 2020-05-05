@@ -48,7 +48,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Address</label>
-                  <input type="text" class="form-control" placeholder="Home Address" value=""
+                  <input type="text" class="form-control" placeholder="Home Address" value="{{address.street_address}}"
                     name="street_address">
                 </div>
               </div>
@@ -57,14 +57,14 @@
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label>City</label>
-                  <input type="text" class="form-control" placeholder="City" name="city" value="">
+                  <input type="text" class="form-control" placeholder="City" name="city" value="{{ address.city}}">
                 </div>
               </div>
               <div class="col-md-4 px-1">
                 <div class="form-group">
                   <label>District</label>
                   <input type="text" class="form-control" placeholder="District" name="district"
-                    value="">
+                    value="{{ address.district}}">
                 </div>
               </div>
               <div class="col-md-4 px-1">

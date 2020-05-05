@@ -1,0 +1,80 @@
+{% extends 'dashboard/layouts/base.html' %}
+{% load humanize %}
+
+{% block title %} Edit Product {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- End Navbar -->
+<div class="panel-header panel-header-sm">
+</div>
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Edit: {{product.scientific_name}}</h5>
+        </div>
+        <div class="card-body">
+
+          <form action="." method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <input type="submit" value="Update" class="btn btn-primary">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-user">
+        <div class="image">
+          <img src="/static/assets/img/bg5.jpg" alt="cover photo">
+        </div>
+        <div class="card-body">
+          <div class="author">
+            <a href="#">
+
+              {% if profile.image %}
+              <img class="avatar border-gray" src="{{ profile.image.url}}" alt="profile picture">
+
+              {% else %}
+              <img class="avatar border-gray" src="/static/assets/img/mike.jpg" alt="default profile">
+              {% endif %}
+              <h5 class="title">
+                {{ request.user.get_full_name }}
+              </h5>
+            </a>
+            <p class="description">
+              {{ request.user.email }}
+            </p>
+          </div>
+          <p class="description text-center">
+            {{ request.user.userprofile.biography}}
+          </p>
+        </div>
+
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script>
+  $(document).ready(function () {
+    // Javascript method's body can be found in assets/js/demos.js
+    demo.initDashboardPageCharts();
+
+  });
+</script>
+
+{% endblock javascripts %}

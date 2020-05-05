@@ -10,13 +10,22 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .forms import CreateUserForm, UpdateUserForm
 from .models import UserProfile
-from store.models import Address
+from store.models import Address, Order, SeedProduct
+from store.forms import AddProductForm
 from django.contrib.auth import get_user_model
 from .decorators import staff_only
 
 User = get_user_model()
 
 staff = [login_required, staff_only]
+
+def update_data(values):
+    update = True
+    for field in values:
+        if field == '':
+            update = False
+    return update
+
 
 @login_required
 def admin_view(request):
@@ -72,28 +81,49 @@ class Notification(View):
 @method_decorator(staff, name='dispatch')
 class ProductView(View):
     def get(self, *args, **kwards):
-        # user = self.request.user
-        # orders = Order.objects.all()
-        # products = SeedProduct.objects.all()
-        # form = AddProductForm
+        user = self.request.user
+        orders = Order.objects.all()
+        products = SeedProduct.objects.all()
+        form = AddProductForm
         context = {
             'active': 'product',
-            # 'orders': orders,
-            # 'products': products,
-            # 'form': form
+            'orders': orders,
+            'products': products,
+            'form': form
         }
         return render(self.request, 'dashboard/pages/product.html', context)
 
     def post(self, *args, **kwargs):
-        pass
-        # form = AddProductForm(self.request.POST or None)
-        # if form.is_valid:
-        #     form.save()
-        #     messages.warning(self.request, 'New Product Added')
-        #     return redirect('notification')
+        form = AddProductForm(self.request.POST, self.request.FILES or None)
+        if form.is_valid:
+            form.save()
+            messages.warning(self.request, 'New Product Added')
+            return redirect('product')
+        
+        return redirect('product')
 
-        # else:
-        #     return redirect('product')
+@login_required
+@staff_only
+def edit_product(request, pk):
+    product = SeedProduct.objects.get(id=pk)
+    if request.method == 'POST':
+        form = AddProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Product Updated')
+
+            return redirect('product')
+
+        return redirect('product')
+
+    form = AddProductForm(instance=product)
+    context = {
+        'active': 'product',
+        'form': form,
+        'product': product,
+    }
+
+    return render(request, 'dashboard/pages/change.html', context)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -102,48 +132,49 @@ class UpdateProfileView(View):
         profile = UserProfile.objects.get(user=self.request.user)
             
         form = UpdateUserForm(instance=profile)
-        address = Address.objects.get_or_create(user=self.request.user, address_type='S')
+        address = Address.objects.get_or_create(user=self.request.user, address_type='S', default=True)
     
         context = {
             'form': form,
             'profile': profile,
             'active': 'profile',
-            'address': address
+            'address': address[0]
         }
         return render(self.request, 'dashboard/pages/user.html', context)
 
     def post(self, *args, **kwargs):
-        form = UpdateUserForm(self.request.POST or None)
+        form = UpdateUserForm(self.request.POST, self.request.FILES or None)
         if form.is_valid():
             # FORM DATA
             user = self.request.user
             first_name = form.cleaned_data.get('first_name')
             last_name = form.cleaned_data.get('last_name')
-            # country = form.cleaned_data.get('country')
-            # city = form.cleaned_data.get('city')
-            # district = form.cleaned_data.get('district')
-            # street = form.cleaned_data.get('street_address')
+            country = form.cleaned_data.get('country')
+            city = form.cleaned_data.get('city')
+            district = form.cleaned_data.get('district')
+            street = form.cleaned_data.get('street_address')
             bio = form.cleaned_data.get('biography')
+            files = form.cleaned_data.get('profile_image')
 
             # DATABASE
-            # address_old = Address.objects.get(
-            #     user=self.request.user, address_type='S', default='True')
-            # if address_old:
-            #     print('Exists')
-            #     address_old.street_address = street
-            #     address_old.city = city
-            #     address_old.first_name = first_name
-            #     address_old.last_name = last_name
-            #     address_old.district = district
-            #     if update_data([country]):
-            #         address_old.country = country
-            #     address_old.save()
+            address_old = Address.objects.get(
+                user=self.request.user, address_type='S', default=True)
+
+            address_old.street_address = street
+            address_old.city = city
+            address_old.first_name = first_name
+            address_old.last_name = last_name
+            address_old.district = district
+            if update_data([country]):
+                address_old.country = country
+            address_old.save()
 
             user.first_name = first_name
             user.last_name = last_name
             user.save()
             profile = UserProfile.objects.get(user=self.request.user)
             profile.biography = bio
+            profile.image = files
             profile.save()
 
             messages.info(

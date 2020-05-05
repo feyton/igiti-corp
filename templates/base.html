@@ -59,11 +59,10 @@
 			<i class="fa fa-bars menu-toggle" id="menu-show" onclick="menu_show()"></i>
 			<ul class="nav-bar showing" id="nav-bar">
 				<li><a href="/">HOME</a></li>
-				<li><a href="/forestry">FORESTRY&nbsp;<i class="fas fa-chevron-down"></i></a>
+				<li><a href="{% url 'forestry:list' %}">FORESTRY&nbsp;<i class="fas fa-chevron-down"></i></a>
 					<ul>
-						<li><a href="#">Calculator</a></li>
-						<li><a href="/species">Species</a></li>
-						<li><a href="#">Events</a></li>
+						<li><a href="{% url 'forestry:list' %}">Species</a></li>
+						<li><a href="{% url 'notification' %}">Events</a></li>
 					</ul>
 				</li>
 				<li><a href="{% url 'store:store' %}">STORE&nbsp;<i class="fas fa-chevron-down"></i></a>
@@ -122,7 +121,9 @@
 					<h2>Quick Links</h2>
 					<br>
 					<ul>
-						<li><a href="/forestry"><i class="fas fa-link"></i>&nbsp;Forestry</a></li>
+						<li><a href="{% url 'forestry:list' %}"><i class="fas fa-link"></i>&nbsp;Forestry</a></li>
+						
+						<li><a href="{% url 'store:store' %}"><i class="fas fa-link"></i>&nbsp;Store</a></li>
 
 						<li><a href="#"><i class="fas fa-link"></i>&nbsp;Events</a></li>
 
@@ -146,7 +147,7 @@
 				</div>
 			</div>
 			<div class="footer-bottom">
-				&copy; Igiti Corp | Powered by Feyton Inc
+				&copy; Igiti Corp | Powered by <a href="https://feyton.co.rw" target="_blank">Feyton Inc</a>
 			</div>
 		</footer>
 		<!-- end footer -->

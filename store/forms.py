@@ -1,7 +1,7 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-
+from .models import SeedProduct
 PAYMENT_CHOICES = (
     ('S', 'Stripe'),
     ('M', 'MoMo Pay')
@@ -58,12 +58,10 @@ class PaymentForm(forms.Form):
     save = forms.BooleanField(required=False)
     use_default = forms.BooleanField(required=False)
 
-    # BILLING ADDRESS
-    # first_name = forms.CharField(max_length=30, required=False)
-    # last_name = forms.CharField(max_length=30, required=False)
-    # street_address = forms.CharField(max_length=100, required=False)
-    # city = forms.CharField(max_length=100, required=False)
-    # district = forms.CharField(max_length=100, required=False)
-    # mobile_number = forms.CharField(max_length=100, required=False)
-    # postal_code = forms.CharField(max_length=100, required=False)
-    # email = forms.EmailField(required=False)
+
+    
+    
+class AddProductForm(forms.ModelForm):
+    class Meta:
+        model = SeedProduct
+        fields = ('__all__')

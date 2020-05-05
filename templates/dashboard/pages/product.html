@@ -301,7 +301,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" action=".">
+        <form method="post" action="." enctype="multipart/form-data">
           {% csrf_token %}
 
           {{ form.as_p}}

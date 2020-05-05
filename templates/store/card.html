@@ -24,7 +24,7 @@
                     <h5 class="date"> {% now "jS F Y H:i" %}</h5>
                 </div>
                 <div class="download">
-                    <a href="{{ item.download_pdf_url}}" class="btn btn-default">Generate PDF</a>
+                    <a href="{{ item.download_pdf_url}}" class="btn btn-default" target="_blank">Generate PDF</a>
                 </div>
             </div>
         </div>
@@ -105,6 +105,7 @@
                                 moisture:&nbsp;</span>{{item.seed_type.min_moisture}}&#8451;</li>
                     </ul>
                 </p>
+                {{ item.seed_type.overview|safe}}
                 {% else %}
                 <p>Not available as of Today {% now 'F d Y' %}</p>
                 {% endif %}
@@ -112,13 +113,13 @@
 
                 {% if item.pre_treatment %}
 
-                {% for treatment in item.pre_treatment.all %}
+                
 
-                <p class="treatment">{{treatment.title}}</p>
+                <p class="treatment">{{item.pre_treatment.title}}</p>
                 <p class="process">
-                    {{treatment.process|safe}}
+                    {{item.pre_treatment.process|safe}}
                 </p>
-                {% endfor %}
+                
                 {% else %}
                 <p>Pre-treatment not determined or it doesn't need one</p>
                 {% endif %}

@@ -28,7 +28,7 @@
                 <a href="/login">Create account| Log In</a>
                 {% else%}
                 <p>Thank You for creating the account.</p>
-                <a href="/admin">Update profile</a>
+                <a href="{% url 'update-profile' %}">Update profile</a>
                 {% endif %}
             </div>
         </div>
@@ -45,7 +45,7 @@
             <div class="carousel-caption d-none d-md-block">
                 <h5>Check out our store for seeds and seedlings.</h5>
                 <p>Order seeds or seedlings and get them delivered to your desired place.</p>
-                <a href="/store">Visit store</a>
+                <a href="{% url 'store:store' %}">Visit store</a>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
 							<!-- Intro Item -->
 							<div class="col-lg-4 intro_col">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static 'images/mountain.svg' %}" alt=""></div>
+									<div class="intro_icon"><img src="{% static 'images/mountain.svg' %}" alt="service"></div>
 									<div class="intro_content">
 										<div class="intro_title">Top Choices</div>
 										<div class="intro_subtitle">
@@ -85,7 +85,7 @@
 							<!-- Intro Item -->
 							<div class="col-lg-4 intro_col">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static 'images/envelope.png' %}" alt=""></div>
+									<div class="intro_icon"><img src="{% static 'images/envelope.png' %}" alt="service"></div>
 									<div class="intro_content">
 										<div class="intro_title">The Best Services</div>
 										<div class="intro_subtitle">
@@ -99,7 +99,7 @@
 							<!-- Intro Item -->
 							<div class="col-lg-4 intro_col">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static 'images/shopping-cart.svg' %}" alt=""></div>
+									<div class="intro_icon"><img src="{% static 'images/shopping-cart.svg' %}" alt="service"></div>
 									<div class="intro_content">
 										<div class="intro_title">Amazing Services</div>
 										<div class="intro_subtitle">
@@ -233,7 +233,7 @@
                                     </ul>
                                 </div>
                                 <div class="news_post_text">
-                                    <p>{{i.description|truncatechars:150}}</p>
+                                    <p>{{i.description|truncatechars:100}}</p>
                                 </div>
                             </div>
                         </div>
@@ -262,10 +262,10 @@
 								</div>
 							</div>
 							<div class="travello_container">
-								<a href="#">
+								<a href="{% url 'update-profile' %}">
 									<div class="d-flex flex-column align-items-center justify-content-end">
-										<span class="travello_title">Order Now</span>
-										<span class="travello_subtitle">Get it delivered tomorrow</span>
+										<span class="travello_title">Register Today</span>
+										<span class="travello_subtitle">My Profile</span>
 									</div>
 								</a>
 							</div>

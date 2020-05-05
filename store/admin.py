@@ -38,10 +38,10 @@ class TreeSeedAdmin(admin.ModelAdmin):
             'fields': ('scientific_name', 'common_name')
         }),(
         'PRODUCT INFORMATION', {
-            'fields': ('image1', 'price', 'discount_price', 'image2')
+            'fields': ('image1', 'image2', 'price', 'discount_price')
         }),
         ('STORE STATUS', {
-            'fields' : ('category', 'available', 'recommended', 'pre_treatment')
+            'fields' : ('category', 'available', 'recommended', 'pre_treatment', 'seed_type')
         }),
         ('OTHERS', {'fields': ('plantation_districts', 'seeds_kg', 'germination_rate', 'seed_source', 'short_note')})
     )
@@ -91,6 +91,8 @@ class AddressAdmin(admin.ModelAdmin):
     search_fields = ['user', 'street_address', 'apartment_address']
 
 
+class SeedPretreatmentAdmin(admin.ModelAdmin):
+    list_display = ['title', 'get_types_display']
 
 admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)
@@ -99,7 +101,7 @@ admin.site.register(Coupon)
 admin.site.register(Refund)
 admin.site.register(Address, AddressAdmin)
 
-admin.site.register(SeedPretreatment)
+admin.site.register(SeedPretreatment, SeedPretreatmentAdmin)
 admin.site.register(District)
 admin.site.register(TypesOfSeed)
 
