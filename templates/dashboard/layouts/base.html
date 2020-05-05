@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Static assets - Used to load the Favicon -->
+{% load static %}
+
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Favicon - loaded as static -->
+  <link href="{% static 'assets/img/profile.png' %}" rel="icon" type="image/png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  
+
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
+  <!--     Fonts and icons     -->
+  	<!-- fontawesome scripts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+  <!-- CSS Files -->
+  <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/static/assets/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="/static/assets/demo/demo.css" rel="stylesheet" />
+  <title>Igiti Corp - {% block title %} Dashboard {% endblock title%}</title>
+
+  <!-- Specific CSS goes HERE -->
+  {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body class="">
+  {% if messages%}
+
+  <div class="notification box-color " id="notification">
+    {% for message in messages %}
+    <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p>
+    {% endfor %}
+    <div class="progress"></div>
+  </div>
+
+  {% endif%}
+  <div class="wrapper ">
+
+    {% include 'dashboard/includes/sidebar.html' %}
+
+    <div class="main-panel" id="main-panel">
+
+      {% include 'dashboard/includes/navigation.html' %}
+      {% block content %}{% endblock content %}
+
+      {% include 'dashboard/includes/footer.html' %}
+
+    </div>
+  </div>
+
+  {% include 'dashboard/includes/scripts.html' %}
+
+  <!-- Specific JS goes HERE -->
+  {% block javascripts %}{% endblock javascripts %}
+
+  <script>
+    var notification = document.getElementById("notification");
+    setTimeout(function () { notification.classList.toggle('box-active'); }, 500);
+  </script>
+</body>
+
+</html>

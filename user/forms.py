@@ -1,6 +1,8 @@
 from django import forms
+from django_countries.fields import CountryField
+from django_countries.widgets import CountrySelectWidget
 from django.contrib.auth.forms import UserCreationForm
-
+from store.models import Address
 from .models import User
 
 class CreateUserForm(UserCreationForm):
@@ -33,3 +35,20 @@ class CreateUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
+        
+
+class UpdateUserForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=100, required=False)
+    last_name = forms.CharField(max_length=100, required=False)
+
+    profile_image = forms.ImageField(allow_empty_file=True, required=False)
+    biography = forms.CharField(max_length=255, required=False)
+    country = CountryField(blank_label='(select country)').formfield(
+        required=False, widget=CountrySelectWidget(attrs={
+            'class': 'custom-select my-1 width-90',
+            'value': 'RW' }))
+            
+    class Meta:
+        model = Address
+        fields = ['city', 'district', 'street_address']
+        required = []

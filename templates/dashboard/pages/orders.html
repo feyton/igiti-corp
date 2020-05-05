@@ -1,0 +1,97 @@
+{% extends 'dashboard/layouts/base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %} Orders {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="panel-header panel-header-sm">
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> My Orders</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Ref Code
+                </th>
+                <th>
+                  Start Date
+                </th>
+                <th>
+                  Ordered
+                </th>
+                <th class="text-right">
+                  Total Amount
+                </th>
+                <th class="text-center">
+                  Action
+                </th>
+              </thead>
+              <tbody>
+
+                {% for order in orders %}
+                <tr>
+                  <td>
+                      {{order.ref_code}}
+                  </td>
+                  <td>
+                    {{order.start_date|date}}
+                  </td>
+                  <td>
+                    {{order.ordered}}
+                  </td>
+                  <td class="text-right">
+                    {{order.get_total|intcomma}}&nbsp;Rwf
+                  </td>
+
+
+
+                  <td class="text-right">
+                    {% if order.being_delivered %}
+                    Delivered (<a href="">Cancel</a> )
+                    {% elif order.received %}
+                    Completed(<a href="">File Refund</a> )
+                    {% elif not order.ordered and not order.received %}
+                    PAY <a href="{% url 'store:payment' payment_option='momopay'%}">MOMO</a> or <a
+                      href="{% url 'store:payment' payment_option='stripe'%}">STRIPE</a>
+                    {% else %}
+                    <a href="{% url 'store:checkout' %}" class="btn btn-default">Checkout</a>
+
+                    {% endif %}
+
+                  </td>
+                  {% empty %}
+                  <td colspan="3" class="text-center">No order yet</td>
+                  <td colspan="2" class="text-center"><a href="{% url 'store:store' %}" class="btn btn-primary">Go
+                      shopping</a> </td>
+
+                </tr>
+               
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+{% endblock javascripts %}

@@ -121,6 +121,7 @@ class UserProfile(models.Model):
     image = models.ImageField(upload_to='profile', blank=True, null=True)
     one_click_purchasing = models.BooleanField(default=False)
     stripe_customer_id = models.CharField(blank=True, max_length=50, null=True)
+    biography = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return '{}-Profile'.format(self.user.first_name)

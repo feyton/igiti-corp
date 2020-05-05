@@ -258,7 +258,7 @@ class Address(models.Model):
     city = models.CharField(max_length=30, blank=True)
     mobile_number = models.CharField(max_length=50, blank=True, null=True)
     secondary_email = models.EmailField(blank=True, unique=False, null=True)
-    country = CountryField(multiple=False)
+    country = CountryField(multiple=False, blank=True, null=True)
     postal_code = models.CharField(max_length=10, blank=True, null=True)
     default = models.BooleanField(default=False)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES, default='S')

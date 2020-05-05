@@ -1,0 +1,136 @@
+{% extends 'dashboard/layouts/base.html' %}
+{% load static %}
+
+{% block title %} Profile Page {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="panel-header panel-header-sm">
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Profile: {{ request.user.get_full_name }}</h5>
+        </div>
+        <div class="card-body">
+          <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>UserID (disabled)</label>
+                  <input type="text" class="form-control" class="text-center" disabled="" placeholder="ID"
+                    value="{{ request.user.email }}">
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input type="text" class="form-control" value="{{ request.user.first_name}}" name="first_name">
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input type="text" class="form-control" value="{{ request.user.last_name}}" name="last_name">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control" placeholder="Home Address" value=""
+                    name="street_address">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" class="form-control" placeholder="City" name="city" value="">
+                </div>
+              </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label>District</label>
+                  <input type="text" class="form-control" placeholder="District" name="district"
+                    value="">
+                </div>
+              </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label>Country</label>
+                  {{ form.country}}
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Biography</label>
+                  <textarea rows="3" cols="60" class="form-control" name="biography"
+                    maxlength="255">{{ profile.biography}}</textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label for="">Update Picture</label>
+                <input type="file" name="profile_image" id="" placeholder="Update Profile Picture">
+                
+              </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Update Profile">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-user">
+        <div class="image">
+          <img src="/static/assets/img/bg5.jpg" alt="...">
+        </div>
+        <div class="card-body">
+          <div class="author">
+            <a href="#">
+
+              {% if profile.image %}
+              <img class="avatar border-gray" src="{{ profile.image.url}}" alt="...">
+
+              {% else %}
+              <img class="avatar border-gray" src="{% static 'dashboard/img/mike.jpg' %}" alt="...">
+              {% endif %}
+              <h5 class="title">
+                {{ request.user.get_full_name }}
+              </h5>
+            </a>
+            <p class="description">
+              {{ request.user.email }}
+            </p>
+          </div>
+          <p class="description text-center">
+            {{ profile.biography}}
+          </p>
+        </div>
+
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

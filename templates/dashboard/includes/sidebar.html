@@ -1,0 +1,71 @@
+<div class="sidebar" data-color="blue">
+  <!-- Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow" -->
+  <div class="logo">
+    <a href="/" class="simple-text logo-normal">
+      Igiti <span class="logo-text">Corp</span>
+    </a>
+  </div>
+  <div class="sidebar-wrapper" id="sidebar-wrapper">
+
+    <ul class="nav">
+
+      {% if user.is_authenticated %}
+
+      <li {% if active == 'dashboard'%} class="active " {%endif%}>
+        <a href="{% url 'dashboard'%}">
+          <i class="now-ui-icons design_app"></i>
+          <p>Dashboard</p>
+        </a>
+      </li>
+      
+      {% if user.is_staff %}
+        
+      <li {% if active == 'product'%} class="active " {%endif%}>
+        <a href="{% url 'product'%}">
+          <i class="now-ui-icons education_atom"></i>
+          <p>Products</p>
+        </a>
+      </li>
+      {% endif %}
+      
+      <li {% if active == 'notification'%} class="active " {%endif%}>
+        <a href="{% url 'notification' %}">
+          <i class="now-ui-icons ui-1_bell-53"></i>
+          <p>Notifications</p>
+        </a>
+      </li>
+      
+      <li {% if active == 'profile'%} class="active " {%endif%}>
+        <a href="{% url 'update-profile' %}">
+          <i class="now-ui-icons users_single-02"></i>
+          <p>User Profile</p>
+        </a>
+      </li>
+      <li {% if active == 'orders'%} class="active " {%endif%}>
+        <a href="{% url 'orders' %}">
+          <i class="now-ui-icons design_bullet-list-67"></i>
+          <p>Orders</p>
+        </a>
+      </li>
+
+
+      <li>
+        <a href="{% url 'account_logout' %}">
+          <i class="now-ui-icons media-1_button-power"></i>
+          <p>Logout</p>
+        </a>
+      </li>
+
+      {% endif %}
+
+      <li class="active-pro">
+        <a href="/">
+          <i class="now-ui-icons objects_spaceship"></i>
+          <p>Go Home</p>
+        </a>
+      </li>
+
+
+    </ul>
+  </div>
+</div>
