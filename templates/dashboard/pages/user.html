@@ -109,7 +109,7 @@
               <img class="avatar border-gray" src="{{ profile.image.url}}" alt="...">
 
               {% else %}
-              <img class="avatar border-gray" src="{% static 'dashboard/img/mike.jpg' %}" alt="...">
+              <img class="avatar border-gray" src="{% static 'dashboard/img/default-avatar.png' %}" alt="...">
               {% endif %}
               <h5 class="title">
                 {{ request.user.get_full_name }}

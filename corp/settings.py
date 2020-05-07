@@ -62,7 +62,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # Form tweaks
     'widget_tweaks',
-    'rest_framework'
+    'rest_framework',
+    'django_countries',
 ]
 
 MIDDLEWARE = [

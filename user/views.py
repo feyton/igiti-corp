@@ -174,7 +174,8 @@ class UpdateProfileView(View):
             user.save()
             profile = UserProfile.objects.get(user=self.request.user)
             profile.biography = bio
-            profile.image = files
+            if 'profile_image' in self.request.FILES:
+                profile.image = files
             profile.save()
 
             messages.info(

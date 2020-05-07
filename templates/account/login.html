@@ -1,5 +1,6 @@
 {% load static%}
 {% load socialaccount %}
+{% providers_media_js %}
 {% load widget_tweaks %}
 
 <!DOCTYPE html>
@@ -35,10 +36,9 @@
 
             </div>
             <div class="social-icons">
-                <a href="" data-tip="Facebook"><i
-                        class="fab fa-facebook"></i></a>
-                <a href="" data-tip="Google"><i class="fab fa-google"></i></a>
-                <a href="" data-tip="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="{% provider_login_url "facebook" method="js_sdk" %}" data-tip="Facebook"><i class="fab fa-facebook"></i></a>
+                <!--<a href="" data-tip="Google"><i class="fab fa-google"></i></a>-->
+                <a href="{% provider_login_url "twitter" process="login" %}" data-tip="Twitter"><i class="fab fa-twitter"></i></a>
             </div>
             <div class="button-box">
                 <button class="btn toggle-btn btn-or">OR</button>
