@@ -1,19 +1,20 @@
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.views.generic import View
-from django.contrib import messages
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
+from django.views.generic import View
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from store.forms import AddProductForm
+from store.models import Address, Order, SeedProduct
+
+from .decorators import staff_only
 from .forms import CreateUserForm, UpdateUserForm
 from .models import UserProfile
-from store.models import Address, Order, SeedProduct
-from store.forms import AddProductForm
-from django.contrib.auth import get_user_model
-from .decorators import staff_only
 
 User = get_user_model()
 
@@ -27,9 +28,6 @@ def update_data(values):
     return update
 
 
-@login_required
-def admin_view(request):
-    return redirect("/feyton")
 
 @method_decorator(login_required, name='dispatch')
 class Dashboard(View):
