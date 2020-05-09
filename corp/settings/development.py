@@ -31,3 +31,15 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+    ]
+STATIC_ROOT = (os.path.join(BASE_DIR, 'asset'))
+STATIC_URL = '/static/'
+
+
+# media root folder
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+SITE_ID = 1
