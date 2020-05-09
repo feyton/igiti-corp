@@ -32,3 +32,4 @@ tmp/
 manage.py
 corp/wsgi.py
 .env
+corp/settings/development.py
