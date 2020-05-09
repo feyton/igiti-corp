@@ -1,4 +1,3 @@
-
 {% load static %}
 {% load cart_template_tags %}
 
@@ -12,18 +11,18 @@
 	<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 	<!-- Style links -->
 	<!-- BOOTSTRAP CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	<!-- fontawesome scripts -->
-    <script src="https://kit.fontawesome.com/8d71393779.js" crossorigin="anonymous"></script>
-    <!--CUSTOM CSS-->
+	<script src="https://kit.fontawesome.com/8d71393779.js" crossorigin="anonymous"></script>
+	<!--CUSTOM CSS-->
 	<link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}" />
-	
+
 	{% block title %}
-	
+
 	{% endblock title%}
-	
+
 	{% block site_name %}
 	<!-- icon and site title -->
 	<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
@@ -34,14 +33,14 @@
 </head>
 
 <body>
-    {% block facebook %}
+	{% block facebook %}
 	<!-- Facebook Plugin -->
 	<div id="fb-root"></div>
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0">
 	</script>
 	<!-- End -->
 	{% endblock facebook %}
-		{% if messages%}
+	{% if messages%}
 
 	{% for message in messages %}
 	<div class="notification box-color " id="notification">
@@ -50,12 +49,12 @@
 	</div>
 	{% endfor %}
 	{% endif%}
-	
+
 	<div class="container">
-	    {% block nav_bar %}
+		{% block nav_bar %}
 		<header>
-			<a href="{% url 'home' %}"><img src="{% static 'images/fixed-logo.png' %}" alt="logo" width="275" height="60"
-					class="fixed-logo"></a>
+			<a href="{% url 'home' %}"><img src="{% static 'images/fixed-logo.png' %}" alt="logo" width="275"
+					height="60" class="fixed-logo"></a>
 			<i class="fa fa-bars menu-toggle" id="menu-show" onclick="menu_show()"></i>
 			<ul class="nav-bar showing" id="nav-bar">
 				<li><a href="/">HOME</a></li>
@@ -66,7 +65,7 @@
 					</ul>
 				</li>
 				<li><a href="{% url 'store:store' %}">STORE&nbsp;<i class="fas fa-chevron-down"></i></a>
-				{%if user.is_authenticated%}
+					{%if user.is_authenticated%}
 					<ul>
 						<li><a href="{% url 'store:order-summary' %}">Cart <span
 									class="cart-number">&nbsp;{{ request.user|cart_item_count}}</span></a></li>
@@ -75,7 +74,8 @@
 					{% endif %}
 				</li>
 				{% if user.is_authenticated %}
-				<li><a href="#"><i class="fas fa-user"></i>&nbsp;{{ user.first_name}} <i class="fas fa-chevron-down"></i></a>
+				<li><a href="#"><i class="fas fa-user"></i>&nbsp;{{ user.first_name}} <i
+							class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li><a href="{% url 'dashboard' %}">Dashboard</a> </li>
 						<li class="logout"><a href="{% url 'account_logout' %}">Logout</a></li>
@@ -83,22 +83,22 @@
 				</li>
 				{% else %}
 				<li><a href="#">ACCOUNT&nbsp;<i class="fas fa-chevron-down"></i></a>
-                    <ul>
+					<ul>
 						<li><a href="{% url 'account_login' %}">Login</a> </li>
 						<li><a href="{% url 'account_signup' %}">Register</a></li>
 					</ul>
-                </li> 
+				</li>
 				{% endif%}
 			</ul>
 
 		</header>
 		{% endblock nav_bar %}
-{% block content %}
+		{% block content %}
 
 
-{% endblock %}
+		{% endblock %}
 
-{% block footer_content %}
+		{% block footer_content %}
 		<!-- Footer -->
 		<footer>
 			<div class="footer-content">
@@ -122,7 +122,7 @@
 					<br>
 					<ul>
 						<li><a href="{% url 'forestry:list' %}"><i class="fas fa-link"></i>&nbsp;Forestry</a></li>
-						
+
 						<li><a href="{% url 'store:store' %}"><i class="fas fa-link"></i>&nbsp;Store</a></li>
 
 						<li><a href="#"><i class="fas fa-link"></i>&nbsp;Events</a></li>
@@ -138,7 +138,7 @@
 					<h2>Join Our Database</h2>
 					<br>
 					<form action="{% url 'subscribe' %}" method="post" class="contact-form">
-					    {% csrf_token %}
+						{% csrf_token %}
 						<input type="text" name="name" placeholder="Full Name..." class="text-input contact-input">
 						<input type="email" name="email" placeholder="E-mail..." class="text-input contact-input">
 						<button type="submit" class="btn btn-big contact-btn"><i
@@ -153,36 +153,43 @@
 		<!-- end footer -->
 		{% endblock footer_content %}
 	</div>
-</div>
-{% block script %}
+	</div>
+	{% block script %}
 
-<script>
-	var menu = document.getElementById("menu-show");
-	var nav = document.getElementById("nav-bar");
+	<script>
+		var menu = document.getElementById("menu-show");
+		var nav = document.getElementById("nav-bar");
 
-	function menu_show() {
-		nav.classList.toggle('showing')
-	}
-	var notification = document.getElementById("notification");
-	setTimeout(function () { notification.classList.toggle('box-active'); }, 5);
-</script>
-{% endblock script %}
-<!-- SCRIPT LINKS-->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" 
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <!-- SLICK JS-->
+		function menu_show() {
+			nav.classList.toggle('showing')
+		}
 
-    <!-- CUSTOM SCRIPT -->
+		{% if messages %}
+
+		var notification = document.getElementById("notification");
+		setTimeout(function () { notification.classList.toggle('box-active'); }, 5);
+		{% endif %}
+	</script>
+	{% endblock script %}
+	<!-- SCRIPT LINKS-->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<!-- SLICK JS-->
+
+	<!-- CUSTOM SCRIPT -->
 	<!--<script type="text/javascript" src="style/script.js"></script>-->
-{% block extra_java %}
-{% endblock extra_java %}
+	{% block extra_java %}
+	{% endblock extra_java %}
 
-{% block footer %} 
-{% endblock %}
+	{% block footer %}
+	{% endblock %}
 </body>
 
 </html>

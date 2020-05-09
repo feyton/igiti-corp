@@ -1,10 +1,15 @@
 {% extends 'dashboard/layouts/base.html' %}
 {% load humanize %}
+{% load widget_tweaks %}
 
-{% block title %} Edit Product {% endblock title %}
+{% block title %} Edit Product{% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css"
+  integrity="sha256-VMPhaMmJn7coDSbzwqB0jflvb+CDnoAlfStC5RogOQo=" crossorigin="anonymous" />
+{% endblock stylesheets %}
 
 {% block content %}
 
@@ -21,10 +26,143 @@
         </div>
         <div class="card-body">
 
-          <form action="." method="post" enctype="multipart/form-data">
+          <form method="post" class="md-form" action="." enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p}}
-            <input type="submit" value="Update" class="btn btn-primary">
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label for="">{{form.scientific_name.label}}</label>
+                  {% render_field form.scientific_name class="form-control"%}
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label for="">{{form.common_name.label}}</label>
+                  {% render_field form.common_name class="form-control"%}
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label for="">{{form.price.label}}</label>
+                  {% render_field form.price class="form-control"%}
+                </div>
+              </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label for="">{{form.discount_price.label}}</label>
+                  {% render_field form.discount_price class="form-control"%}
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="">{{ form.category.label}}</label>
+                  {% render_field form.category class="custom-select"%}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label for="">{{ form.seeds_kg.label}}</label>
+                  {% render_field form.seeds_kg class="form-control"%}
+                </div>
+              </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label for="">{{form.germination_rate.label}}</label>
+                  {% render_field form.germination_rate class="form-control"%}
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="">{{form.seed_source.label}}</label>
+                  {% render_field form.seed_source class="form-control"%}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label for="">{{form.seed_type.label}}</label>
+                  {% render_field form.seed_type class="custom-select"%}
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label for="">{{form.pre_treatment.label}}</label>
+                  {% render_field form.pre_treatment class="custom-select"%}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="custom-file" id="image1_input">
+                  <input type="file" class="custom-file-input" name="image1" id="id_image1">
+                  <label for="id_image1" class="custom-file-label" id="image1_label">Tree Image</label>
+                </div>
+                {% if product.image2 %}
+
+                <div class="custom-control custom-checkbox my-1 mr-sm-2" id="image1_clear_div">
+                  <input type="checkbox" name="image1-clear" id="image1-clear_id" class="custom-control-input">
+                  <label for="image1-clear_id" class="custom-control-label">Remove Current Image</label>
+                </div>
+
+                {% endif %}
+
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="custom-file" id="image2_input">
+                  <input type="file" class="custom-file-input" name="image2" id="id_image2">
+                  <label for="id_image2" class="custom-file-label" id="image2_label">Seed Image</label>
+                </div>
+                {% if product.image2 %}
+
+                <div class="custom-control custom-checkbox my-1 mr-sm-2" id="image2_clear_div">
+                  <input type="checkbox" name="image2-clear" id="image2-clear_id" class="custom-control-input">
+                  <label for="image2-clear_id" class="custom-control-label">Remove Current Image</label>
+                </div>
+
+                {% endif %}
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label for="">{{ form.plantation_districts.label}}</label>
+                  {{form.plantation_districts}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">OverView</label>
+                  {{ form.short_note}}
+                </div>
+              </div>
+            </div>
+            <!-- CHECK BOXES -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="custom-control custom-checkbox form-check-inline">
+                  <input type="checkbox" name="available" id="available" class="custom-control-input">
+                  <label for="available" class="custom-control-label">Available</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="custom-control custom-checkbox form-check-inline">
+                  <input type="checkbox" name="recommended" id="recommended" class="custom-control-input">
+                  <label for="recommended" class="custom-control-label">Recommended</label>
+                </div>
+              </div>
+            </div>
+
+            <input type="submit" value="Update" class="btn btn-success">
           </form>
         </div>
       </div>
@@ -32,17 +170,17 @@
     <div class="col-md-4">
       <div class="card card-user">
         <div class="image">
-          <img src="/static/assets/img/bg5.jpg" alt="cover photo">
+          <img src="/static/assets/img/bg5.jpg" alt="...">
         </div>
         <div class="card-body">
           <div class="author">
             <a href="#">
 
               {% if profile.image %}
-              <img class="avatar border-gray" src="{{ profile.image.url}}" alt="profile picture">
+              <img class="avatar border-gray" src="{{ profile.image.url}}" alt="...">
 
               {% else %}
-              <img class="avatar border-gray" src="/static/assets/img/mike.jpg" alt="default profile">
+              <img class="avatar border-gray" src="/static/assets/img/mike.jpg" alt="...">
               {% endif %}
               <h5 class="title">
                 {{ request.user.get_full_name }}
@@ -68,6 +206,9 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"
+  integrity="sha256-QOE02Glo1C1gHzP96JOaxyIMt4XSFv/exZaYLY4dwO0=" crossorigin="anonymous"></script>
+<script src="/static/js/dashboard.js"></script>
 
 <script>
   $(document).ready(function () {

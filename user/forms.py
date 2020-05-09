@@ -1,9 +1,12 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-from django.contrib.auth.forms import UserCreationForm
+
 from store.models import Address
-from .models import User
+
+from .models import User, UserProfile
+
 
 class CreateUserForm(UserCreationForm):
     """
@@ -38,17 +41,25 @@ class CreateUserForm(UserCreationForm):
         
 
 class UpdateUserForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=100, required=False)
-    last_name = forms.CharField(max_length=100, required=False)
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
+        required = ['first_name', 'last_name']
 
-    profile_image = forms.ImageField(allow_empty_file=True, required=False)
-    biography = forms.CharField(max_length=255, required=False)
+
+class UpdateAddressForm(forms.ModelForm):
     country = CountryField(blank_label='(select country)').formfield(
         required=False, widget=CountrySelectWidget(attrs={
-            'class': 'custom-select my-1 width-90',
-            'value': 'RW' }))
-            
+            'class': 'form-control custom-select my-1 width-90'}))
+
     class Meta:
         model = Address
-        fields = ['city', 'district', 'street_address']
-        required = []
+        fields = ['city', 'district', 'street_address', 'country']
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['image', 'biography']
+        widgets = {
+            'biography': forms.Textarea(attrs={'rows': 3, 'cols': 60}),
+        }

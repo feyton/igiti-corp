@@ -24,6 +24,8 @@ share/python-wheels/
 MANIFEST
 
 sqlite3.db
+db.sqlite3
+/media
 tmp/
 
 #Special Files

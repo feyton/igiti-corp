@@ -1,7 +1,10 @@
 from django import forms
+from django.forms import SelectMultiple, Textarea
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
+
 from .models import SeedProduct
+
 PAYMENT_CHOICES = (
     ('S', 'Stripe'),
     ('M', 'MoMo Pay')
@@ -59,9 +62,11 @@ class PaymentForm(forms.Form):
     use_default = forms.BooleanField(required=False)
 
 
-    
-    
 class AddProductForm(forms.ModelForm):
     class Meta:
         model = SeedProduct
         fields = ('__all__')
+        widgets = {
+            'short_note': Textarea(attrs={'rows': 3, 'cols': 60, 'class': 'form-control'}),
+            'plantation_districts': SelectMultiple(attrs={'class': 'selectpicker form-control', 'data-style': "btn-info", 'data-size': "5"})
+        }

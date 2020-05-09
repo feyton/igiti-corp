@@ -13,7 +13,8 @@ from store.forms import AddProductForm
 from store.models import Address, Order, SeedProduct
 
 from .decorators import staff_only
-from .forms import CreateUserForm, UpdateUserForm
+from .forms import (CreateUserForm, UpdateAddressForm, UpdateProfileForm,
+                    UpdateUserForm)
 from .models import UserProfile
 
 User = get_user_model()
@@ -128,59 +129,54 @@ def edit_product(request, pk):
 class UpdateProfileView(View):
     def get(self, *args, **kwargs):
         profile = UserProfile.objects.get(user=self.request.user)
-            
-        form = UpdateUserForm(instance=profile)
-        address = Address.objects.get_or_create(user=self.request.user, address_type='S', default=True)
-    
+        user = self.request.user
+        address, created = Address.objects.get_or_create(
+            user=user, address_type='S', default=True)
+        user_form = UpdateUserForm(instance=user)
+        profile_form = UpdateProfileForm(instance=profile)
+        address_form = UpdateAddressForm(instance=address)
+
         context = {
-            'form': form,
+            'user_form': user_form,
+            'profile_form': profile_form,
+            'address_form': address_form,
             'profile': profile,
             'active': 'profile',
-            'address': address[0]
+            'address': address
         }
         return render(self.request, 'dashboard/pages/user.html', context)
 
     def post(self, *args, **kwargs):
-        form = UpdateUserForm(self.request.POST, self.request.FILES or None)
-        if form.is_valid():
+        profile = UserProfile.objects.get(user=self.request.user)
+        user = self.request.user
+        address = Address.objects.get(
+            user=user, address_type='S', default=True)
+        user_form = UpdateUserForm(self.request.POST, instance=user)
+        profile_form = UpdateProfileForm(
+            self.request.POST, self.request.FILES, instance=profile)
+        address_form = UpdateAddressForm(self.request.POST, instance=address)
+
+        context = {
+            'user_form': user_form,
+            'profile_form': profile_form,
+            'address_form': address_form,
+            'profile': profile,
+            'active': 'profile',
+            'address': address
+        }
+        if user_form.is_valid() and profile_form.is_valid() and address_form.is_valid():
             # FORM DATA
-            user = self.request.user
-            first_name = form.cleaned_data.get('first_name')
-            last_name = form.cleaned_data.get('last_name')
-            country = form.cleaned_data.get('country')
-            city = form.cleaned_data.get('city')
-            district = form.cleaned_data.get('district')
-            street = form.cleaned_data.get('street_address')
-            bio = form.cleaned_data.get('biography')
-            files = form.cleaned_data.get('profile_image')
-
-            # DATABASE
-            address_old = Address.objects.get(
-                user=self.request.user, address_type='S', default=True)
-
-            address_old.street_address = street
-            address_old.city = city
-            address_old.first_name = first_name
-            address_old.last_name = last_name
-            address_old.district = district
-            if update_data([country]):
-                address_old.country = country
-            address_old.save()
-
-            user.first_name = first_name
-            user.last_name = last_name
-            user.save()
-            profile = UserProfile.objects.get(user=self.request.user)
-            profile.biography = bio
-            if 'profile_image' in self.request.FILES:
-                profile.image = files
-            profile.save()
+            user_form.save()
+            profile_form.save()
+            address_form.save()
 
             messages.info(
                 self.request, 'Your profile was updated successfully')
             return redirect('update-profile')
+        messages.info(self.request, 'Please fill in all information')
+        return render(self.request, 'dashboard/pages/user.html', context)
 
-        return render(self.request, 'dashboard/pages/user.html', {'form': form})
+
 
 # API CALSS
 def get_data(request, *args, **kwargs):
