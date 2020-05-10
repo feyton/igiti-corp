@@ -18,18 +18,26 @@ $(document).ready(function () {
 
     $("#image1-clear_id").change(function () {
         if (this.checked) {
-            $('#image1_input').hide()
+            $('#image1_input').hide("slow")
         } else {
-            $('#image1_input').show()
+            $('#image1_input').show("slow")
         }
     });
     $("#image2-clear_id").change(function () {
         if (this.checked) {
-            $('#image2_input').hide()
+            $('#image2_input').hide("slow")
         } else {
-            $('#image2_input').show()
+            $('#image2_input').show("slow")
         }
     });
+    $(".delete_product").click(function (e) {
+        var result = confirm('Are you sure to delete this product');
+        if (result == true) {
+        } else {
+            e.preventDefault();
+        }
+    });
+
 
     // AJAX AND GRAPHS
     var endpoint = $("#allProducts").attr("data-url");

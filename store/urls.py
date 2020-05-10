@@ -1,11 +1,12 @@
 from django.urls import path
+
 from user.views import edit_product
 
-from .views import (AddCouponView, CheckoutView, HomeView, SeedProductDetailView,
-                    OrderSummaryView, PaymentView, RequestRefundView,
+from .views import (AddCouponView, CheckoutView, HomeView, OrderSummaryView,
+                    PaymentView, RequestRefundView, SeedProductDetailView,
                     TreeSeedDetailView, TreeSeedListView, add_to_cart,
-                    remove_from_cart, remove_single_item_from_cart, generate_card, download_pdf)
-
+                    delete_product, download_pdf, generate_card,
+                    remove_from_cart, remove_single_item_from_cart, order_detail)
 
 app_name = 'store'
 
@@ -26,4 +27,6 @@ urlpatterns = [
     path('generate-card/<slug>', generate_card, name='generate-card'),
     path('download/pdf/<slug>/', download_pdf, name='download-pdf'),
     path('edit-product/<pk>/', edit_product, name='edit_product'),
+    path('delete-product/<pk>', delete_product, name='delete_product'),
+    path('order-detail/<pk>/', order_detail, name='order-detail'),
 ]

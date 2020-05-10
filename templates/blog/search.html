@@ -2,14 +2,14 @@
 {% load static %}
 
 
-{% block title%}
+{% block extra_style%}
 <link rel="stylesheet" href="{% static 'style/forestry.css' %}">
+{% endblock extra_style%}
 
-<!-- SLICK SCRIPTS -->
-<script src="{% static 'plugins/slick.min.js' %}"></script>
 
-{% endblock%}
+{% block facebook %}
 
+{% endblock facebook %}
 
 {%block content%}
 
@@ -53,8 +53,8 @@
     <div class="sidebar">
         <div class="section search">
             <h2 class="section-title">Search</h2>
-            <form action="{% url 'forestry:search' %}" method="get">
-                <input class="text-input" type="text-input" name="q" placeholder="Search..." value="{{ query|escape}}">
+            <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
+                <input class="text-input" type="text-input" name="q" placeholder="Search..." value="{{ query|escape}}" id="blog_search">
             </form>
         </div>
 
@@ -67,14 +67,12 @@
 
             </ul>
         </div>
-        <div class="section twitter">
-            <a class="twitter-timeline" data-height="400"
-                href="https://twitter.com/igiticorp?ref_src=twsrc%5Etfw">Tweets by igiticorp</a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
 
     </div>
     <!-- //SIDEBAR -->
 </div>
 <!-- //content -->
 {% endblock%}
+{% block extra_java %}
+    <script src="{% static 'js/forestry.js' %}"></script>
+{% endblock extra_java %}

@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'rest_framework',
     'django_countries',
+    # HIT COUNT
+    'hitcount'
 ]
 
 MIDDLEWARE = [
@@ -123,13 +125,14 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_FORM_CLASS = SIGNUP_FORM_CLASS
+ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
         'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
         'SCOPE': ['email', 'public_profile'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'AUTH_PARAMS': {'auth_type': 'authenticate'},
         'INIT_PARAMS': {'cookie': True},
         'FIELDS': [
             'id',

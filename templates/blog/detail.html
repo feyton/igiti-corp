@@ -1,13 +1,13 @@
 {% extends 'base.html'%} {% load i18n %}
 {% load static %}
+{% load hitcount_tags %}
 
-
-{% block title%}
+{% block extra_style %}
 <link rel="stylesheet" href="{% static 'style/forestry.css' %}">
-
-
-{% endblock%}
-
+{% endblock extra_style %}
+{% block site_name %}
+{{blog_post.title}}
+{% endblock site_name %}
 
 {%block content%}
 <!-- Content -->
@@ -20,7 +20,7 @@
                 <li><span>Category:</span>&nbsp;{{ blog_post.category }}</li>
                 <li><span>Author:</span>&nbsp;{{blog_post.author}}</li>
                 <li><span>Published:</span>&nbsp;{{ blog_post.pub_date|date }}</li>
-                <!--<li><span>Views:</span>&nbsp;1000</li>-->
+                <li><span>Views:</span>&nbsp;{% get_hit_count for blog_post %}</li>
             </ul>
         </div>
 
@@ -31,8 +31,8 @@
         </div>
         <div class="author">
             <div class="author-image">
-                <img src="{{blog_post.get_author_image}}" alt="">
-                <h1 class="name"><a href="">{{blog_post.author}}</a> </h1>
+                <img src="{{blog_post.get_author_image}}" alt="author image">
+                <h1 class="name"><a href="#author">{{blog_post.author}}</a> </h1>
             </div>
             <div class="info">
 
@@ -41,49 +41,64 @@
                 <br>
                 <ul class="social-author">
                     {% if blog_post.author.telephone%}
-                    <li><a href="https://wa.me/{{ blog_post.author.telephone|safe}}" target="_blank"><i class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a></li>
+                    <li><a href="https://wa.me/{{ blog_post.author.telephone|safe}}" target="_blank"><i
+                                class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a></li>
                     {% endif%}
                     {% if blog_post.author.facebook%}
-                    <li><a href="https://{{ blog_post.author.facebook|safe}}" target="_blank"><i class="fab fa-facebook"></i>&nbsp;Facebook</a></li>
+                    <li><a href="https://{{ blog_post.author.facebook|safe}}" target="_blank"><i
+                                class="fab fa-facebook"></i>&nbsp;Facebook</a></li>
                     {% endif%}
                     {% if blog_post.author.twitter%}
-                    <li><a href="https://{{ blog_post.author.twitter}}" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i>&nbsp;Twitter</a></li>
+                    <li><a href="https://{{ blog_post.author.twitter}}" target="_blank"><i class="fab fa-twitter"
+                                aria-hidden="true"></i>&nbsp;Twitter</a></li>
                     {% endif%}
                 </ul>
 
             </div>
         </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="sidebar single">
-            <div class="section popular">
-                <h2 class="section-title">Popular Posts</h2>
-                {% for i in blog_recent %}
-                <div class="post-popular clearfix">
-
-                    {% if i.image%}
-                    <img src="{{ i.image.url }}" alt="">
-                    {% endif%}
-                    <a href="{{ i.get_absolute_url }}" class="title">
-                        <h4>{{i.title}}</h4>
-                    </a>
-                </div>
-                {% endfor %}
-
-            </div>
-
-            <div class="section topics">
-                <h2 class="section-title">Categories</h2>
-                <ul>
-                    {% for cat in categories%}
-                    <li><a href="{{ cat.get_absolute_url}}">{{cat.title}}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <!-- //SIDEBAR -->
     </div>
-    <!-- //content -->
 
-    {% endblock%}
+    <!-- Sidebar -->
+    <div class="sidebar single">
+        <div class="section search">
+            <h2 class="section-title">Search</h2>
+            <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
+                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|escape}}" id="blog_search">
+            </form>
+        </div>
+        <div class="section popular">
+            <h2 class="section-title">Popular Posts</h2>
+            {% for i in popular_posts %}
+            <div class="post-popular clearfix">
+
+                {% if i.image%}
+                <img src="{{ i.image.url }}" alt="image" aria-hidden="true">
+                {% endif%}
+                <a href="{{ i.get_absolute_url }}" class="title">
+                    <h4>{{i.title}}</h4>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="section topics">
+            <h2 class="section-title">Categories</h2>
+            <ul>
+                {% for cat in categories%}
+                <li><a href="{{ cat.get_absolute_url}}">{{cat.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <!-- //SIDEBAR -->
+</div>
+<!-- //content -->
+
+{% endblock%}
+
+
+{% block extra_java %}
+    <script src="{% static 'js/forestry.js' %}"></script>
+{% endblock extra_java %}
+    

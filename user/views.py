@@ -56,9 +56,9 @@ class AdminView(View):
 class OrderView(View):
     def get(self, *args, **kwargs):
         user = self.request.user
-        # orders = Order.objects.filter(user=user)
+        orders = Order.objects.filter(user=user)
         context = {
-            # 'orders': orders,
+            'orders': orders,
             'active': 'orders'
         }
 

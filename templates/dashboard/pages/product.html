@@ -110,13 +110,13 @@
           <div class="table-full-width table-responsive">
             <table class="table">
               <tbody>
-                
+
                 {% for order in orders %}
-                  
-                  {% if order.ordered and not order.being_delivered %}
-                    
-                  
-                    
+
+                {% if order.ordered and not order.being_delivered %}
+
+
+
                 <tr>
                   <td>
                     <div class="form-check">
@@ -177,12 +177,12 @@
 
               </thead>
               <tbody>
-                
+
                 {% for order in orders %}
-                  
-                
-                  
-                  {% if order.being_delivered %}
+
+
+
+                {% if order.being_delivered %}
                 <tr>
                   <td>
                     {{order.ref_code}}
@@ -192,21 +192,21 @@
                   </td>
                   <td>
                     <ul>
-                      
+
                       {% for item in order.items.all %}
-                        <li>{{ item.item.scientific_name}}</li>
+                      <li>{{ item.item.scientific_name}}</li>
                       {% endfor %}
-                        
+
                     </ul>
                   </td>
                   <td class="text-right">
                     {{order.get_total}}&nbsp;Rwf
                   </td>
-                  </tr>
-                  {% endif %}
-                  
+                </tr>
+                {% endif %}
 
-                  {% endfor %}
+
+                {% endfor %}
 
               </tbody>
             </table>
@@ -258,17 +258,18 @@
 
                   </td>
                   <td class="text-right">
-                    
+
                     {% if product.discount_price %}
-                      <del>{{product.price|intcomma}}</del> &nbsp;{{product.discount_price|intcomma}}&nbsp;Rwf
+                    <del>{{product.price|intcomma}}</del> &nbsp;{{product.discount_price|intcomma}}&nbsp;Rwf
                     {% else %}
-                      
+
                     {{product.price|intcomma}}&nbsp;Rwf
                     {% endif %}
                   </td>
 
                   <td class="text-right">
-                    <a href="{{ product.edit_url}}">Edit</a> or <a href="{{ product.delete_url}}">Delete</a>
+                    <a href="{{ product.edit_url}}">Edit</a> or <a href="{{ product.delete_url}}" class="delete_product"
+                      data-product="{{ product.id}}">Delete</a>
 
 
                   </td>
@@ -284,7 +285,8 @@
               </tbody>
             </table>
           </div>
-          <button class="btn btn-primary" id="add-product" data-toggle="modal" data-target="#addProduct">Add Product</button>
+          <button class="btn btn-primary" id="add-product" data-toggle="modal" data-target="#addProduct">Add
+            Product</button>
         </div>
       </div>
     </div>
@@ -434,6 +436,8 @@
   </div>
 </div>
 
+
+
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
@@ -446,7 +450,6 @@
   $(document).ready(function () {
     // Javascript method's body can be found in assets/js/demos.js
     demo.initDashboardPageCharts();
-
   });
 </script>
 

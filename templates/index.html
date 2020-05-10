@@ -1,17 +1,20 @@
-
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
 
-{% block title%}
+{% block extra_style %}
 <link rel="stylesheet" href="{% static 'style/store.css' %}">
 
-{% endblock%}
+{% endblock extra_style %}
+
+{% block site_name %}
+Home
+{% endblock site_name %}
 
 
 {% block content %}
 
-	<!-- bootsrap carousel -->
+<!-- bootsrap carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -20,28 +23,28 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{% static 'images/slide1.jpg' %}" class="d-block w-100" alt="...">
+            <img src="{% static 'images/slide1.jpg' %}" class="d-block w-100" alt="slide_image1">
             <div class="carousel-caption d-none d-md-block">
                 <h5>You want to explore the forest. Don't miss out!</h5>
                 {%if not user.is_authenticated%}
                 <p>We will take you to the place you will like the most. Create account and join us.</p>
-                <a href="/login">Create account| Log In</a>
+                <a href="{% url 'account_login' %}">Create account| Log In</a>
                 {% else%}
                 <p>Thank You for creating the account.</p>
-                <a href="{% url 'update-profile' %}">Update profile</a>
+                <a href="{% url 'update-profile' %}">Update your profile</a>
                 {% endif %}
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{% static 'images/slide2.jpg' %}" class="d-block w-100" alt="...">
+            <img src="{% static 'images/slide2.jpg' %}" class="d-block w-100" alt="slide_image2">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Welcome to Igiti Corp</h5>
                 <p>Visit our library and get the best out of our website. Don't forget calculators.</p>
-                <a href="/forestry">Visit our Library</a>
+                <a href="{% url 'forestry:list' %}">Visit our Library</a>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{% static 'images/slide3.jpg' %}" class="d-block w-100" alt="...">
+            <img src="{% static 'images/slide3.jpg' %}" class="d-block w-100" alt="slide_image3">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Check out our store for seeds and seedlings.</h5>
                 <p>Order seeds or seedlings and get them delivered to your desired place.</p>
@@ -61,79 +64,82 @@
 
 <!-- end of carousel -->
 
-	<!-- Our services -->
-	<div class="intro">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="intro_container">
-						<div class="row">
+<!-- Our services -->
+<div class="intro">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="intro_container">
+                    <div class="row">
 
-							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static 'images/mountain.svg' %}" alt="service"></div>
-									<div class="intro_content">
-										<div class="intro_title">Top Choices</div>
-										<div class="intro_subtitle">
-											<p>We got you covered on each category of forestry information.</p>
-										</div>
-									</div>
-								</div>
-							</div>
+                        <!-- Intro Item -->
+                        <div class="col-lg-4 intro_col">
+                            <div class="intro_item d-flex flex-row align-items-end justify-content-start">
+                                <div class="intro_icon"><img src="{% static 'images/mountain.svg' %}" alt="service">
+                                </div>
+                                <div class="intro_content">
+                                    <div class="intro_title">Top Choices</div>
+                                    <div class="intro_subtitle">
+                                        <p>We got you covered on each category of forestry information.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static 'images/envelope.png' %}" alt="service"></div>
-									<div class="intro_content">
-										<div class="intro_title">The Best Services</div>
-										<div class="intro_subtitle">
-											<p>We are always looking forward to
-												make best out of your time</p>
-										</div>
-									</div>
-								</div>
-							</div>
+                        <!-- Intro Item -->
+                        <div class="col-lg-4 intro_col">
+                            <div class="intro_item d-flex flex-row align-items-end justify-content-start">
+                                <div class="intro_icon"><img src="{% static 'images/envelope.png' %}" alt="service">
+                                </div>
+                                <div class="intro_content">
+                                    <div class="intro_title">The Best Services</div>
+                                    <div class="intro_subtitle">
+                                        <p>We are always looking forward to
+                                            make best out of your time</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static 'images/shopping-cart.svg' %}" alt="service"></div>
-									<div class="intro_content">
-										<div class="intro_title">Amazing Services</div>
-										<div class="intro_subtitle">
-											<p>We are here for you. Not the other way around.</p>
-										</div>
-									</div>
-								</div>
-							</div>
+                        <!-- Intro Item -->
+                        <div class="col-lg-4 intro_col">
+                            <div class="intro_item d-flex flex-row align-items-end justify-content-start">
+                                <div class="intro_icon"><img src="{% static 'images/shopping-cart.svg' %}"
+                                        alt="service"></div>
+                                <div class="intro_content">
+                                    <div class="intro_title">Amazing Services</div>
+                                    <div class="intro_subtitle">
+                                        <p>We are here for you. Not the other way around.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end of services -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of services -->
 
-		<!-- Popular products -->
-		<div class="destinations" id="destinations">
-			<div class="container">
-				<div class="row">
-					<div class="col text-center">
-						<div class="section_subtitle">Simply high quality tree seeds</div>
-						<div class="section_title">
-							<h2>Featured Tree Seeds</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row destinations_row">
-					<div class="col">
-						<div class="destinations_container item_grid">
-						    
-						    <!-- PRODUCT-->
+    <!-- Popular products -->
+    <div class="destinations" id="destinations">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="section_subtitle">Simply high quality tree seeds</div>
+                    <div class="section_title">
+                        <h2>Featured Tree Seeds</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row destinations_row">
+                <div class="col">
+                    <div class="destinations_container item_grid">
 
-							{% for product in seed %}
+                        <!-- PRODUCT-->
+
+                        {% for product in seed %}
 
                         <div class="destination item">
                             <div class="product-grid">
@@ -187,25 +193,26 @@
                         </div>
                         <!-- //Product -->
                         {% endfor %}
-							<!--// END PRODUCT-->
+                        <!--// END PRODUCT-->
 
 
 
 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End popular -->
-		<!-- News -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End popular -->
+    <hr>
+    <!-- News -->
 
-		<div class="news" id="news">
-			<div class="container">
-				<div class="row">
-					<div class="col-xl-8">
-						<div class="news_container">
-						  <div class="col text-center">
+    <div class="news" id="news">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="news_container">
+                        <div class="col text-center">
                             <div class="section_subtitle">Simply Largest Library</div>
                             <div class="section_title">
                                 <h2>Featured Articles</h2>
@@ -214,8 +221,8 @@
                         <br>
                         <br>
 
-							
-							{% for i in blog%}
+
+                        {% for i in blog%}
                         <!-- News Post -->
                         <div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
 
@@ -240,40 +247,41 @@
                         {% endfor%}
                         <!-- //News Post -->
 
-							
-							
-						</div>
-					</div>
 
-					<!-- News Sidebar -->
-					<div class="col-xl-4">
-						<div class="fb-page" data-href="https://www.facebook.com/igiticorp/" data-tabs="" data-width=""
-							data-height="" data-small-header="false" data-adapt-container-width="true"
-							data-hide-cover="false" data-show-facepile="true">
-							<blockquote cite="https://www.facebook.com/igiticorp/" class="fb-xfbml-parse-ignore"><a
-									href="https://www.facebook.com/igiticorp/">Igiti Corp</a></blockquote>
-						</div>
-						<div class="travello" style="background-image: url({%static 'images/seedling.jpg'%});">
-							<div class="background_image"></div>
-							<div class="travello_content">
-								<div class="travello_content_inner">
-									<div></div>
-									<div></div>
-								</div>
-							</div>
-							<div class="travello_container">
-								<a href="{% url 'update-profile' %}">
-									<div class="d-flex flex-column align-items-center justify-content-end">
-										<span class="travello_title">Register Today</span>
-										<span class="travello_subtitle">My Profile</span>
-									</div>
-								</a>
-							</div>
-						</div>
-						</div>
 
-					</div>
-				</div>
-			</div>
-		<!-- End recent posts -->
-		{% endblock %}
+                    </div>
+                </div>
+                <hr>
+
+                <!-- News Sidebar -->
+                <div class="col-xl-4">
+                    <div class="fb-page" data-href="https://www.facebook.com/igiticorp/" data-tabs="" data-width=""
+                        data-height="" data-small-header="false" data-adapt-container-width="true"
+                        data-hide-cover="false" data-show-facepile="true">
+                        <blockquote cite="https://www.facebook.com/igiticorp/" class="fb-xfbml-parse-ignore"><a
+                                href="https://www.facebook.com/igiticorp/">Igiti Corp</a></blockquote>
+                    </div>
+                    <div class="travello" style="background-image: url({%static 'images/seedling.jpg'%});">
+                        <div class="background_image"></div>
+                        <div class="travello_content">
+                            <div class="travello_content_inner">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="travello_container">
+                            <a href="{% url 'update-profile' %}">
+                                <div class="d-flex flex-column align-items-center justify-content-end">
+                                    <span class="travello_title">Register Today</span>
+                                    <span class="travello_subtitle">My Profile</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End recent posts -->
+    {% endblock %}

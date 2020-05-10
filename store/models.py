@@ -98,8 +98,8 @@ class SeedProduct(models.Model):
     # UNIQUE LINK
     slug                    = AutoSlugField(_('slug'), populate_from='scientific_name', unique=True)
     # PROFILE
-    image1                   = models.ImageField(_('image1'),blank=True, null=True, upload_to=photo_path)
-    image2                   = models.ImageField(_('image2'),blank=True, null=True, upload_to=photo_path)
+    image1                   = models.ImageField(_('image1'),blank=True, null=True, upload_to=photo_path, default="default/product_image1.jpg")
+    image2                   = models.ImageField(_('image2'),blank=True, null=True, upload_to=photo_path, default="default/product_image2.jpg")
     plantation_districts    = models.ManyToManyField(District, verbose_name='Plantation districts',blank=True)
 
     # CART DETAILS
@@ -145,11 +145,10 @@ class SeedProduct(models.Model):
 
 
     def get_discount_percent(self):
-        discount = 0
         if self.discount_price:
-            discount = (self.price - self.discount_price) * 100 / self.discount_price
+            discount = (self.price - self.discount_price) * 100 / self.price
             return int(discount)
-        return discount
+        return 0
         
     def download_pdf_url(self):
         return reverse('store:download-pdf', kwargs={'slug': self.slug})
@@ -157,6 +156,8 @@ class SeedProduct(models.Model):
     def edit_url(self):
         return reverse('store:edit_product', kwargs={'pk': self.id})
 
+    def delete_url(self):
+        return reverse('store:delete_product', kwargs={'pk': self.id})
 
         
         

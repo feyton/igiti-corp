@@ -16,6 +16,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('store/', include(('store.urls', 'store'), namespace='store')),
     path('dashboard/', Dashboard.as_view(), name='profile'),
+    path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
 ]
 
 

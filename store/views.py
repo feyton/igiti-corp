@@ -1,5 +1,6 @@
 import random
 import string
+from django.http import JsonResponse
 
 import stripe
 from django.conf import settings
@@ -74,6 +75,7 @@ def is_valid_form(values):
         if field == '':
             valid = False
     return valid
+
 
 @method_decorator(login_required, name='dispatch')
 class CheckoutView(View):
@@ -150,7 +152,7 @@ class CheckoutView(View):
                         'last_name')
                     # shipping_zip = form.cleaned_data.get('shipping_zip')
 
-                    if is_valid_form([first_name,last_name, shipping_street_address, shipping_country, shipping_city, shipping_district]):
+                    if is_valid_form([first_name, last_name, shipping_street_address, shipping_country, shipping_city, shipping_district]):
                         shipping_address = Address(
                             user=self.request.user,
                             street_address=shipping_street_address,
@@ -228,8 +230,6 @@ class CheckoutView(View):
                             billing_address.default = True
                             billing_address.save()
 
-                    
-
                 payment_option = form.cleaned_data.get('payment_option')
 
                 if payment_option == 'S':
@@ -247,12 +247,14 @@ class CheckoutView(View):
             messages.warning(self.request, "You do not have an active order")
             return redirect("store:order-summary")
 
+
 @method_decorator(login_required, name='dispatch')
 class PaymentView(View):
     def get(self, *args, **kwargs):
         payment_option = kwargs['payment_option']
         if payment_option == 'stripe':
-            messages.info(self.request, 'Sorry, we do not accept payment with stripe yet.')
+            messages.info(
+                self.request, 'Sorry, we do not accept payment with stripe yet.')
             return redirect('home')
             # order = Order.objects.get(user=self.request.user, ordered=False)
             # if order.shipping_address:
@@ -281,7 +283,8 @@ class PaymentView(View):
             #         self.request, "You have not added a shipping address")
             #     return redirect("store:checkout")
         elif payment_option == 'momopay':
-            messages.info(self.request, 'Sorry, we do not accept MOMO PAY yet.')
+            messages.info(
+                self.request, 'Sorry, we do not accept MOMO PAY yet.')
             return redirect('home')
 
     def post(self, *args, **kwargs):
@@ -434,6 +437,7 @@ class HomeView(ListView):
 
         return context
 
+
 @method_decorator(login_required, name='dispatch')
 class OrderSummaryView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
@@ -452,41 +456,56 @@ class SeedProductDetailView(DetailView):
     model = SeedProduct
     template_name = "store/product.html"
     context_object_name = 'product'
-    
+
     def get_context_data(self, **kwargs):
         context = super(SeedProductDetailView, self).get_context_data(**kwargs)
         context['related'] = SeedProduct.objects.filter(available=True)
-        context['new_products'] = SeedProduct.objects.filter(available=True).order_by('-created_on')[:5]
+        context['new_products'] = SeedProduct.objects.filter(
+            available=True).order_by('-created_on')[:5]
         return context
 
 
 @login_required
 def add_to_cart(request, slug):
+    get_quantity = request.GET.get('quantity')
+    try:
+        quantity = int(get_quantity)
+    except TypeError as e:
+        quantity = 1
     item = get_object_or_404(SeedProduct, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
         item=item,
         user=request.user,
         ordered=False
     )
+    print(quantity)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         # check if the order item is in the order
         if order.items.filter(item__slug=item.slug).exists():
+            if order_item.quantity >= 9:
+                messages.error(
+                    request, 'Maximun allowed order quantity is 9 Kg')
+                return redirect("store:order-summary")
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, "This item quantity was updated.")
+            messages.info(request, "Item quantity was updated.")
             return redirect("store:order-summary")
         else:
+            order_item.quantity = quantity
+            order_item.save()
             order.items.add(order_item)
             messages.info(request, "This item was added to your cart.")
             return redirect("store:order-summary")
     else:
+        order_item.quantity = quantity
+        order_item.save()
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-        messages.info(request, "This item was added to your cart.")
+        messages.success(request, "Item added to your cart.")
         return redirect("store:order-summary")
 
 
@@ -557,6 +576,7 @@ def get_coupon(request, code):
         messages.info(request, "This coupon does not exist")
         return redirect("store:checkout")
 
+
 @method_decorator(login_required, name='dispatch')
 class AddCouponView(View):
     def post(self, *args, **kwargs):
@@ -573,6 +593,7 @@ class AddCouponView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "You do not have an active order")
                 return redirect("store:checkout")
+
 
 @method_decorator(login_required, name='dispatch')
 class RequestRefundView(View):
@@ -622,7 +643,7 @@ def generate_card(request, slug):
 def download_pdf(request, slug):
     item = get_object_or_404(SeedProduct, slug=slug)
     if item:
-        context ={
+        context = {
             'item': item
         }
         template_name = 'store/card_pdf.html'
@@ -633,3 +654,35 @@ def download_pdf(request, slug):
         messages.info(request, 'This product does not exist')
         return redirect('home')
 
+@login_required
+def delete_product(request, pk):
+    product = SeedProduct.objects.get(id=pk)
+    name = product.scientific_name
+
+    product.available = False
+    product.save()
+
+    messages.info(request, '{} - Was deleted from your database'.format(name))
+    return redirect('product')
+
+def order_detail(request, pk):
+    order = get_object_or_404(Order, id=pk)
+    if order:
+        order_exist = True
+        # order_tems = list(order.items.all().values())
+        total = order.get_total()
+        data = {
+            # 'items': order_tems,
+            'total': total,
+            'id': order.id
+        }
+        return JsonResponse(data)
+    else:
+        order_exist = False
+    
+        data = {
+            'id': 1,
+            'items': 3,
+            'order': order_exist,
+        }
+        return JsonResponse(data)

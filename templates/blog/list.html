@@ -2,15 +2,13 @@
 {% load static %}
 
 
-{% block title%}
+{% block extra_style %}
 <link rel="stylesheet" href="{% static 'style/forestry.css' %}">
+{% endblock extra_style %}
 
-<!-- SLICK SCRIPTS -->
-<script src="{% static 'plugins/slick.min.js' %}"></script>
-<!-- <script src="{% static 'plugins/slick.js' %}"></script> -->
-<script src="{% static 'style/script.js' %}"></script>
-
-{% endblock%}
+{% block site_name %}
+Forestry
+{% endblock site_name %}
 
 
 {%block content%}
@@ -67,7 +65,7 @@
                         class="fa fa-chevron-left"></i></a></li>
             {% endif %}
             {% blocktrans with num=page_obj.number num_pages=page_obj.paginator.num_pages %}
-            <li class="active_page"><a >{{ num }}</a></li>
+            <li class="active_page"><a>{{ num }}</a></li>
             {% endblocktrans %}
             {% if page_obj.has_next %}
             <li><a href="{% url 'forestry:list' %}?page={{ page_obj.next_page_number }}"><i
@@ -83,8 +81,8 @@
     <div class="sidebar">
         <div class="section search">
             <h2 class="section-title">Search</h2>
-            <form action="{% url 'forestry:search' %}" method="get">
-                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|safe}}">
+            <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
+                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|escape}}" id="blog_search">
             </form>
         </div>
 
@@ -107,11 +105,12 @@
 </div>
 <!-- //content -->
 {% endblock%}
-{% block footer %}
-    <script src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+{% block extra_java %}
+<script src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{% static 'plugins/slick.min.js' %}"></script>
 <!-- <script src="{% static 'plugins/slick.js' %}"></script> -->
 <script src="{% static 'style/script.js' %}"></script>
 
-{% endblock%}
+<script src="{% static 'js/forestry.js' %}"></script>
 
+{% endblock extra_java%}

@@ -96,14 +96,13 @@
 					{% endif %}
 					<!-- // Species properties -->
 					<div class="row">
-						<form action="{{ product.get_add_to_cart_url}}">
-							{% csrf_token %}
+						<form action="{{ product.get_add_to_cart_url}}" >
 							<div class="quantity buttons_added" data-children-count="1"><a href="javascript:void(0)"
-									class="minus">-</a>
+									class="minus" id="remove_quantity">-</a>
 								<input type="text" id="quantity_5ea093f3a2b82" class="input-text qty text" step="1"
-									min="1" max="" name="quantity" value="1" title="Qty" size="4" placeholder=""
+									min="1" max="9" name="quantity" value="1" title="Qty" size="4" placeholder=""
 									inputmode="numeric">
-								<a href="" class="plus">+</a>
+								<a href="javascript:void(0)" class="plus" id="add_quantity">+</a>
 							</div>
 							<input type="submit" value="Add to Cart" class="add-cart">
 						</form>
@@ -207,5 +206,6 @@
 
 
 {% block extra_java %}
+<script src="/static/js/store.js"></script>
 
 {% endblock extra_java %}

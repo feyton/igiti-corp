@@ -1,5 +1,7 @@
 {% extends 'dashboard/layouts/base.html' %}
 {% load widget_tweaks %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block title %} Profile Page {% endblock title %}
 
@@ -124,9 +126,6 @@
                 {{ request.user.get_full_name }}
               </h5>
             </a>
-            <p class="description">
-              {{ request.user.email }}
-            </p>
           </div>
           <p class="description text-center">
             {{ profile.biography}}
@@ -135,14 +134,18 @@
         <hr>
         <div class="button-container">
           <h6>Connect</h6>
-          <a href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <a href="{% provider_login_url "facebook" method="js_sdk" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-info">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+          <a href="{% provider_login_url "twitter" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-info">
             <i class="fab fa-twitter"></i>
           </a>
-          <a href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-            <i class="fab fa-google-plus-g"></i>
+          <a href="{% provider_login_url "google" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-info">
+            <i class="fab fa-google"></i>
+          </a>
+          <h6>Disconnect</h6>
+          <a href="{% provider_login_url "google" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-danger">
+            <i class="fab fa-google"></i>
           </a>
         </div>
         <hr>
@@ -175,9 +178,9 @@
     });
     $("#image-clear_id").change(function () {
       if (this.checked) {
-        $('#image_input').hide()
+        $('#image_input').hide(2000);
       } else {
-        $('#image_input').show()
+        $('#image_input').show(2000)
       }
     });
     $('#account_delete').click(function () {

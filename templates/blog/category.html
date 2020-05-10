@@ -2,16 +2,23 @@
 {% load static %}
 
 
-{% block title%}
+{% block extra_style%}
 <link rel="stylesheet" href="{% static 'style/forestry.css' %}">
 
-{% endblock%}
+{% endblock extra_style%}
 
+{% block site_name %}
+    {{ category.title}}
+{% endblock site_name %}
+    
+
+{% block facebook %}
+    
+{% endblock facebook %}
+    
 
 {% block content %}
-    
-
-    
+        
 <!-- Content -->
 <div class="content clearfix">
     <div class="main-content">
@@ -39,8 +46,8 @@
     <div class="sidebar">
         <div class="section search">
             <h2 class="section-title">Search</h2>
-            <form action="{% url 'forestry:search' %}" method="get">
-                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|safe}}">
+            <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
+                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|safe}}" id="blog_search">
             </form>
         </div>
 
@@ -63,3 +70,7 @@
 </div>
 <!-- //content -->
 {% endblock%}
+
+{% block extra_java %}
+    <script src="{% static 'js/forestry.js' %}"></script>
+{% endblock extra_java %}
