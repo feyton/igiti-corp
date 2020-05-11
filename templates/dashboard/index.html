@@ -12,10 +12,19 @@
 {% block content %}
 
 <!-- End Navbar -->
+
+{% if user.is_staff %}
+
 <div class="panel-header panel-header-lg">
   <canvas id="bigDashboardChart"></canvas>
 </div>
-
+{% else %}
+<div class="panel-header panel-header-sm">
+  <div class="header text-center">
+    <h3 class="title mt-n4">Welcome <span class="text-success">{{user.first_name}}</span></h3>
+  </div>
+</div>
+{% endif %}
 <div class="content">
 
   <div class="row">
@@ -103,32 +112,34 @@
 
 
   <!-- ALL PRODUCTS CARD -->
-  <div class="col-lg-4 col-md-6">
-    <div class="card card-chart">
-      <div class="card-header">
-        <h5 class="card-category">Total Products</h5>
-        <h4 class="card-title">Test</h4>
-        <div class="dropdown">
-          <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret"
-            data-toggle="dropdown">
-            <i class="now-ui-icons loader_gear"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <a class="dropdown-item text-danger" href="#">Remove Data</a>
+  <div class="row">
+    <div class="col-lg-4 col-md-6">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Total Products</h5>
+          <h4 class="card-title">Test</h4>
+          <div class="dropdown">
+            <button type="button" class="btn btn-round btn-outline-default dropdown-toggle btn-simple btn-icon no-caret"
+              data-toggle="dropdown">
+              <i class="now-ui-icons loader_gear"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item text-danger" href="#">Remove Data</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-body" id="js-products" data-url="{% url 'chart-data' %}">
-        <div class="chart-area">
-          <canvas id="testChart"></canvas>
+        <div class="card-body" id="js-products" data-url="{% url 'chart-data' %}">
+          <div class="chart-area">
+            <canvas id="testChart"></canvas>
+          </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <div class="stats">
-          <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+        <div class="card-footer">
+          <div class="stats">
+            <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+          </div>
         </div>
       </div>
     </div>
@@ -139,7 +150,7 @@
     <div class="col-md-6">
       <div class="card  card-tasks">
         <div class="card-header ">
-          <h5 class="card-category">Backend development</h5>
+          <h5 class="card-category">Become more productive</h5>
           <h4 class="card-title">Tasks</h4>
         </div>
         <div class="card-body ">
@@ -256,7 +267,8 @@
                 <!-- //WORKER -->
               </tbody>
             </table>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addWorker"  id="add-worker">Add New worker</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addWorker" id="add-worker">Add New
+              worker</button>
           </div>
         </div>
       </div>
@@ -317,7 +329,7 @@
       <div class="modal-body">
         <form method="post" action=".">
           {% csrf_token %}
-          
+
           {% for field in add_worker_form.fields %}
           <div class="row">
             <div class="col-md-12">
@@ -327,10 +339,10 @@
               </div>
             </div>
           </div>
-            
+
           {% endfor %}
-            
-          
+
+
           <input type="submit" value="Add Worker" class="btn btn-primary">
         </form>
       </div>

@@ -2,10 +2,19 @@
 {% load static %}
 
 
-{% block title%}
+{% block extra_style%}
 <link rel="stylesheet" href="{% static 'style/terms.css' %}">
 {% endblock%}
 
+{% block site_name %}
+    Terms & Conditions
+{% endblock site_name %}
+    
+
+{% block facebook %}
+    
+{% endblock facebook %}
+    
 
 {%block content%}
 
@@ -183,7 +192,7 @@
                     of, any third party rights.</p>
 
                 <h1> Your Privacy</h1>
-                <a href="/privacy">Please read Privacy Policy</a>
+                <a href="{% url 'privacy' %}">Please read Privacy Policy</a>
 
                 <h1>Reservation of Rights</h1>
                 <p>We reserve the right to request that you remove all links or any particular link to our Website.

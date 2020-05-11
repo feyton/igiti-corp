@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, View
 
 from hitcount.views import HitCountDetailView
 
@@ -75,3 +75,4 @@ def search(request):
         'categories': categories
     }
     return render(request, 'blog/search.html', context)
+

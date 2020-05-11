@@ -1,6 +1,5 @@
 import random
 import string
-from django.http import JsonResponse
 
 import stripe
 from django.conf import settings
@@ -8,65 +7,30 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+# PDF GENERATION
+from django.template.loader import get_template
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, View
-# PDF GENERATION
-from django.template.loader import get_template
-from .utils import render_to_pdf
 
 from user.models import UserProfile
 
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
 from .models import *
 from .models import District, SeedProduct
-
+from .utils import render_to_pdf
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 User = get_user_model()
 
 
-class TreeSeedListView(ListView):
-    model = SeedProduct
-    queryset = SeedProduct.objects.filter(available=True)
-    template_name = 'store/store.html'
-    context_object_name = 'tree_seeds'
-    paginate_by = 20  # that is all it takes to add pagination in a Class Based View
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(BlogPostListView, self).get_context_data(**kwargs)
-    #     context['categories'] =  Category.objects.all()
-    #     context['blog_featured'] = BlogPost.objects.filter(featured=True)
-    #     return context
-
-
-class TreeSeedDetailView(DetailView):
-    model = SeedProduct
-    queryset = SeedProduct.objects.filter(available=True)
-    template_name = 'store/product.html'
-    context_object_name = 'product'
-    # print(request)
-
-    def get_context_data(self, **kwargs):
-        context = super(TreeSeedDetailView, self).get_context_data(**kwargs)
-        context['related'] = SeedProduct.objects.filter(available=True)
-        context['districts'] = District.objects.all()
-        return context
-
-
 def create_ref_code():
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
-
-
-def products(request):
-    context = {
-        'items': SeedProduct.objects.all()
-    }
-    return render(request, "products.html", context)
 
 
 def is_valid_form(values):
@@ -82,6 +46,8 @@ class CheckoutView(View):
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
+            if order.items.all().count() == 0:
+                raise ObjectDoesNotExist
             form = CheckoutForm()
             context = {
                 'form': form,
@@ -111,7 +77,7 @@ class CheckoutView(View):
             return render(self.request, "store/checkout.html", context)
         except ObjectDoesNotExist:
             messages.info(self.request, "You do not have an active order")
-            return redirect("store:checkout")
+            return redirect("store:store")
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
@@ -198,7 +164,6 @@ class CheckoutView(View):
                             self.request, "No default billing address available")
                         return redirect('store:checkout')
                 else:
-                    print("User is entering a new billing address")
                     billing_street_address = form.cleaned_data.get(
                         'billing_street_address')
                     billing_city = form.cleaned_data.get(
@@ -295,9 +260,6 @@ class PaymentView(View):
             token = self.request.POST.get('stripeToken')
             save = self.request.POST.get('save')
             use_default = self.request.POST.get('use_default')
-            print(token)
-            print(token)
-            print(order.get_total())
 
             # HANDLING BILLING ADDRESS
             # first_name = form.cleaned_data.get('first_name')
@@ -449,7 +411,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return render(self.request, 'store/order_summary.html', context)
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
-            return redirect("/")
+            return redirect("store:store")
 
 
 class SeedProductDetailView(DetailView):
@@ -478,7 +440,6 @@ def add_to_cart(request, slug):
         user=request.user,
         ordered=False
     )
-    print(quantity)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
@@ -654,6 +615,7 @@ def download_pdf(request, slug):
         messages.info(request, 'This product does not exist')
         return redirect('home')
 
+
 @login_required
 def delete_product(request, pk):
     product = SeedProduct.objects.get(id=pk)
@@ -665,24 +627,48 @@ def delete_product(request, pk):
     messages.info(request, '{} - Was deleted from your database'.format(name))
     return redirect('product')
 
+
 def order_detail(request, pk):
     order = get_object_or_404(Order, id=pk)
     if order:
         order_exist = True
-        # order_tems = list(order.items.all().values())
+        order_items = order.items.all().count()
+        # all_items = serializers.serialize("json", order_items)
         total = order.get_total()
+        cancel_url = str(order.cancel_url())
         data = {
-            # 'items': order_tems,
+            'items': order_items,
             'total': total,
-            'id': order.id
+            'id': order.id,
+            'cancel': cancel_url
         }
         return JsonResponse(data)
     else:
         order_exist = False
-    
+
         data = {
             'id': 1,
             'items': 3,
             'order': order_exist,
         }
         return JsonResponse(data)
+
+
+def cancel_order(request, pk):
+    order = get_object_or_404(Order, id=pk)
+    if order:
+        if order.payment is not None and not order.received:
+            messages.warning(request, 'You can not cancel an active order')
+            return redirect('orders')
+        elif order.refund_requested and not order.refund_granted:
+            messages.error(request, 'Wait for refund processing')
+            return redirect('orders')
+        elif order.being_delivered and not order.received:
+            messages.error(request, 'Wait for order completion')
+            return redirect('orders')
+        else:
+            order.ordered=False
+            order_reference = order.ref_code
+            order.delete()
+            messages.success(request, f'Order with ref code {order_reference} has been cancelled and deleted')
+            return redirect('orders')

@@ -3,7 +3,7 @@
 
 {% load static %}
 
-{% block title %}
+{% block extra_style %}
 <style>
   #stripeBtnLabel {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -99,7 +99,12 @@
   }
 </style>
 <link rel="stylesheet" href="{% static 'checkout/cart.css' %}" class="css">
-{% endblock title %}
+{% endblock extra_style %}
+
+{% block site_name %}
+  Payment
+{% endblock site_name %}
+  
 
 {% block content %}
 

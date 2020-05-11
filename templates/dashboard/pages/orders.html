@@ -34,9 +34,6 @@
                 <th class="text-right">
                   Total Amount
                 </th>
-                <th class="text-center">
-                  Action
-                </th>
               </thead>
               <tbody>
 
@@ -53,25 +50,9 @@
                     {{order.ordered}}
                   </td>
                   <td class="text-right">
-                    {{order.get_total|intcomma}}&nbsp;Rwf
+                    <strong>{{order.get_total|intcomma}}&nbsp;Rwf</strong>
                   </td>
 
-
-
-                  <td class="text-right">
-                    {% if order.being_delivered %}
-                    Delivered (<a href="">Cancel</a> )
-                    {% elif order.received %}
-                    Completed(<a href="">File Refund</a> )
-                    {% elif not order.ordered and not order.received %}
-                    PAY <a href="{% url 'store:payment' payment_option='momopay'%}">MOMO</a> or <a
-                      href="{% url 'store:payment' payment_option='stripe'%}">STRIPE</a>
-                    {% else %}
-                    <a href="{% url 'store:checkout' %}" class="btn btn-default">Checkout</a>
-
-                    {% endif %}
-
-                  </td>
                   {% empty %}
                   <td colspan="3" class="text-center">No order yet</td>
                   <td colspan="2" class="text-center"><a href="{% url 'store:store' %}" class="btn btn-primary">Go
@@ -93,7 +74,7 @@
 
 <!-- ORDER DETAIL -->
 <div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="order_detail" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Order Detail</h5>
@@ -103,21 +84,51 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6">
-            <div class="order_id">
-              <p class="order_id_p">Order_Id: <span class="order_detail_id">3</span></p>
-            </div>
+          <div class="col-sm-4">
+            <p class="order_id_p">Order_Id: </p>
+          </div>
+          <div class="col-sm-8 font-weight-bold">
+            <p class="order_detail_id">None</p>
           </div>
         </div>
-        Hey
-      </div>
-      <div class="modal-footer">
         <div class="row">
-          <div class="col-md-12 text-center">
-            Igiti Corp
+          <div class="col-sm-4">
+            <p class="order_total_p">Order Total(Rwf): </p>
           </div>
-
+          <div class="col-sm-8 font-weight-bold">
+            <p class="order_total_amount">None</p>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="total_items">Total Items: </p>
+          </div>
+          <div class="col-sm-8 font-weight-bold">
+            <p class="total_items_count">1</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="delivered">Being Delivered: </p>
+          </div>
+          <div class="col-sm-8 font-weight-bold text-info">
+            <p class="delivered_status">False</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <p class="received">Order Received:</p>
+          </div>
+          <div class="col-sm-8 font-weight-bold text-info">
+            <p class="received_status">False</p>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="button-container m-auto">
+          <a href="{% url 'store:checkout' %}" class="btn btn-primary">Checkout</a>
+          <a href="" class="btn btn-danger" id="cancel_order">Cancel Order</a>
+        
       </div>
     </div>
   </div>
@@ -128,5 +139,5 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-  <script src="/static/js/order.js"></script>
+<script src="/static/js/order.js"></script>
 {% endblock javascripts %}

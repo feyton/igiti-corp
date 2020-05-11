@@ -376,7 +376,6 @@ header ul li:hover ul {
 {
 	width: calc(100% + 30px);
     left: -15px;
-    border-bottom: solid 5px #e4e6e8;
 }
 .destination
 {

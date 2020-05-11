@@ -1,7 +1,8 @@
 import os
 from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 PUBLIC_ROOT = '/home/igityopp/notes.igiti.co.rw/'
 
 # Application definition
@@ -15,7 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.humanize',
-    
+
     # AllAuth
     'allauth',
     'allauth.account',
@@ -29,7 +30,7 @@ INSTALLED_APPS = [
     'user',
     'forestry',
     'store',
-    
+
     # CK Editor
     'ckeditor',
     'ckeditor_uploader',
@@ -79,14 +80,18 @@ LOGOUT_URL = 'account_logout'
 LOGIN_REDIRECT_URL = 'home'
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
- 
+
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
- 
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': None,
     },
+    
 }
 
 
@@ -110,7 +115,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-# All Auth SETTINGS 
+# All Auth SETTINGS
 SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
@@ -125,7 +130,10 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_FORM_CLASS = SIGNUP_FORM_CLASS
-ACCOUNT_USER_DISPLAY = lambda user: user.get_full_name()
+
+
+def ACCOUNT_USER_DISPLAY(user): return user.get_full_name()
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
@@ -145,7 +153,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'updated_time',
         ],
         'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request:'en_US',
+        'LOCALE_FUNC': lambda request: 'en_US',
         'VERIFIED_EMAIL': False,
         'VERSION': 'v2.12',
     },
@@ -159,5 +167,4 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
 

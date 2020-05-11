@@ -3,8 +3,7 @@
 {% load humanize %}
 
 {% block site_name %}
-<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
-<title>Igiti Corp | {{ item.scientific_name}}</title>
+{{ item.scientific_name}}
 {% endblock site_name %}
 
 
@@ -70,8 +69,6 @@
 
                         {% for district in item.plantation_districts.all %}
 
-
-
                         <tr>
                             <td>
                                 {{district.name}}
@@ -86,9 +83,6 @@
                 <h3 class="title-content">Storage Guide</h3>
 
                 {% if item.seed_type %}
-
-
-
                 <p>This storage guide is pureley bsed on the seed type of <strong>{{ item.scientific_name}}</strong>
                     which is <strong>{{item.seed_type.get_name_display}}</strong></p>
                 <p>
@@ -107,15 +101,13 @@
                 </p>
                 {{ item.seed_type.overview|safe}}
                 {% else %}
-                <p>Not available as of Today {% now 'F d Y' %}</p>
+                <p class="font-weight-bold">Not available as of Today {% now 'F d Y' %}</p>
                 {% endif %}
                 <h3 class="title-content">Seed pre-treatment</h3>
 
                 {% if item.pre_treatment %}
 
-                
-
-                <p class="treatment">{{item.pre_treatment.title}}</p>
+                <p class="treatment font-weight-bold">{{item.pre_treatment.title}}</p>
                 <p class="process">
                     {{item.pre_treatment.process|safe}}
                 </p>
@@ -128,7 +120,7 @@
         <div class="row">
             <div class="foot-close">
                 <div class="top">
-                    &copy;{% now "Y" %} - Igiti Corp | Powered by Feyton Inc
+                    &copy;Igiti Corp-{% now "M Y" %} | Powered by Feyton Inc
                 </div>
                 <div class="bottom">
                     <div class="mailing">

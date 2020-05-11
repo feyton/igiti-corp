@@ -2,14 +2,13 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}
+{% block extra_style %}
 <link rel="stylesheet" href="{% static 'checkout/cart.css' %}" class="css">
-{% endblock title %}
+{% endblock extra_style %}
 
 <!-- PAGE STYLE -->
 {% block site_name %}
-<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
-<title>Cart | Store</title>
+    Cart
 {% endblock site_name %}
 
 {% block content %}

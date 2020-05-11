@@ -3,15 +3,14 @@
 {% load humanize %}
 
 
-{% block title %}
+{% block extra_style %}
 <link rel="stylesheet" href="{% static 'style/store.css' %}">
 <link rel="stylesheet" href="{% static 'style/store/product.css' %}" class="css">
-{% endblock title %}
+{% endblock extra_style %}
 <!-- icon and site title -->
 
 {% block site_name %}
-<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
-<title>Igiti Corp| {{product.scientific_name}}</title>
+{{product.scientific_name}}
 {% endblock site_name %}
 
 
@@ -64,11 +63,12 @@
 				</div>
 				<div class="col-md-6">
 					<div class="row">
-						<h2>{{ product.scientific_name}}</h2>
+						<h2 class="font-italic">{{ product.scientific_name}}</h2>
 					</div>
 					<div class="row">
-					    {% if product.discount_price %}
-						<h1 class="price"> <del>{{ product.price|intcomma}}</del> &nbsp;{{ product.discount_price}} Rwf</h1>
+						{% if product.discount_price %}
+						<h1 class="price"> <del>{{ product.price|intcomma}}</del> &nbsp;{{ product.discount_price}} Rwf
+						</h1>
 						{% else %}
 						<h1 class="price">{{ product.price|intcomma}} Rwf</h1>
 						{% endif%}
@@ -76,7 +76,8 @@
 					<!-- Species properties -->
 					{% if product.seeds_kg %}
 					<div class="row">
-						<p><i class="text-success fa fa-check-square"></i> <strong>Seeds/Kg:</strong> {{ product.seeds_kg|intcomma}}
+						<p><i class="text-success fa fa-check-square"></i> <strong>Seeds/Kg:</strong>
+							{{ product.seeds_kg|intcomma}}
 							Seeds
 						</p>
 					</div>
@@ -90,13 +91,14 @@
 					{% endif %}
 					{% if product.seed_type %}
 					<div class="row">
-						<p><i class="text-success fa fa-check-square"></i> <strong>Seeds type:</strong> {{ product.seed_type.get_name_display|safe}}
+						<p><i class="text-success fa fa-check-square"></i> <strong>Seeds type:</strong>
+							{{ product.seed_type.get_name_display|safe}}
 						</p>
 					</div>
 					{% endif %}
 					<!-- // Species properties -->
 					<div class="row">
-						<form action="{{ product.get_add_to_cart_url}}" >
+						<form action="{{ product.get_add_to_cart_url}}">
 							<div class="quantity buttons_added" data-children-count="1"><a href="javascript:void(0)"
 									class="minus" id="remove_quantity">-</a>
 								<input type="text" id="quantity_5ea093f3a2b82" class="input-text qty text" step="1"
@@ -128,7 +130,7 @@
 
 		<div class="section topics">
 			<h2 class="section-title text-center">What's new!!!</h2>
-			
+
 			{% for product in new_products %}
 
 			<div class="post-popular clearfix">
@@ -144,7 +146,7 @@
 
 			</div>
 			{% endfor %}
-			
+
 
 		</div>
 
@@ -156,33 +158,34 @@
 	<h1 class="title related">Related Products</h1>
 	<!-- Product -->
 	{% for item in related %}
-	
+
 	<div class="destination item">
 		<div class="product-grid">
 			<div class="product-image">
 				<a href="">
-					
+
 					{% if item.image1 %}
-	
+
 					<img class="pic-1" src="{{item.image1.url}}" alt="{{item.scientific_name}} image">
 					{% endif %}
-					
+
 					{% if item.image2 %}
 					<img class="pic-2" src="{{item.image2.url}}" alt="{{item.scientific_name}} image">
 					{% endif %}
 				</a>
-				
+
 				{% if item.recommended %}
-					
+
 				<span class="product-trend-label">RECOMMENDED</span>
 				{% endif %}
-				
+
 				{% if item.discount_price %}
-	
+
 				<span class="product-discount-label">{{ item.get_discount_percent}}%</span>
 				{% endif %}
 				<ul class="image-link">
-					<li><a data-tip="Add to Cart" href="{{ item.get_add_to_cart_url}}"><i class="fa fa-shopping-cart"></i></a></li>
+					<li><a data-tip="Add to Cart" href="{{ item.get_add_to_cart_url}}"><i
+								class="fa fa-shopping-cart"></i></a></li>
 					<li><a data-tip="Wishlist" href="#"><i class="fa fa-heart"></i></a></li>
 					<li><a data-tip="Compare" href="#"><i class="fa fa-random"></i></a></li>
 					<li><a data-tip="Quick View" href="{{ item.get_absolute_url}}"><i class="fa fa-search"></i></a></li>

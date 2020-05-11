@@ -8,10 +8,9 @@ from django.views.generic import View
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from store.forms import AddProductForm
 from store.models import Address, Order, SeedProduct
-
+from forestry.models import BlogPost
 from .decorators import staff_only
 from .forms import (CreateUserForm, UpdateAddressForm, UpdateProfileForm,
                     UpdateUserForm)
@@ -56,11 +55,20 @@ class AdminView(View):
 class OrderView(View):
     def get(self, *args, **kwargs):
         user = self.request.user
-        orders = Order.objects.filter(user=user)
         context = {
-            'orders': orders,
             'active': 'orders'
         }
+        try:
+            orders = Order.objects.filter(user=user)
+            for order in orders:
+                if order.items.all().count() == 0:
+                    order.delete()
+            context = {
+                'orders': orders,
+                'active': 'orders'
+            }
+        except Exception:
+            pass
 
         return render(self.request, 'dashboard/pages/orders.html', context)
 
@@ -205,3 +213,18 @@ class ChartData(APIView):
         }
 
         return Response(data)
+
+@method_decorator(staff, name='dispatch')
+class BlogPostDashboardView(View):
+    def get(self, *args, **kwargs):
+        posts = BlogPost.objects.all()
+        template_name = 'dashboard/pages/blog.html'
+        context = {
+            'active': 'blog',
+            'posts': posts
+        }
+        return render(self.request, template_name, context)
+
+    def post(self, *args, **kwargs):
+        pass
+

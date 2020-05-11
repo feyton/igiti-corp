@@ -258,6 +258,8 @@ class Order(models.Model):
     def order_detail_url(self):
         return reverse('store:order-detail', kwargs={'pk': self.id})
 
+    def cancel_url(self):
+        return reverse('store:cancel-order', kwargs={'pk': self.id})
 
 
 class Address(models.Model):

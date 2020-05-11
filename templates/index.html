@@ -183,7 +183,7 @@ Home
                                     </ul>
                                 </div>
                                 <div class="product-content">
-                                    <h3 class="title"> <a
+                                    <h3 class="title font-italic"> <a
                                             href="{{product.get_absolute_url}}">{{ product.scientific_name}}</a> </h3>
                                     <div class="price">Rwf {{ product.price|intcomma}}</div>
                                 </div>
@@ -194,9 +194,6 @@ Home
                         <!-- //Product -->
                         {% endfor %}
                         <!--// END PRODUCT-->
-
-
-
 
                     </div>
                 </div>
@@ -273,7 +270,6 @@ Home
                             <a href="{% url 'update-profile' %}">
                                 <div class="d-flex flex-column align-items-center justify-content-end">
                                     <span class="travello_title">Register Today</span>
-                                    <span class="travello_subtitle">My Profile</span>
                                 </div>
                             </a>
                         </div>

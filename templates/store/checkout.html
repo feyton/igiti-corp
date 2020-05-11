@@ -2,26 +2,21 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}
+{% block extra_style %}
 <!-- PAGE STYLE -->
 <link rel="stylesheet" href="{% static 'style/store/checkout-form.css' %}" class="css">
-{% endblock title %}
-
-
+{% endblock extra_style %}
 
 {% block site_name %}
-<!-- icon and site title -->
-<link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
-<title>Check-Out Form | Igiti Corp</title>
+Check-Out Form
 {% endblock site_name %}
 
 
+{% block facebook %}
 
-
+{% endblock facebook %}
 
 {% block content %}
-
-
 
 <main class="page">
     <section class="shopping-cart dark">
@@ -42,27 +37,36 @@
                                         <h1>Shipping Address Information</h1>
                                     </div> <!-- end of personal-information -->
                                     <div class="shipping">
+                                        <!-- SHIPPING -->
+                                        <div id="shipping_section">
 
-                                        <input id="column-left" type="text" name="first_name"
-                                            placeholder="First Name" value="{{ request.user.first_name}}" />
-                                        <input id="column-right" type="text" name="last_name" placeholder="Surname" value="{{ request.user.last_name}}" />
-                                        <input id="input-field" type="text" name="mobile_number" placeholder="Telephone number"
-                                            title="12-15 Mobile Number Digits" maxlength="15" />
-                                        <input id="column-left" type="text" name="shipping_city" placeholder="City" />
-                                        <input id="column-right" type="text" name="shipping_district"
-                                            placeholder="District" />
-                                        <input id="input-field" type="text" name="shipping_street_address"
-                                            autocomplete="on" maxlength="45" placeholder="Street Address" />
-                                        {{ form.shipping_country}}
+                                            <input id="column-left" type="text" name="first_name"
+                                                placeholder="First Name" value="{{ request.user.first_name}}" />
+                                            <input id="column-right" type="text" name="last_name" placeholder="Surname"
+                                                value="{{ request.user.last_name}}" />
+                                            <input id="input-field" type="text" name="mobile_number"
+                                                placeholder="Telephone number" title="12-15 Mobile Number Digits"
+                                                maxlength="15" />
+                                            <input id="column-left" type="text" name="shipping_city"
+                                                placeholder="City" />
+                                            <input id="column-right" type="text" name="shipping_district"
+                                                placeholder="District" />
+                                            <input id="input-field" type="text" name="shipping_street_address"
+                                                autocomplete="on" maxlength="45" placeholder="Street Address" />
+                                            {{ form.shipping_country}}
 
 
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                name="set_default_shipping" id="set_default_shipping">
-                                            <label class="custom-control-label" for="set_default_shipping">Set
-                                                as default
-                                                address</label>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    name="set_default_shipping" id="set_default_shipping">
+                                                <label class="custom-control-label" for="set_default_shipping">Set
+                                                    as default
+                                                    address</label>
+                                            </div>
                                         </div>
+
+                                        <!-- // SHIPPING -->
+
                                         {% if default_shipping_address%}
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input"
@@ -78,11 +82,11 @@
                                                 address.</label>
                                         </div>
                                     </div>
+                                    <div class="billing" id="billing_section">
+                                        <div class="personal-information">
+                                            <h1>Billing Address Information</h1>
+                                        </div>
 
-                                    <div class="personal-information">
-                                        <h1>Billing Address Information</h1>
-                                    </div>
-                                    <div class="billing">
 
                                         <input id="input-field" type="text" name="billing_street_address"
                                             autocomplete="on" maxlength="45" placeholder="Street Address" />
@@ -100,11 +104,11 @@
                                                 as default billing
                                                 address</label>
                                         </div>
-                                        
+
                                         {% if default_billing_address %}
-                                            
-                                       
-                                            
+
+
+
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input"
                                                 name="use_default_billing" id="use_default_billing">
@@ -126,8 +130,9 @@
                                             <span></span>
                                         </label>
                                         <label for="momo_pay" class="radio">
-                                            <input type="radio" name="payment_option" id="momo_pay" value="M" required><img
-                                                src="{% static 'images/store/mtn_momo.png' %}" alt="momo_pay">
+                                            <input type="radio" name="payment_option" id="momo_pay" value="M"
+                                                required><img src="{% static 'images/store/mtn_momo.png' %}"
+                                                alt="momo_pay">
                                             <span></span>
                                         </label>
                                     </div>
@@ -180,5 +185,20 @@
 
 
 {% block extra_java %}
-
+<script>
+    $("#same_as_billing").change(function () {
+        if (this.checked) {
+            $("#billing_section").hide(1000)
+        } else {
+            $("#billing_section").show(1000)
+        }
+    });
+    $("#use_default_shipping").change(function () {
+        if (this.checked) {
+            $("#shipping_section").hide(1000)
+        } else {
+            $('#shipping_section').show(1000)
+        }
+    })
+</script>
 {% endblock extra_java %}
