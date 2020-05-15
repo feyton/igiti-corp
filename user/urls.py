@@ -14,5 +14,6 @@ urlpatterns = [
     path('profile/', views.UpdateProfileView.as_view(), name='update-profile'),
     path('api/data/', views.get_data, name="get_data"),
     path('api/chart/data', views.ChartData.as_view(), name="chart-data"),
-    path('blog', views.BlogPostDashboardView.as_view(), name="blog-post-dashboard"),
+    path('api/big-chart-data/', views.big_chart_data, name='big-chart-data'),
+    path('nursery/', views.NurseryView.as_view(), name='nursery-view')
 ]

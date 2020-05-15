@@ -1,17 +1,11 @@
-{% extends 'base.html' %}
-{% load static %}
-{% load humanize %}
-
+{% extends 'base.html' %} 
+{% load static %} 
+{% load humanize %} 
 {% block extra_style %}
-<link rel="stylesheet" href="{% static 'style/store.css' %}">
+<link rel="stylesheet" href="{% static 'style/store.css' %}" />
 
-{% endblock extra_style %}
-
-{% block site_name %}
-Home
-{% endblock site_name %}
-
-
+{% endblock extra_style %} 
+{% block site_name %} Home {% endblock site_name %}
 {% block content %}
 
 <!-- bootsrap carousel -->
@@ -23,11 +17,14 @@ Home
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="{% static 'images/slide1.jpg' %}" class="d-block w-100" alt="slide_image1">
+            <img src="{% static 'images/slide1.jpg' %}" class="d-block w-100" alt="slide_image1" />
             <div class="carousel-caption d-none d-md-block">
                 <h5>You want to explore the forest. Don't miss out!</h5>
                 {%if not user.is_authenticated%}
-                <p>We will take you to the place you will like the most. Create account and join us.</p>
+                <p>
+                    We will take you to the place you will like the most. Create account
+                    and join us.
+                </p>
                 <a href="{% url 'account_login' %}">Create account| Log In</a>
                 {% else%}
                 <p>Thank You for creating the account.</p>
@@ -36,18 +33,23 @@ Home
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{% static 'images/slide2.jpg' %}" class="d-block w-100" alt="slide_image2">
+            <img src="{% static 'images/slide2.jpg' %}" class="d-block w-100" alt="slide_image2" />
             <div class="carousel-caption d-none d-md-block">
                 <h5>Welcome to Igiti Corp</h5>
-                <p>Visit our library and get the best out of our website. Don't forget calculators.</p>
+                <p>
+                    Visit our library and get the best out of our website. Don't forget
+                    calculators.
+                </p>
                 <a href="{% url 'forestry:list' %}">Visit our Library</a>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{% static 'images/slide3.jpg' %}" class="d-block w-100" alt="slide_image3">
+            <img src="{% static 'images/slide3.jpg' %}" class="d-block w-100" alt="slide_image3" />
             <div class="carousel-caption d-none d-md-block">
                 <h5>Check out our store for seeds and seedlings.</h5>
-                <p>Order seeds or seedlings and get them delivered to your desired place.</p>
+                <p>
+                    Order seeds or seedlings and get them delivered to your desired place.
+                </p>
                 <a href="{% url 'store:store' %}">Visit store</a>
             </div>
         </div>
@@ -71,16 +73,19 @@ Home
             <div class="col">
                 <div class="intro_container">
                     <div class="row">
-
                         <!-- Intro Item -->
                         <div class="col-lg-4 intro_col">
                             <div class="intro_item d-flex flex-row align-items-end justify-content-start">
-                                <div class="intro_icon"><img src="{% static 'images/mountain.svg' %}" alt="service">
+                                <div class="intro_icon">
+                                    <img src="{% static 'images/mountain.svg' %}" alt="service" />
                                 </div>
                                 <div class="intro_content">
                                     <div class="intro_title">Top Choices</div>
                                     <div class="intro_subtitle">
-                                        <p>We got you covered on each category of forestry information.</p>
+                                        <p>
+                                            We got you covered on each category of forestry
+                                            information.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -89,13 +94,16 @@ Home
                         <!-- Intro Item -->
                         <div class="col-lg-4 intro_col">
                             <div class="intro_item d-flex flex-row align-items-end justify-content-start">
-                                <div class="intro_icon"><img src="{% static 'images/envelope.png' %}" alt="service">
+                                <div class="intro_icon">
+                                    <img src="{% static 'images/envelope.png' %}" alt="service" />
                                 </div>
                                 <div class="intro_content">
                                     <div class="intro_title">The Best Services</div>
                                     <div class="intro_subtitle">
-                                        <p>We are always looking forward to
-                                            make best out of your time</p>
+                                        <p>
+                                            We are always looking forward to make best out of your
+                                            time
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -104,8 +112,10 @@ Home
                         <!-- Intro Item -->
                         <div class="col-lg-4 intro_col">
                             <div class="intro_item d-flex flex-row align-items-end justify-content-start">
-                                <div class="intro_icon"><img src="{% static 'images/shopping-cart.svg' %}"
-                                        alt="service"></div>
+                                <div class="intro_icon">
+                                    <img src="{% static 'images/shopping-cart.svg' %}" alt="service" />
+                                </div>
+
                                 <div class="intro_content">
                                     <div class="intro_title">Amazing Services</div>
                                     <div class="intro_subtitle">
@@ -114,7 +124,6 @@ Home
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -136,7 +145,6 @@ Home
             <div class="row destinations_row">
                 <div class="col">
                     <div class="destinations_container item_grid">
-
                         <!-- PRODUCT-->
 
                         {% for product in seed %}
@@ -147,118 +155,113 @@ Home
                                     <a href="">
                                         {% if product.image1%}
                                         <img class="pic-1" src="{{product.image1.url}}"
-                                            alt="{{ product.scientific_name}}">
+                                            alt="{{ product.scientific_name}}" />
                                         {% else %}
                                         <img class="pic-1" src="{% static 'images/products/destination_1.jpg' %}"
-                                            alt="{{ product.scientific_name}}">
-                                        {%endif%}
-
-                                        {% if product.image2 %}
+                                            alt="{{ product.scientific_name}}" />
+                                        {%endif%} {% if product.image2 %}
                                         <img class="pic-2" src="{{product.image2.url}}"
-                                            alt="{{ product.scientific_name}}">
+                                            alt="{{ product.scientific_name}}" />
                                         {% else %}
                                         <img class="pic-2" src="{% static 'images/products/destination_2.jpg' %}"
-                                            alt="{{ product.scientific_name}}">
+                                            alt="{{ product.scientific_name}}" />
                                         {% endif %}
-
-
                                     </a>
 
                                     {% if product.recommended %}
 
                                     <span class="product-trend-label">RECOMMENDED</span>
-                                    {% endif %}
-
-                                    {% if  product.discount_price%}
+                                    {% endif %} {% if product.discount_price%}
                                     <span class="product-discount-label">{{ product.get_discount_percent}}%</span>
                                     {% endif %}
                                     <ul class="image-link">
-                                        <li><a data-tip="Add to Cart" href="{{product.get_add_to_cart_url}}"><i
+                                        <li>
+                                            <a data-tip="Add to Cart" href="{{product.get_add_to_cart_url}}"><i
                                                     class="fa fa-shopping-cart"></i></a>
                                         </li>
-                                        <li><a data-tip="Wishlist" href=""><i class="fa fa-heart"></i></a></li>
-                                        <li><a data-tip="Compare" href=""><i class="fa fa-random"></i></a></li>
-                                        <li><a data-tip="Quick View" href="{{product.get_absolute_url}}"><i
-                                                    class="fa fa-search"></i></a></li>
+                                        <li>
+                                            <a data-tip="Wishlist" href=""><i class="fa fa-heart"></i></a>
+                                        </li>
+                                        <li>
+                                            <a data-tip="Compare" href=""><i class="fa fa-random"></i></a>
+                                        </li>
+                                        <li>
+                                            <a data-tip="Quick View" href="{{product.get_absolute_url}}"><i
+                                                    class="fa fa-search"></i></a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="product-content">
-                                    <h3 class="title font-italic"> <a
-                                            href="{{product.get_absolute_url}}">{{ product.scientific_name}}</a> </h3>
+                                    <h3 class="title font-italic">
+                                        <a href="{{product.get_absolute_url}}">{{ product.scientific_name}}</a>
+                                    </h3>
                                     <div class="price">Rwf {{ product.price|intcomma}}</div>
                                 </div>
-
                             </div>
-
                         </div>
                         <!-- //Product -->
                         {% endfor %}
                         <!--// END PRODUCT-->
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- End popular -->
-    <hr>
+    <hr />
     <!-- News -->
 
     <div class="news" id="news">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-8">
+            <div class="row mb-2">
+                <div class="col text-center">
+                    <div class="section_subtitle mt-1">Simply the Largest library</div>
+                    <div class="section_title">
+                        <h3>Trending Posts</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-xg-8 col-md-8 col-sm-12">
                     <div class="news_container">
-                        <div class="col text-center">
-                            <div class="section_subtitle">Simply Largest Library</div>
-                            <div class="section_title">
-                                <h2>Featured Articles</h2>
-                            </div>
-                        </div>
-                        <br>
-                        <br>
-
 
                         {% for i in blog%}
                         <!-- News Post -->
                         <div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-
                             <div class="news_post_image">
                                 {% if i.image%}
-                                <img src="{{i.image.url}}" alt="">
+                                <img src="{{i.image.url}}" alt="" height="200px" width="300px" class="rounded" />
                                 {% endif%}
                             </div>
 
                             <div class="news_post_content">
-                                <div class="news_post_title"><a href="{{ i.get_absolute_url}}">{{i.title}}</a></div>
-                                <div class="news_post_category">
-                                    <ul>
-                                        <li><a href="#">{{i.category}}</a></li>
-                                    </ul>
+                                <div class="news_post_title">
+                                    <a href="{{ i.get_absolute_url}}">{{i.title}}</a>
                                 </div>
+
                                 <div class="news_post_text">
-                                    <p>{{i.description|truncatechars:100}}</p>
+                                    <p>{{i.description|truncatechars:100}} </p>
+                                </div>
+                                <div class="button-group">
+                                    <a href="{{i.get_absolute_url}}" class="btn btn-info">Read More</a>
                                 </div>
                             </div>
                         </div>
                         {% endfor%}
                         <!-- //News Post -->
-
-
-
                     </div>
                 </div>
-                <hr>
 
                 <!-- News Sidebar -->
-                <div class="col-xl-4">
+                <div class="col-xl-4 col-md-4 col-sm-12 mt-2">
                     <div class="fb-page" data-href="https://www.facebook.com/igiticorp/" data-tabs="" data-width=""
                         data-height="" data-small-header="false" data-adapt-container-width="true"
                         data-hide-cover="false" data-show-facepile="true">
-                        <blockquote cite="https://www.facebook.com/igiticorp/" class="fb-xfbml-parse-ignore"><a
-                                href="https://www.facebook.com/igiticorp/">Igiti Corp</a></blockquote>
+                        <blockquote cite="https://www.facebook.com/igiticorp/" class="fb-xfbml-parse-ignore">
+                            <a href="https://www.facebook.com/igiticorp/">Igiti Corp</a>
+                        </blockquote>
                     </div>
-                    <div class="travello" style="background-image: url({%static 'images/seedling.jpg'%});">
+                    <div class="travello" style="background-image: url({%static 'images/nursery.jpg'%});">
                         <div class="background_image"></div>
                         <div class="travello_content">
                             <div class="travello_content_inner">
@@ -275,9 +278,9 @@ Home
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
     <!-- End recent posts -->
     {% endblock %}
+</div>

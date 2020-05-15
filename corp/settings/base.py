@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'user',
     'forestry',
     'store',
+    'dashboard',
 
     # CK Editor
     'ckeditor',

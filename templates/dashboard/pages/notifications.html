@@ -1,5 +1,5 @@
 {% extends 'dashboard/layouts/base.html' %}
-
+{% load widget_tweaks %}
 {% block title %} What's New {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
@@ -45,7 +45,8 @@
             <div class="col-md-12">
               <h4 class="title">Manage your nursery</h4>
               <p class="description text-dark">
-                You will be able to manage a nursery using our tools and get real time statistics about nursery performance. 
+                You will be able to manage a nursery using our tools and get real time statistics about nursery
+                performance.
               </p>
               <ul>
                 <li>Add and Remove Tasks</li>
@@ -54,52 +55,67 @@
                 <li>And so much more</li>
               </ul>
             </div>
+            
+            {% if not user.userprofile.is_manager %}
+              
+            <div class="col-md-12">
+              <button class="btn btn-primary" id="signup-manager" data-toggle="modal" data-target="#signupManager">Sign
+                Up As A Manager</button>
+            </div>
+            {% else %}
+            <div class="col-md-12">
+              <a class="btn btn-success" href="{% url 'nursery-view' %}">Try It Out</a>
+            </div>
+            {% endif %}
           </div>
 
 
         </div>
       </div>
     </div>
-    
-    {% if user.is_staff %}
-      
-    
-      
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="places-buttons">
-            <div class="row">
-              <div class="col-md-6 ml-auto mr-auto text-center">
-                <h4 class="card-title">
-                  Subscribe to our weekly newsletter
-                  <form action="/" method="POST">
-                    <div class="row">
-                      <div class="col-md-6 pr-1">
-                        <div class="form-group">
-                          <label>Full name</label>
-                          <input type="text" class="form-control" name="name">
-                        </div>
-                      </div>
-                      <div class="col-md-6 pl-1">
-                        <div class="form-group">
-                          <label>Email</label>
-                          <input type="text" class="form-control" name="email">
-                        </div>
-                      </div>
-                    </div>
-                    <input type="submit" class="btn btn-primary" value="Join Now">
-                  </form>
-                </h4>
+
+
+  </div>
+</div>
+<!-- FORMS -->
+<!-- FORMS -->
+<div class="modal fade" id="signupManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nursery Manager SignUp</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="md-form" action="." enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Your Location</label>
+                {% render_field form.location class="form-control" %}
               </div>
             </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Telephone Number</label>
+                {% render_field form.telephone class="form-control" %}
+              </div>
+            </div>
+          </div>
+
+          <input type="submit" value="Sign Up Now" class="btn btn-info">
+        </form>
       </div>
     </div>
-    {% endif %}
   </div>
 </div>
+
 
 {% endblock content %}
 

@@ -6,19 +6,27 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from rest_framework import authentication, permissions
+from rest_framework.authentication import (BasicAuthentication,
+                                           SessionAuthentication)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from dashboard.forms import AddTaskForm, AddWorker
+from dashboard.models import Task, Workers
+from forestry.models import BlogPost
 from store.forms import AddProductForm
 from store.models import Address, Order, SeedProduct
-from forestry.models import BlogPost
-from .decorators import staff_only
-from .forms import (CreateUserForm, UpdateAddressForm, UpdateProfileForm,
-                    UpdateUserForm)
+
+from .decorators import nursery_manager, staff_only
+from .forms import (CreateUserForm, NurseryManagerRegistration,
+                    UpdateAddressForm, UpdateProfileForm, UpdateUserForm)
 from .models import UserProfile
 
 User = get_user_model()
 
 staff = [login_required, staff_only]
+
 
 def update_data(values):
     update = True
@@ -28,17 +36,38 @@ def update_data(values):
     return update
 
 
-
-@method_decorator(login_required, name='dispatch')
+@method_decorator(staff_only, name='dispatch')
 class Dashboard(View):
     def get(self, *args, **kwargs):
-        context ={
-            'active': 'dashboard'
+        add_task_form = AddTaskForm
+        add_worker_form = AddWorker
+        tasks = Task.objects.filter(user=self.request.user)
+        workers = Workers.objects.all()
+        context = {
+            'active': 'dashboard',
+            'add_task_form': add_task_form,
+            'add_worker_form': add_worker_form,
+            'tasks': tasks,
+            'workers': workers
         }
         return render(self.request, 'dashboard/index.html', context)
-            
+
     def post(self, *args, **kwargs):
-        pass
+        add_task_form = AddTaskForm(self.request.POST or None)
+        add_worker_form = AddWorker(self.request.POST or None)
+        if add_task_form.is_valid():
+            task = add_task_form.save(commit=False)
+            task.user = self.request.user
+            task.save()
+            messages.success(self.request, 'New Task Added')
+
+        elif add_worker_form.is_valid():
+            add_worker_form.save()
+            messages.info(self.request, 'New Worker Added')
+
+        else:
+            messages.error(self.request, 'Fill all required Fields')
+        return redirect('profile')
 
 
 @method_decorator(staff, name='dispatch')
@@ -50,14 +79,10 @@ class AdminView(View):
         pass
 
 
-
 @method_decorator(login_required, name='dispatch')
 class OrderView(View):
     def get(self, *args, **kwargs):
         user = self.request.user
-        context = {
-            'active': 'orders'
-        }
         try:
             orders = Order.objects.filter(user=user)
             for order in orders:
@@ -76,13 +101,27 @@ class OrderView(View):
 @method_decorator(login_required, name='dispatch')
 class Notification(View):
     def get(self, *args, **kwargs):
+        form = NurseryManagerRegistration
         context = {
-            'active': 'notification'
+            'active': 'notification',
+            'form': form
         }
         return render(self.request, 'dashboard/pages/notifications.html', context)
 
     def post(self, *args, **kwargs):
-        pass
+        form = NurseryManagerRegistration(self.request.POST or None)
+        if form.is_valid:
+            manager = form.save(commit=False)
+            manager.user = self.request.user
+            manager.save()
+            profile = UserProfile.objects.get(user=self.request.user)
+            profile.is_manager = True
+            profile.save()
+            messages.info(
+                self.request, 'Thank you for registering as a nursery manager.')
+            return redirect('profile')
+        messages.error(self.request, 'Fill all required information')
+        return redirect('notifications')
 
 
 @method_decorator(staff, name='dispatch')
@@ -104,10 +143,11 @@ class ProductView(View):
         form = AddProductForm(self.request.POST, self.request.FILES or None)
         if form.is_valid:
             form.save()
-            messages.warning(self.request, 'New Product Added')
+            messages.success(self.request, 'New Product Added')
             return redirect('product')
-        
+
         return redirect('product')
+
 
 @login_required
 @staff_only
@@ -185,7 +225,6 @@ class UpdateProfileView(View):
         return render(self.request, 'dashboard/pages/user.html', context)
 
 
-
 # API CALSS
 def get_data(request, *args, **kwargs):
     labels = ['Products', 'User']
@@ -214,17 +253,32 @@ class ChartData(APIView):
 
         return Response(data)
 
-@method_decorator(staff, name='dispatch')
-class BlogPostDashboardView(View):
-    def get(self, *args, **kwargs):
-        posts = BlogPost.objects.all()
-        template_name = 'dashboard/pages/blog.html'
-        context = {
-            'active': 'blog',
-            'posts': posts
+
+class BigChartData(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+        chart_data = [1, 20, 10, 30, 13]
+        data = {
+            'labels': labels,
+            'chart_data': chart_data
         }
-        return render(self.request, template_name, context)
+        return Response(data)
+
+
+big_chart_data = BigChartData.as_view()
+
+
+@method_decorator([login_required, nursery_manager], name='dispatch')
+class NurseryView(View):
+    def get(self, *args, **kwargs):
+        context = {
+            'active': 'nursery'
+        }
+        return render(self.request, 'dashboard/pages/nursery.html', context)
 
     def post(self, *args, **kwargs):
-        pass
-
+        messages.info(self.request, 'You can not add nursery yet')
+        return redirect('notification')

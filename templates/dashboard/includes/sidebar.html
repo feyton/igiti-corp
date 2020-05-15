@@ -10,6 +10,7 @@
     <ul class="nav">
 
       {% if user.is_authenticated %}
+      {% if user.is_staff %}
 
       <li {% if active == 'dashboard'%} class="active " {%endif%}>
         <a href="{% url 'dashboard'%}">
@@ -17,30 +18,29 @@
           <p>Dashboard</p>
         </a>
       </li>
-      
-      {% if user.is_staff %}
-        
+
       <li {% if active == 'product'%} class="active " {%endif%}>
         <a href="{% url 'product'%}">
           <i class="now-ui-icons education_atom"></i>
           <p>Products</p>
         </a>
       </li>
-      <li {% if active == 'blog'%} class="active " {%endif%}>
-        <a href="{% url 'blog-post-dashboard'%}">
+      {% endif %}
+      
+      {% if user.userprofile.is_manager or user.is_staff %}
+        
+      
+        
+      <li {% if active == 'nursery'%} class="active " {%endif%}>
+        <a href="{% url 'nursery-view'%}">
           <i class="now-ui-icons education_atom"></i>
-          <p>Blop Posts</p>
+          <p>Nursery</p>
         </a>
       </li>
       {% endif %}
-      
-      <li {% if active == 'notification'%} class="active " {%endif%}>
-        <a href="{% url 'notification' %}">
-          <i class="now-ui-icons ui-1_bell-53"></i>
-          <p>Notifications</p>
-        </a>
-      </li>
-      
+
+
+
       <li {% if active == 'profile'%} class="active " {%endif%}>
         <a href="{% url 'update-profile' %}">
           <i class="now-ui-icons users_single-02"></i>
@@ -51,6 +51,12 @@
         <a href="{% url 'orders' %}">
           <i class="now-ui-icons design_bullet-list-67"></i>
           <p>Orders</p>
+        </a>
+      </li>
+      <li {% if active == 'notification'%} class="active " {%endif%}>
+        <a href="{% url 'notification' %}">
+          <i class="now-ui-icons ui-1_bell-53"></i>
+          <p>Notifications</p>
         </a>
       </li>
 

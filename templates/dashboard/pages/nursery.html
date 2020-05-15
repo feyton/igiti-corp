@@ -1,0 +1,106 @@
+{% extends 'dashboard/layouts/base.html' %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %} Nurseries {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css"
+    integrity="sha256-VMPhaMmJn7coDSbzwqB0jflvb+CDnoAlfStC5RogOQo=" crossorigin="anonymous" />
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- End Navbar -->
+<div class="panel-header panel-header-sm">
+</div>
+
+<div class="content">
+
+    <!-- All PRODUCTS -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title text-center"> All Products</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table overflow-auto">
+                            <thead class=" text-primary">
+                                <th>
+                                    No
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Location
+                                </th>
+                                <th class="text-right">
+                                    SPecies
+                                </th>
+                                <th class="text-right">
+                                    Action
+                                </th>
+                            </thead>
+                            <tbody>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-info" id="add-nursery" data-toggle="modal" data-target="#addNursery">Add Nursery</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // ALL PRODUCTS -->
+
+</div>
+
+
+<!-- FORMS -->
+<!-- FORMS -->
+<div class="modal fade" id="addNursery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Nursery</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="md-form" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+
+
+                    <input type="submit" value="Add Nursery" class="btn btn-info">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"
+    integrity="sha256-QOE02Glo1C1gHzP96JOaxyIMt4XSFv/exZaYLY4dwO0=" crossorigin="anonymous"></script>
+<script src="/static/js/dashboard.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+    });
+</script>
+
+{% endblock javascripts %}

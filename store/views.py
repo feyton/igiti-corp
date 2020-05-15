@@ -632,12 +632,16 @@ def order_detail(request, pk):
     order = get_object_or_404(Order, id=pk)
     if order:
         order_exist = True
-        order_items = order.items.all().count()
+        order_items = order.items.all()
+        all_items=[]
+        for item in order_items:
+            item_name = '%s X %s (%s)'%(item.quantity, item.item.scientific_name, item.get_final_price())
+            all_items.append(item_name)
         # all_items = serializers.serialize("json", order_items)
         total = order.get_total()
         cancel_url = str(order.cancel_url())
         data = {
-            'items': order_items,
+            'items': all_items,
             'total': total,
             'id': order.id,
             'cancel': cancel_url
@@ -672,3 +676,8 @@ def cancel_order(request, pk):
             order.delete()
             messages.success(request, f'Order with ref code {order_reference} has been cancelled and deleted')
             return redirect('orders')
+def order_received_view(request, pk):
+    pass
+
+def request_refund_view(request, pk):
+    pass

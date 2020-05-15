@@ -122,6 +122,8 @@ class UserProfile(models.Model):
     one_click_purchasing = models.BooleanField(default=False)
     stripe_customer_id = models.CharField(blank=True, max_length=50, null=True)
     biography = models.TextField(blank=True, null=True)
+    is_manager= models.BooleanField(default=False)
+    is_author = models.BooleanField(default=False)
 
     def __str__(self):
         return '{}-Profile'.format(self.user.first_name)

@@ -50,8 +50,6 @@ $(document).ready(function () {
             labels = all_data.labels
             default_data = all_data.default_data
             setProductChart();
-            console.log(all_data);
-            setIndexBigChart();
         },
         error: function (error_data) {
             console.log(error_data)
@@ -93,8 +91,10 @@ $(document).ready(function () {
         });
 
     }
+
+    // THE CHART FOR BIG DASHBOARD ON HOME SCREEN
     function setIndexBigChart() {
-        var ctx = document.getElementById('bigChartIndex').getContext("2d");
+        var ctx = document.getElementById('big-chart-index').getContext("2d");
 
         var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
         gradientStroke.addColorStop(0, '#80b6f4');
@@ -107,7 +107,7 @@ $(document).ready(function () {
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+                labels: big_chart_labels,
                 datasets: [{
                     label: "Data",
                     borderColor: chartColor,
@@ -122,7 +122,7 @@ $(document).ready(function () {
                     fill: true,
                     backgroundColor: gradientFill,
                     borderWidth: 2,
-                    data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95]
+                    data: big_chart_data
                 }]
             },
             options: {
@@ -186,7 +186,22 @@ $(document).ready(function () {
     }
 
 
-
+    // BIG CHART DATA QUERY
+    var big_chart_endpoint = $("#big-chart-index").attr("data-url");
+    var big_chart_labels = [];
+    var big_chart_data = [];
+    $.ajax({
+        method: 'GET',
+        url: big_chart_endpoint,
+        success: function (data) {
+            big_chart_labels = data.labels
+            big_chart_data = data.chart_data
+            setIndexBigChart();
+        },
+        error: function (error_data) {
+            console.log(error_data)
+        }
+    })
 
 
 })

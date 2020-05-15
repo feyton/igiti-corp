@@ -1,6 +1,7 @@
 {% extends 'dashboard/layouts/base.html' %}
 {% load static %}
 {% load humanize %}
+{% load widget_tweaks %}
 
 
 <!-- Specific CSS goes HERE -->
@@ -16,7 +17,7 @@
 {% if user.is_staff %}
 
 <div class="panel-header panel-header-lg">
-  <canvas id="bigDashboardChart"></canvas>
+  <canvas id="big-chart-index" data-url="{% url 'big-chart-data' %}"></canvas>
 </div>
 {% else %}
 <div class="panel-header panel-header-sm">
@@ -161,8 +162,6 @@
 
                 {% for task in tasks %}
 
-
-
                 <tr>
                   <td>
                     <div class="form-check">
@@ -300,14 +299,6 @@
             <label for="recipient-name" class="col-form-label">Deadline:</label>
             <input type="datetime-local" class="form-control" id="recipient-name" name="deadline">
           </div>
-          <div class="custom-control custom-checkbox my-1 mr-sm-2">
-            <input type="checkbox" class="custom-control-input" id="customControlInline" name="remind_me">
-            <label class="custom-control-label" for="customControlInline">Remember my preference</label>
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Deadline:</label>
-            <input type="datetime-local" class="form-control" id="recipient-name" name="remind_me_time">
-          </div>
           <input type="submit" value="Add Task" class="btn btn-primary">
         </form>
       </div>
@@ -318,29 +309,60 @@
 
 <!-- ADD WORKER FORM -->
 <div class="modal fade" aria-hidden="true" id="addWorker" tabindex="-1" role="dialog" aria-labelledby="addWorker">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Worker</h5>
+        <h5 class="modal-title" id="addWorkerLabel">New Worker</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" action=".">
+        <form method="post" action="." class="md-form">
           {% csrf_token %}
 
-          {% for field in add_worker_form.fields %}
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label for="">{{field.label}}</label>
-                {{ field}}
+                <label for="">{{add_worker_form.account_number.label}}</label>
+                {% render_field add_worker_form.account_number class="form-control" %}
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">{{add_worker_form.job.label}}</label>
+                {% render_field add_worker_form.job class="form-control"%}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">{{add_worker_form.city.label}}</label>
+                {% render_field add_worker_form.city class="form-control"%}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">{{add_worker_form.salary.label}}</label>
+                {% render_field add_worker_form.salary class="form-control"%}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">{{add_worker_form.full_name.label}}</label>
+                {% render_field add_worker_form.full_name class="form-control"%}
+              </div>
+            </div>
+          </div>
+          
 
-          {% endfor %}
 
 
           <input type="submit" value="Add Worker" class="btn btn-primary">
@@ -356,6 +378,7 @@
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
 <script src="{% static 'script/dashboard.js' %}"></script>
+<script src="/static/js/dashboard.js"></script>
 
 <script>
   $(document).ready(function () {

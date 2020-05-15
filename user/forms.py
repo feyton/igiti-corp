@@ -4,7 +4,7 @@ from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
 from store.models import Address
-
+from dashboard.models import NurseryManager
 from .models import User, UserProfile
 
 
@@ -63,3 +63,9 @@ class UpdateProfileForm(forms.ModelForm):
         widgets = {
             'biography': forms.Textarea(attrs={'rows': 3, 'cols': 60}),
         }
+
+
+class NurseryManagerRegistration(forms.ModelForm):
+    class Meta:
+        model = NurseryManager
+        exclude = ['user']

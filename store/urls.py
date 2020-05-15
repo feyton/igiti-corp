@@ -6,7 +6,7 @@ from .views import (AddCouponView, CheckoutView, HomeView, OrderSummaryView,
                     PaymentView, RequestRefundView, SeedProductDetailView,
                     add_to_cart, delete_product, download_pdf, generate_card,
                     order_detail, remove_from_cart,
-                    remove_single_item_from_cart, cancel_order)
+                    remove_single_item_from_cart, cancel_order, request_refund_view, order_received_view)
 
 app_name = 'store'
 
@@ -30,4 +30,6 @@ urlpatterns = [
     path('delete-product/<pk>', delete_product, name='delete_product'),
     path('order-detail/<pk>/', order_detail, name='order-detail'),
     path('cancel-order/<pk>/', cancel_order, name='cancel-order'),
+    path('received-order/<pk>/', order_received_view, name='received-order'),
+    path('refund/<pk>/', request_refund_view, name='request-refund'),
 ]
