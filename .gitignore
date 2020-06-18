@@ -27,6 +27,7 @@ sqlite3.db
 db.sqlite3
 /media
 tmp/
+.idea
 
 #Special Files
 manage.py

@@ -38,7 +38,12 @@ class CreateUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
-        
+
+    def signup(self, user):
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+
 
 class UpdateUserForm(forms.ModelForm):
     class Meta:
@@ -55,6 +60,7 @@ class UpdateAddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = ['city', 'district', 'street_address', 'country']
+
 
 class UpdateProfileForm(forms.ModelForm):
     class Meta:

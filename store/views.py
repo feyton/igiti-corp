@@ -2,27 +2,22 @@ import random
 import string
 
 import stripe
-from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 # PDF GENERATION
-from django.template.loader import get_template
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, View
-
 from user.models import UserProfile
 
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
 from .models import *
-from .models import District, SeedProduct
-from .utils import render_to_pdf
+from .models import SeedProduct
+from .utils import generate_pdf_weasy
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -118,7 +113,8 @@ class CheckoutView(View):
                         'last_name')
                     # shipping_zip = form.cleaned_data.get('shipping_zip')
 
-                    if is_valid_form([first_name, last_name, shipping_street_address, shipping_country, shipping_city, shipping_district]):
+                    if is_valid_form([first_name, last_name, shipping_street_address, shipping_country, shipping_city,
+                                      shipping_district]):
                         shipping_address = Address(
                             user=self.request.user,
                             street_address=shipping_street_address,
@@ -173,7 +169,7 @@ class CheckoutView(View):
                     address_email = form.cleaned_data.get(
                         'email')
 
-                #
+                    #
 
                     if is_valid_form([billing_street_address, billing_city, billing_district, address_email]):
                         billing_address = Address(
@@ -340,7 +336,7 @@ class PaymentView(View):
 
                 messages.success(self.request, "Your order was successful!")
 
-                return HttpResponse(f'<h1>Your Order {order.ref-code} is being processed</h1>')
+                return HttpResponse(f'<h1>Your Order {order.ref_code} is being processed</h1>')
 
             except stripe.error.CardError as e:
                 body = e.json_body
@@ -447,7 +443,7 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             if order_item.quantity >= 9:
                 messages.error(
-                    request, 'Maximun allowed order quantity is 9 Kg')
+                    request, 'Maximum allowed order quantity is 9 Kg')
                 return redirect("store:order-summary")
             order_item.quantity += 1
             order_item.save()
@@ -607,9 +603,10 @@ def download_pdf(request, slug):
         context = {
             'item': item
         }
+        file_name = '%s-%s' % (item.scientific_name, item.id)
         template_name = 'store/card_pdf.html'
-        pdf = render_to_pdf(template_name, context)
-        return HttpResponse(pdf, content_type='application/pdf')
+        pdf = generate_pdf_weasy(request, template_name, file_name, context)
+        return pdf
 
     else:
         messages.info(request, 'This product does not exist')
@@ -633,9 +630,9 @@ def order_detail(request, pk):
     if order:
         order_exist = True
         order_items = order.items.all()
-        all_items=[]
+        all_items = []
         for item in order_items:
-            item_name = '%s X %s (%s)'%(item.quantity, item.item.scientific_name, item.get_final_price())
+            item_name = '%s X %s (%s)' % (item.quantity, item.item.scientific_name, item.get_final_price())
             all_items.append(item_name)
         # all_items = serializers.serialize("json", order_items)
         total = order.get_total()
@@ -671,13 +668,16 @@ def cancel_order(request, pk):
             messages.error(request, 'Wait for order completion')
             return redirect('orders')
         else:
-            order.ordered=False
+            order.ordered = False
             order_reference = order.ref_code
             order.delete()
             messages.success(request, f'Order with ref code {order_reference} has been cancelled and deleted')
             return redirect('orders')
+
+
 def order_received_view(request, pk):
     pass
+
 
 def request_refund_view(request, pk):
     pass

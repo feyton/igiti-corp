@@ -1,32 +1,33 @@
-from django.shortcuts import render, redirect
 from django.conf import settings
-from forestry.models import Category, BlogPost
-from django.http import HttpResponse
-from .models import SignUp, ErrorReport
-from store.models import SeedProduct
 from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from forestry.models import BlogPost
+from store.models import SeedProduct
+
+from .models import SignUp, ErrorReport
+
 
 def home(request):
     context = {
         'blog': BlogPost.objects.filter(published=True),
-        'seed': SeedProduct.objects.filter(available= True)
-        
+        'seed': SeedProduct.objects.filter(available=True)
+
     }
     return render(request, 'index.html', context)
 
 
-
 def species(request):
     return redirect('forestry')
-    
-    
+
+
 def terms(request):
     return render(request, 'terms.html')
 
 
 def privacy(request):
     return render(request, 'privacy.html')
-    
+
 
 def subscribe(request):
     if request.method == 'POST':
@@ -41,7 +42,7 @@ def subscribe(request):
             message = 'Thank you for subscribing to our weekly newsletter'
             recepient = email
             send_mail(subject,
-                  message, settings.EMAIL_HOST_USER, [recepient], fail_silently=True)
+                      message, settings.EMAIL_HOST_USER, [recepient], fail_silently=True)
             context = {
                 'name': name,
                 'email': email
@@ -52,19 +53,17 @@ def subscribe(request):
             return HttpResponse('Sorry, You are already subscribed. <br>Thank You. <br><br><a href"/">GO HOME</a>')
     else:
         return redirect('home')
-        
 
 
 def error(request):
     if request.method == 'POST':
-        sender_ip =  request.META['REMOTE_ADDR']
+        sender_ip = request.META['REMOTE_ADDR']
         url = request.META['HTTP_REFERER']
         if not request.user.is_authenticated:
             email = request.POST['email']
-            
+
         else:
             email = request.user.email
-
 
         message = request.POST['message']
         if len(message) <= 20:
@@ -80,7 +79,7 @@ def error(request):
             subject = 'Error report from Igiti Corp'
             recipient = 'tumbafabruce@gmail.com'
             send_mail(subject,
-                  message, settings.EMAIL_HOST_USER, [recepient], fail_silently=True)
+                      message, settings.EMAIL_HOST_USER, [recepient], fail_silently=True)
 
         report = ErrorReport()
         report.email = email
@@ -90,11 +89,10 @@ def error(request):
         report.spam = spam
         report.save()
 
-        
         context = {
             'email': email,
             'message': success
         }
-        return render(request,'success/simple.html', context)
+        return render(request, 'success/simple.html', context)
     else:
         return redirect('home')

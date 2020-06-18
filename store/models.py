@@ -1,17 +1,14 @@
-from datetime import datetime
-from django.db.models import Sum
-
 from autoslug.fields import AutoSlugField
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from user.models import UserProfile
 from django_countries.fields import CountryField
+
 from .utils import photo_path
+
 User = get_user_model()
 
 

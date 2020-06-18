@@ -167,11 +167,7 @@
 			nav.classList.toggle('showing')
 		}
 
-		{% if messages %}
 
-		var notification = document.getElementById("notification");
-		setTimeout(function () { notification.classList.toggle('box-active'); }, 5);
-		{% endif %}
 	</script>
 	{% endblock script %}
 	<!-- SCRIPT LINKS-->
@@ -183,6 +179,30 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
+	<script src="/static/assets/js/plugins/bootstrap-notify.js"></script>
+	<script>
+		{% if messages %}
+
+		{% for message in messages %}
+		$.notify({
+			title: "<b>Message</b><br>",
+			message: '<strong>{{ message }}</strong>'
+		},
+			{
+				   
+				   {% if message.tags %}
+		type: "{{ message.tags }}",
+			{% else %}
+		type: 'error',
+			{% endif %}
+		delay: 3000,
+					   
+			   })
+		{% endfor %}
+
+		{% endif %}
+
+	</script>
 	{% block extra_java %}
 	{% endblock extra_java %}
 

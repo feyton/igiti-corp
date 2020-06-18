@@ -4,8 +4,6 @@ from .models import Author
 from .models import Category
 
 
-
-
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'image', 'published', 'pub_date')

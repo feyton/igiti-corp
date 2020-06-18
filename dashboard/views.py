@@ -1,18 +1,14 @@
 from datetime import datetime
 
 from django.contrib import messages
-from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count, Sum
+from django.db.models import Sum
 from django.db.models.functions import Trunc
-from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import View
-
+from django.shortcuts import get_object_or_404, redirect
 from store.models import SeedProduct
-from user.models import UserProfile
 
 from .models import Task, Workers
+
 
 # Create your views here.
 

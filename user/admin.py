@@ -10,6 +10,7 @@ from django.contrib.auth.models import Group
 # CHANGING HEADER
 admin.site.site_header = 'Igiti Corp Admin'
 
+
 class AddUserForm(forms.ModelForm):
     """
     New User Form. Requires password confirmation.
@@ -56,7 +57,7 @@ class UpdateUserForm(forms.ModelForm):
         )
 
     def clean_password(self):
-# Password can't be changed in the admin
+        # Password can't be changed in the admin
         return self.initial["password"]
 
 
@@ -65,7 +66,7 @@ class UserAdmin(BaseUserAdmin):
     add_form = AddUserForm
 
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
-    list_filter = ('is_staff', )
+    list_filter = ('is_staff',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name')}),
@@ -86,7 +87,6 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email', 'first_name', 'last_name')
     filter_horizontal = ()
-
 
 
 admin.site.register(User, UserAdmin)

@@ -1,25 +1,22 @@
+from dashboard.forms import AddTaskForm, AddWorker
+from dashboard.models import Task, Workers
 from django.contrib import messages
-from django.contrib.auth import authenticate, get_user_model, login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from rest_framework import authentication, permissions
 from rest_framework.authentication import (BasicAuthentication,
                                            SessionAuthentication)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from dashboard.forms import AddTaskForm, AddWorker
-from dashboard.models import Task, Workers
-from forestry.models import BlogPost
 from store.forms import AddProductForm
 from store.models import Address, Order, SeedProduct
 
 from .decorators import nursery_manager, staff_only
-from .forms import (CreateUserForm, NurseryManagerRegistration,
+from .forms import (NurseryManagerRegistration,
                     UpdateAddressForm, UpdateProfileForm, UpdateUserForm)
 from .models import UserProfile
 
@@ -92,10 +89,9 @@ class OrderView(View):
                 'orders': orders,
                 'active': 'orders'
             }
-        except Exception:
-            pass
-
-        return render(self.request, 'dashboard/pages/orders.html', context)
+            return render(self.request, 'dashboard/pages/orders.html', context)
+        except Exception as e:
+            raise Http404
 
 
 @method_decorator(login_required, name='dispatch')
@@ -126,7 +122,7 @@ class Notification(View):
 
 @method_decorator(staff, name='dispatch')
 class ProductView(View):
-    def get(self, *args, **kwards):
+    def get(self, *args, **kwargs):
         user = self.request.user
         orders = Order.objects.all()
         products = SeedProduct.objects.all()
@@ -238,7 +234,6 @@ def get_data(request, *args, **kwargs):
 
 
 class ChartData(APIView):
-
     authentication_classes = []
     permission_classes = []
 

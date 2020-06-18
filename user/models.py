@@ -1,11 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
-from django.core.mail import send_mail
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
 from django.db.models.signals import post_save
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 
 class UserManager(BaseUserManager):
@@ -113,8 +112,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
-        
-        
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     location = models.CharField(max_length=200, blank=True)
@@ -122,12 +121,11 @@ class UserProfile(models.Model):
     one_click_purchasing = models.BooleanField(default=False)
     stripe_customer_id = models.CharField(blank=True, max_length=50, null=True)
     biography = models.TextField(blank=True, null=True)
-    is_manager= models.BooleanField(default=False)
+    is_manager = models.BooleanField(default=False)
     is_author = models.BooleanField(default=False)
 
     def __str__(self):
         return '{}-Profile'.format(self.user.first_name)
-
 
 
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
@@ -136,4 +134,3 @@ def userprofile_receiver(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(userprofile_receiver, sender=get_user_model())
-

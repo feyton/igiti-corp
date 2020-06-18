@@ -66,12 +66,27 @@
   {% block javascripts %}{% endblock javascripts %}
 
   <script>
-
     {% if messages %}
 
-    var notification = document.getElementById("notification");
-    setTimeout(function () { notification.classList.toggle('box-active'); }, 500);
+    {% for message in messages %}
+    $.notify({
+      title: "<b>Message</b><br>",
+      message: '<strong>{{ message }}</strong>'
+    },
+      {
+               
+               {% if message.tags %}
+    type: "{{ message.tags }}",
+      {% else %}
+    type: 'error',
+      {% endif %}
+    delay: 3000,
+                   
+           })
+    {% endfor %}
+
     {% endif %}
+
   </script>
 </body>
 

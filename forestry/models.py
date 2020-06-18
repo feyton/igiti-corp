@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from autoslug.fields import AutoSlugField
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 # from user.models import User
 from django.contrib.auth import get_user_model
@@ -9,8 +8,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-
-from hitcount.models import HitCount, HitCountMixin
+from hitcount.models import HitCount
 
 User = get_user_model()
 
@@ -96,7 +94,7 @@ class BlogPost(models.Model):
         return reverse('forestry:detail', kwargs={'slug': self.slug})
 
     def get_author(self):
-        if author:
+        if self.author:
             return self.author.get_author_name()
 
     def get_bio(self):

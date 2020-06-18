@@ -1,20 +1,23 @@
 import os
+
 from django.core.exceptions import ImproperlyConfigured
+
 from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['notes.igiti.co.rw', 'www.notes.igiti.co.rw', "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['notes.igiti.co.rw',
+                 'www.notes.igiti.co.rw', "127.0.0.1", "localhost", '198.54.116.172']
 
 # Environment Wrapper
 
+
 def get_env_value(env_variable):
     try:
-      	return os.environ[env_variable]
+        return os.environ[env_variable]
     except KeyError:
         error_msg = 'Set the {} environment variable'.format(var_name)
         raise ImproperlyConfigured(error_msg)
-
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -70,7 +73,7 @@ CSRF_COOKIE_SECURE = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
-    ]
+]
 STATIC_ROOT = '/home/igityopp/notes.igiti.co.rw/static'
 STATIC_URL = '/static/'
 
@@ -83,15 +86,19 @@ SITE_ID = 1
 # DEPLOYMENT
 
 # EMAIL SETTINGS
-EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'igiti.co.rw'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 465
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = 'admin@igiti.co.rw'
 EMAIL_HOST_PASSWORD = get_env_value('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = '198.54.116.172'
+EMAIL_PORT = '465'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 SECURE_SSL_REDIRECT = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-ADMINS = (('Feyton', 'info@igiti.co.rw'), ('Fabrice', 'tumbafabruce@gmail.com'))
+ADMINS = (('Feyton', 'info@igiti.co.rw'),
+          ('Fabrice', 'tumbafabruce@gmail.com'))
