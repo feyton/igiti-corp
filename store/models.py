@@ -6,6 +6,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 from .utils import photo_path
 
@@ -128,6 +130,12 @@ class SeedProduct(models.Model):
         _('Short description'), blank=True, null=True)
     pre_treatment = models.ForeignKey(
         SeedPretreatment, on_delete=models.SET_NULL, null=True, blank=True)
+
+    image1_thumb = ImageSpecField(source='image1', processors=[ResizeToFill(200, 100)],
+                                  format='JPEG',
+                                  options={'quality': 120})
+    image2_thumb = ImageSpecField(source='image2', processors=[
+                                  ResizeToFill(100, 200)], format='JPEG', options={'quality': 100})
 
     # FUNCTIONS
 

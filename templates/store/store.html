@@ -1,18 +1,5 @@
-{% extends 'base.html'%} {% load i18n %}
-{% load static %}
-{% load humanize %}
-
-{% block extra_style%}
-<link rel="stylesheet" href="{% static 'style/store.css' %}">
-
-{% endblock extra_style%}
-
-{% block site_name %}
-    Store
-{% endblock site_name %}
-    
-
-{%block content%}
+{% extends 'base.html'%} {% load i18n %} {% load static %} {% load humanize %} {% block extra_style%}
+<link rel="stylesheet" href="{% static 'style/store.css' %}"> {% endblock extra_style%} {% block site_name %} Store {% endblock site_name %} {%block content%}
 
 <div class="content clearfix">
 
@@ -25,18 +12,14 @@
                     <div class="product-image">
                         <a href="product.html">
                             {% if seed.image1 %}
-                            <img class="pic-1" src="{{ seed.image1.url }}" alt="">
+                            <img class="pic-1" src="{{ seed.image1_thumb.url }}" alt="">
                             {%endif%}
                             {% if seed.image2%}
-                            <img class="pic-2" src="{{ seed.image2.url}}" alt="">
+                            <img class="pic-2" src="{{ seed.image2_thumb.url}}" alt="">
                             {% endif %}
-                        </a>
-                        {% if seed.recommended%}
-                        <span class="product-trend-label">RECOMMENDED</span>
-                        {% endif%}
-                        {% if seed.discount_price%}
-                        <span class="product-discount-label">{{ seed.get_discount_percent}}%</span>
-                        {% endif%}
+                        </a> {% if seed.recommended%}
+                        <span class="product-trend-label">RECOMMENDED</span> {% endif%} {% if seed.discount_price%}
+                        <span class="product-discount-label">{{ seed.get_discount_percent}}%</span> {% endif%}
                         <ul class="image-link">
                             <li><a data-tip="Add to Cart" href="{{ seed.get_add_to_cart_url}}"><i
                                         class="fa fa-shopping-cart"></i></a></li>
@@ -58,17 +41,14 @@
             {% endfor%}
 
 
-            <br>
-            {% if is_paginated %}
+            <br> {% if is_paginated %}
             <ul class="paginator">
                 {% if page_obj.has_previous %}
                 <li><a href="{% url 'store:list_seeds' %}?page={{ page_obj.previous_page_number }}"><i
                             class="fa fa-chevron-left"></i></a></li>
-                {% endif %}
-                {% blocktrans with num=page_obj.number num_pages=page_obj.paginator.num_pages %}
+                {% endif %} {% blocktrans with num=page_obj.number num_pages=page_obj.paginator.num_pages %}
                 <li class="active_page"><a>{{ num }}</a></li>
-                {% endblocktrans %}
-                {% if page_obj.has_next %}
+                {% endblocktrans %} {% if page_obj.has_next %}
                 <li><a href="{% url 'store:list_seeds' %}?page={{ page_obj.next_page_number }}"><i
                             class="fa fa-chevron-right"></i></a></li>
                 {% endif %}

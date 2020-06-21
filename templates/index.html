@@ -1,12 +1,5 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% load humanize %} 
-{% block extra_style %}
-<link rel="stylesheet" href="{% static 'style/store.css' %}" />
-
-{% endblock extra_style %} 
-{% block site_name %} Home {% endblock site_name %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% load humanize %} {% block extra_style %}
+<link rel="stylesheet" href="{% static 'style/store.css' %}" /> {% endblock extra_style %} {% block site_name %} Home {% endblock site_name %} {% block content %}
 
 <!-- bootsrap carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -22,14 +15,11 @@
                 <h5>You want to explore the forest. Don't miss out!</h5>
                 {%if not user.is_authenticated%}
                 <p>
-                    We will take you to the place you will like the most. Create account
-                    and join us.
+                    We will take you to the place you will like the most. Create account and join us.
                 </p>
-                <a href="{% url 'account_login' %}">Create account| Log In</a>
-                {% else%}
+                <a href="{% url 'account_login' %}">Create account| Log In</a> {% else%}
                 <p>Thank You for creating the account.</p>
-                <a href="{% url 'update-profile' %}">Update your profile</a>
-                {% endif %}
+                <a href="{% url 'update-profile' %}">Update your profile</a> {% endif %}
             </div>
         </div>
         <div class="carousel-item">
@@ -37,8 +27,7 @@
             <div class="carousel-caption d-none d-md-block">
                 <h5>Welcome to Igiti Corp</h5>
                 <p>
-                    Visit our library and get the best out of our website. Don't forget
-                    calculators.
+                    Visit our library and get the best out of our website. Don't forget calculators.
                 </p>
                 <a href="{% url 'forestry:list' %}">Visit our Library</a>
             </div>
@@ -83,8 +72,7 @@
                                     <div class="intro_title">Top Choices</div>
                                     <div class="intro_subtitle">
                                         <p>
-                                            We got you covered on each category of forestry
-                                            information.
+                                            We got you covered on each category of forestry information.
                                         </p>
                                     </div>
                                 </div>
@@ -101,8 +89,7 @@
                                     <div class="intro_title">The Best Services</div>
                                     <div class="intro_subtitle">
                                         <p>
-                                            We are always looking forward to make best out of your
-                                            time
+                                            We are always looking forward to make best out of your time
                                         </p>
                                     </div>
                                 </div>
@@ -154,26 +141,22 @@
                                 <div class="product-image">
                                     <a href="">
                                         {% if product.image1%}
-                                        <img class="pic-1" src="{{product.image1.url}}"
+                                        <img class="pic-1" src="{{product.image1_thumb.url}}"
                                             alt="{{ product.scientific_name}}" />
                                         {% else %}
                                         <img class="pic-1" src="{% static 'images/products/destination_1.jpg' %}"
                                             alt="{{ product.scientific_name}}" />
                                         {%endif%} {% if product.image2 %}
-                                        <img class="pic-2" src="{{product.image2.url}}"
+                                        <img class="pic-2" src="{{product.image2_thumb.url}}"
                                             alt="{{ product.scientific_name}}" />
                                         {% else %}
                                         <img class="pic-2" src="{% static 'images/products/destination_2.jpg' %}"
                                             alt="{{ product.scientific_name}}" />
                                         {% endif %}
-                                    </a>
+                                    </a> {% if product.recommended %}
 
-                                    {% if product.recommended %}
-
-                                    <span class="product-trend-label">RECOMMENDED</span>
-                                    {% endif %} {% if product.discount_price%}
-                                    <span class="product-discount-label">{{ product.get_discount_percent}}%</span>
-                                    {% endif %}
+                                    <span class="product-trend-label">RECOMMENDED</span> {% endif %} {% if product.discount_price%}
+                                    <span class="product-discount-label">{{ product.get_discount_percent}}%</span> {% endif %}
                                     <ul class="image-link">
                                         <li>
                                             <a data-tip="Add to Cart" href="{{product.get_add_to_cart_url}}"><i
@@ -230,8 +213,7 @@
                         <div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
                             <div class="news_post_image">
                                 {% if i.image%}
-                                <img src="{{i.image.url}}" alt="" height="200px" width="300px" class="rounded" />
-                                {% endif%}
+                                <img src="{{i.image.url}}" alt="" height="200px" width="300px" class="rounded" /> {% endif%}
                             </div>
 
                             <div class="news_post_content">
@@ -254,14 +236,12 @@
 
                 <!-- News Sidebar -->
                 <div class="col-xl-4 col-md-4 col-sm-12 mt-2">
-                    <div class="fb-page" data-href="https://www.facebook.com/igiticorp/" data-tabs="" data-width=""
-                        data-height="" data-small-header="false" data-adapt-container-width="true"
-                        data-hide-cover="false" data-show-facepile="true">
+                    <div class="fb-page" data-href="https://www.facebook.com/igiticorp/" data-tabs="" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
                         <blockquote cite="https://www.facebook.com/igiticorp/" class="fb-xfbml-parse-ignore">
                             <a href="https://www.facebook.com/igiticorp/">Igiti Corp</a>
                         </blockquote>
                     </div>
-                    <div class="travello" style="background-image: url({%static 'images/nursery.jpg'%});">
+                    <div class="travello" style="background-image: url({%static 'images/nursery.jpg' %});">
                         <div class="background_image"></div>
                         <div class="travello_content">
                             <div class="travello_content_inner">
