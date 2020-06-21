@@ -88,7 +88,7 @@ SITE_ID = 1
 # EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = 'admin@igiti.co.rw'
-EMAIL_HOST_PASSWORD = get_env_value('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = 'v1p3k,h@@t'
 EMAIL_HOST = '198.54.116.172'
 EMAIL_PORT = '465'
 EMAIL_USE_TLS = False
