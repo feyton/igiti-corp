@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
+    <link rel="icon" type="image/gif" href="{% static 'images/404.jpg' %}" />
 
     <title>404 Not Found | Igiti Corp</title>
 
@@ -44,28 +44,28 @@
             <div class="panel-content">
                 <form action="{% url 'error' %}" method="post">
                     {% csrf_token %}
-                <div class="form">
-                    <h1>Contact Us</h1>
-                    {% if user.is_authenticated%}
-                    <div class="group">
-                        <input type="email" required name="email" value="{{ user.email}}">
-                        <span class="highlight"></span>
-                        <label><i class="fas fa-at"></i>&nbsp;Your Email</label>
+                    <div class="form">
+                        <h1>Contact Us</h1>
+                        {% if user.is_authenticated%}
+                        <div class="group">
+                            <input type="email" required name="email" value="{{ user.email}}">
+                            <span class="highlight"></span>
+                            <label><i class="fas fa-at"></i>&nbsp;Your Email</label>
+                        </div>
+                        {% else %}
+                        <div class="group">
+                            <input type="email" required name="email">
+                            <span class="highlight"></span>
+                            <label><i class="fas fa-at"></i>&nbsp;Your Email</label>
+                        </div>
+                        {% endif%}
+                        <div class="group">
+                            <input type="text" required name="message">
+                            <span class="highlight"></span>
+                            <label><i class="far fa-comment-dots"></i>&nbsp;Message</label>
+                        </div>
+                        <button type="submit" class="send-btn"><i class="far fa-paper-plane"></i>&nbsp;Send</button>
                     </div>
-                    {% else %}
-                    <div class="group">
-                        <input type="email" required name="email" >
-                        <span class="highlight"></span>
-                        <label><i class="fas fa-at"></i>&nbsp;Your Email</label>
-                    </div>
-                    {% endif%}
-                    <div class="group">
-                        <input type="text" required name="message">
-                        <span class="highlight"></span>
-                        <label><i class="far fa-comment-dots"></i>&nbsp;Message</label>
-                    </div>
-                    <button type="submit" class="send-btn"><i class="far fa-paper-plane"></i>&nbsp;Send</button>
-                </div>
                 </form>
             </div>
         </div>

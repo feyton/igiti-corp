@@ -137,7 +137,9 @@ body {
     display: none;
 }
 
+
 /* FORM */
+
 .panel {
     position: relative;
     box-sizing: border-box;
@@ -146,8 +148,8 @@ body {
     float: right;
     transform: skew(-10deg);
     overflow: hidden;
-
 }
+
 .panel .back {
     position: absolute;
     top: 64%;
@@ -157,6 +159,7 @@ body {
     cursor: pointer;
     font-size: 25px;
 }
+
 .panel .panel-content {
     position: absolute;
     width: 100%;
@@ -164,8 +167,9 @@ body {
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%) skew(10deg);
-  }
-  .panel.panel-right .panel-content .form {
+}
+
+.panel.panel-right .panel-content .form {
     display: block;
     position: absolute;
     margin: 0 auto;
@@ -174,26 +178,27 @@ body {
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-25%);
-  } 
-  .panel.panel-right {
+}
+
+.panel.panel-right {
     margin-right: -10%;
     background: #1B1B1B;
-  }
+}
 
-  .panel.panel-right .panel-content .form h1 {
+.panel.panel-right .panel-content .form h1 {
     display: block;
     margin: 0 0 45px 0;
     color: #B1B1B1;
     font-weight: 200;
     font-size: 18px;
-  }
-  
-  .group { 
-    position: relative; 
-    margin-bottom: 25px; 
-  }
-  
-  input {
+}
+
+.group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+input {
     font-size: 13px;
     height: 25px;
     padding: 10px 10px 10px 5px;
@@ -203,18 +208,18 @@ body {
     outline: none;
     border-bottom: 1px solid #B1B1B1;
     color: #B1B1B1;
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
     opacity: 0.5;
     transition: 0.2s ease;
-  }
-  
-  input:focus {
+}
+
+input:focus {
     outline: none;
     opacity: 1;
-  }
-  
-  label {
-    color: #B1B1B1; 
+}
+
+label {
+    color: #B1B1B1;
     font-size: 13px;
     font-weight: normal;
     position: absolute;
@@ -222,62 +227,84 @@ body {
     left: 5px;
     top: 10px;
     opacity: 0.5;
-    transition: 0.2s ease all; 
-    -moz-transition: 0.2s ease all; 
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
-  }
-  
+}
 
-input:focus ~ label, input:valid ~ label 		{
+input:focus~label,
+input:valid~label {
     top: -13px;
     font-size: 12px;
     color: rgb(192, 192, 192);
     opacity: 1;
-  }
-  .highlight {
+}
+
+.highlight {
     position: absolute;
-    height: 60%; 
-    width: 100px; 
-    top: 25%; 
+    height: 60%;
+    width: 100px;
+    top: 25%;
     left: 0;
     pointer-events: none;
     opacity: 0.5;
-  }
+}
+
+
 /* active state */
-input:focus ~ .highlight {
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
-  }
-  
-  /* ANIMATIONS ================ */
-  @-webkit-keyframes inputHighlighter {
-    from { background:#B1B1B1; }
-    to 	{ width:0; background:transparent; }
-  }
-  @-moz-keyframes inputHighlighter {
-    from { background:#B1B1B1; }
-    to 	{ width:0; background:transparent; }
-  }
-  @keyframes inputHighlighter {
-    from { background:#B1B1B1; }
-    to 	{ width:0; background:transparent; }
-  }
-  .send-btn {
+
+input:focus~.highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+
+/* ANIMATIONS ================ */
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #B1B1B1;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #B1B1B1;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #B1B1B1;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+.send-btn {
     float: right;
     color: #B1B1B1;
     transition: 0.2s ease;
     background: transparent;
     border-radius: 10px;
     border: 1px solid whitesmoke;
-  }
-  
-  .send-btn:hover {
+}
+
+.send-btn:hover {
     color: #FAFAFA;
     cursor: pointer;
-    
-  }
-  
+}
 
 @media only screen and (max-width: 767px) {
     .notfound .notfound-404 h1 {
@@ -286,8 +313,6 @@ input:focus ~ .highlight {
     .panel {
         width: 70%;
         float: right;
-        
-    
     }
 }
 
@@ -298,7 +323,6 @@ input:focus ~ .highlight {
     .panel-content {
         left: 30%;
         font-size: 1.2rem;
-
     }
     .panel .back {
         top: 70%;
@@ -321,7 +345,6 @@ input:focus ~ .highlight {
     .notfound .contact-btn {
         font-size: 14px;
     }
-
     .panel {
         width: 100%;
         margin: 0px;
@@ -336,7 +359,6 @@ input:focus ~ .highlight {
         left: 0;
         padding-left: 5px;
         transform: none;
-    
     }
     input {
         width: 90%;

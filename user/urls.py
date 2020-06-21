@@ -15,5 +15,6 @@ urlpatterns = [
     path('api/data/', views.get_data, name="get_data"),
     path('api/chart/data', views.ChartData.as_view(), name="chart-data"),
     path('api/big-chart-data/', views.big_chart_data, name='big-chart-data'),
-    path('nursery/', views.NurseryView.as_view(), name='nursery-view')
+    path('nursery/', views.NurseryView.as_view(), name='nursery-view'),
+    path('test/', views.test)
 ]

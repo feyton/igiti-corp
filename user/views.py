@@ -1,9 +1,7 @@
-from dashboard.forms import AddTaskForm, AddWorker
-from dashboard.models import Task, Workers
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -12,12 +10,15 @@ from rest_framework.authentication import (BasicAuthentication,
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from dashboard.forms import AddTaskForm, AddWorker
+from dashboard.models import Task, Workers
 from store.forms import AddProductForm
 from store.models import Address, Order, SeedProduct
 
 from .decorators import nursery_manager, staff_only
-from .forms import (NurseryManagerRegistration,
-                    UpdateAddressForm, UpdateProfileForm, UpdateUserForm)
+from .forms import (NurseryManagerRegistration, UpdateAddressForm,
+                    UpdateProfileForm, UpdateUserForm)
 from .models import UserProfile
 
 User = get_user_model()
@@ -277,3 +278,7 @@ class NurseryView(View):
     def post(self, *args, **kwargs):
         messages.info(self.request, 'You can not add nursery yet')
         return redirect('notification')
+
+
+def test(request):
+    return render(request, '500.html')

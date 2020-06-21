@@ -16,11 +16,10 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'feytonf@gmail.com'
 EMAIL_HOST_PASSWORD = 'Fahrer25.06.'
-EMAIL_USE_SSL =False
+EMAIL_USE_SSL = False
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_Eu2FdXltbLeQuxQNotWjW7Mt003XiV535O'
 STRIPE_SECRET_KEY = 'sk_test_5HwDjlXprokf1GPBHmxkHyrQ00tO0QvJqT'
-
 
 
 DATABASES = {
@@ -31,7 +30,7 @@ DATABASES = {
 }
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
-    ]
+]
 STATIC_ROOT = (os.path.join(BASE_DIR, 'asset'))
 STATIC_URL = '/static/'
 

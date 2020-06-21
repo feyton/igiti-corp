@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, View
+
 from user.models import UserProfile
 
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
@@ -214,7 +215,7 @@ class PaymentView(View):
     def get(self, *args, **kwargs):
         payment_option = kwargs['payment_option']
         if payment_option == 'stripe':
-            messages.info(
+            messages.error(
                 self.request, 'Sorry, we do not accept payment with stripe yet.')
             return redirect('home')
             # order = Order.objects.get(user=self.request.user, ordered=False)
@@ -244,7 +245,7 @@ class PaymentView(View):
             #         self.request, "You have not added a shipping address")
             #     return redirect("store:checkout")
         elif payment_option == 'momopay':
-            messages.info(
+            messages.error(
                 self.request, 'Sorry, we do not accept MOMO PAY yet.')
             return redirect('home')
 

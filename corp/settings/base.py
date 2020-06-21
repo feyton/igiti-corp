@@ -1,5 +1,8 @@
 import os
+
+from django.contrib.messages import constants as messages
 from django.core.exceptions import ImproperlyConfigured
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
@@ -92,7 +95,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': None,
     },
-    
+
 }
 
 
@@ -120,7 +123,7 @@ USE_TZ = True
 SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
@@ -133,7 +136,8 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_FORM_CLASS = SIGNUP_FORM_CLASS
 
 
-def ACCOUNT_USER_DISPLAY(user): return user.get_full_name()
+def ACCOUNT_USER_DISPLAY(user):
+    return user.get_full_name()
 
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -169,3 +173,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
