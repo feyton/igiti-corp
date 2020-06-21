@@ -10,7 +10,7 @@ from .models import SignUp, ErrorReport
 
 def home(request):
     context = {
-        'blog': BlogPost.objects.filter(published=True),
+        'blog': BlogPost.objects.filter(published=True).order_by('-created')[:5],
         'seed': SeedProduct.objects.filter(available=True)
 
     }
