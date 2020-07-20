@@ -110,7 +110,7 @@
     <div class="col-md-4">
       <div class="card card-user">
         <div class="image">
-          <img src="/static/assets/img/bg5.jpg" alt="...">
+          <img src="/static/img/bg5.jpg" alt="bg-user">
         </div>
         <div class="card-body">
           <div class="author">
@@ -120,7 +120,7 @@
               <img class="avatar border-gray" src="{{ profile.image.url}}" alt="...">
 
               {% else %}
-              <img class="avatar border-gray" src="/static/assets/img/default-avatar.png" alt="...">
+              <img class="avatar border-gray" src="/static/img/default-avatar.png" alt="...">
               {% endif %}
               <h5 class="title">
                 {{ request.user.get_full_name }}
@@ -134,19 +134,19 @@
         <hr>
         <div class="button-container">
           <h6>Connect</h6>
-          <a href="{% provider_login_url "facebook" method="js_sdk" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-info">
+          <a href="{% provider_login_url "facebook" method="js_sdk" process="connect" %}"
+            class="btn btn-neutral btn-icon btn-round btn-info">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="{% provider_login_url "twitter" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-info">
+          <a href="{% provider_login_url "twitter" process="connect" %}"
+            class="btn btn-neutral btn-icon btn-round btn-info">
             <i class="fab fa-twitter"></i>
           </a>
-          <a href="{% provider_login_url "google" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-info">
+          <a href="{% provider_login_url "google" process="connect" %}"
+            class="btn btn-neutral btn-icon btn-round btn-info">
             <i class="fab fa-google"></i>
           </a>
-          <h6>Disconnect</h6>
-          <a href="{% provider_login_url "google" process="connect" %}" class="btn btn-neutral btn-icon btn-round btn-danger">
-            <i class="fab fa-google"></i>
-          </a>
+
         </div>
         <hr>
         <div class="button-container">
@@ -154,7 +154,7 @@
             Change Password
           </a>
           OR
-          <a href="#" class="btn btn-danger" id="account_delete">
+          <a href="#" class="btn btn-danger" id="account_delete" data-url="{% url 'delete-account' email=user.email %}">
             Delete account
           </a>
         </div>
@@ -186,7 +186,17 @@
     $('#account_delete').click(function () {
       let result = confirm('Are You Sure You Want to delete Your Accounts');
       if (result == true) {
-        console.log('Go');
+        endpoint = $(this).data('url');
+        $.ajax({
+          url: endpoint,
+          method: "GET",
+          success: function (data) {
+            alert(data.response)
+          },
+          error: function (e) {
+            console.log(e)
+          }
+        })
       } else {
         console.log('No');
       }

@@ -2,7 +2,6 @@ from datetime import datetime
 
 from autoslug.fields import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
-# from user.models import User
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
@@ -56,6 +55,13 @@ class BlogPostQueryset(models.QuerySet):
         return self.filter(published=False)
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
 class BlogPost(models.Model):
     title = models.CharField(_('title'), max_length=255)
     slug = AutoSlugField(_('slug'), populate_from='title', unique=True)
@@ -69,9 +75,13 @@ class BlogPost(models.Model):
     pub_date = models.DateTimeField(_('publish date'), blank=True, null=True)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     featured = models.BooleanField(default=False)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_DEFAULT, blank=True, null=True, default=1, related_name='posts')
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
                                         related_query_name='hit_count_generic_relation')
+    summary = models.TextField(blank=True, null=True)
+    tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
+
     objects = BlogPostQueryset.as_manager()
 
     class Meta:
@@ -85,6 +95,8 @@ class BlogPost(models.Model):
             self.pub_date = datetime.now()
         elif not self.published and self.pub_date is not None:
             self.pub_date = None
+        if not self.summary and self.description:
+            self.summary = self.description[:60]
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -98,7 +110,11 @@ class BlogPost(models.Model):
             return self.author.get_author_name()
 
     def get_bio(self):
-        return self.author.bio[:200]
+        if self.author and self.author.bio:
+            if len(self.author.bio) > 200:
+                return '%s...' % self.author.bio
+            return self.author.bio
 
     def get_author_image(self):
-        return self.author.image.url
+        if self.author.image:
+            return self.author.image.url

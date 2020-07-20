@@ -1,24 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 {% load static %}
 
 
 {% block extra_style%}
-<link rel="stylesheet" href="{% static 'style/forestry.css' %}">
+<link rel="stylesheet" href="/static/css/forestry.css">
 
 {% endblock extra_style%}
 
 {% block site_name %}
-    {{ category.title}}
+{{ category.title}}
 {% endblock site_name %}
-    
 
-{% block facebook %}
-    
-{% endblock facebook %}
-    
 
 {% block content %}
-        
+
 <!-- Content -->
 <div class="content clearfix">
     <div class="main-content">
@@ -34,11 +29,11 @@
                 <i class="far fa-user"></i>&nbsp;<span>{{post.author}}</span> &nbsp;<i
                     class="far fa-calendar"></i>&nbsp;<span>{{ post.pub_date|date }}</span>
                 <p class="preview-text">{{ post.description|truncatechars:220 }}</p>
-                <a href="{{ post.get_absolute_url }}" class="btn readmore">Read More</a>
+                <a href="{{ post.get_absolute_url }}" class="btn btn-outline-info">Read More</a>
             </div>
         </div>
         {% endfor %}
-        
+
 
 
     </div>
@@ -47,7 +42,8 @@
         <div class="section search">
             <h2 class="section-title">Search</h2>
             <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
-                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|safe}}" id="blog_search">
+                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|safe}}"
+                    id="blog_search">
             </form>
         </div>
 
@@ -72,5 +68,5 @@
 {% endblock%}
 
 {% block extra_java %}
-    <script src="{% static 'js/forestry.js' %}"></script>
+<script src="/static/js/forestry.js"></script>
 {% endblock extra_java %}

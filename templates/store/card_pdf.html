@@ -7,9 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/gif" href="{% static 'images/profile.png' %}" />
+    <link rel="icon" type="image/gif" href="/static/img/profile.png" />
     <title>{{ item.scientific_name}}</title>
-    <link rel="stylesheet" href="{% static 'style/Bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="/static/css/plugin/bootstrap.min.css">
 
     <style>
         @page {
@@ -197,18 +197,18 @@
                 <p>This storage guide is pureley bsed on the seed type of <strong>{{ item.scientific_name}}</strong>
                     which is <strong>{{item.seed_type.get_name_display}}</strong></p>
                 <p>
-                    <ul>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Storage
-                                type:&nbsp;</span>{{item.seed_type.get_storage_type_display}}</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
-                                years:&nbsp;</span>{{item.seed_type.max_years}} years</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
-                                years:&nbsp;</span>{{item.seed_type.min_years}} years</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
-                                moisture:&nbsp;</span>{{item.seed_type.max_moisture}} degree Celsius</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
-                                moisture:&nbsp;</span>{{item.seed_type.min_moisture}} degree Celsius</li>
-                    </ul>
+                <ul>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Storage
+                            type:&nbsp;</span>{{item.seed_type.get_storage_type_display}}</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
+                            years:&nbsp;</span>{{item.seed_type.max_years}} years</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
+                            years:&nbsp;</span>{{item.seed_type.min_years}} years</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
+                            moisture:&nbsp;</span>{{item.seed_type.max_moisture}} degree Celsius</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
+                            moisture:&nbsp;</span>{{item.seed_type.min_moisture}} degree Celsius</li>
+                </ul>
                 </p>
                 {{ item.seed_type.overview|safe}}
                 {% else %}
@@ -219,10 +219,10 @@
                 {% if item.pre_treatment %}
 
                 <p class="treatment">{{item.pre_treatment.title}}</p>
-                
-                    {{item.pre_treatment.process|safe}}
-                
-                
+
+                {{item.pre_treatment.process|safe}}
+
+
                 {% else %}
                 <p>Pre-treatment not determined or it doesn't need one</p>
                 {% endif %}

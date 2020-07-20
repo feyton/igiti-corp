@@ -1,0 +1,44 @@
+{% load static %}
+{% load cart_template_tags %}
+<header>
+    <div class="container">
+        <a href="{% url 'home' %}"><img src="/static/img/fixed-logo.png" alt="logo" width="275" height="60"
+                class="fixed-logo"></a>
+        <i class="fa fa-bars menu-toggle" id="menu-show" onclick="menu_show()"></i>
+        <ul class="nav-bar showing" id="nav-bar">
+            <li><a href="/">HOME</a></li>
+            <li><a href="{% url 'forestry:list' %}">FORESTRY&nbsp;<i class="fas fa-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{% url 'forestry:list' %}">Species</a></li>
+                    <li><a href="{% url 'notification' %}">Events</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'store:store' %}">STORE&nbsp;<i class="fas fa-chevron-down"></i></a>
+                {%if user.is_authenticated%}
+                <ul>
+                    <li><a href="{% url 'store:order-summary' %}">Cart <span
+                                class="cart-number">&nbsp;{{ request.user|cart_item_count}}</span></a></li>
+                    <li><a href="{% url 'store:checkout' %}">Checkout</a></li>
+                </ul>
+                {% endif %}
+            </li>
+            {% if user.is_authenticated %}
+            <li><a href="#"><i class="fas fa-user"></i>&nbsp;{{ user.first_name}} <i
+                        class="fas fa-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a> </li>
+                    <li class="logout"><a href="{% url 'account_logout' %}">Logout</a></li>
+                </ul>
+            </li>
+            {% else %}
+            <li><a href="#">ACCOUNT&nbsp;<i class="fas fa-chevron-down"></i></a>
+                <ul>
+                    <li><a href="{% url 'account_login' %}">Login</a> </li>
+                    <li><a href="{% url 'account_signup' %}">Register</a></li>
+                </ul>
+            </li>
+            {% endif%}
+        </ul>
+    </div>
+
+</header>

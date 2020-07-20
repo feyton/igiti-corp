@@ -1,15 +1,15 @@
-{% extends 'base.html'%} {% load i18n %}
+{% extends 'layout/base.html'%} {% load i18n %}
 {% load static %}
 
 
 {% block extra_style%}
-<link rel="stylesheet" href="{% static 'style/forestry.css' %}">
+<link rel="stylesheet" href="/static/css/forestry.css">
 {% endblock extra_style%}
 
 {% block site_name %}
-    Search post
+{{query|safe}}
 {% endblock site_name %}
-    
+
 
 {% block facebook %}
 
@@ -21,9 +21,10 @@
 <div class="content clearfix">
     <div class="main-content">
         {% if queryset%}
-        <h1 class="trending-post-title">Search Results for&nbsp; {{query|safe}}</h1>
+        <h1 class="trending-post-title">Search Results for&nbsp;<span
+                class="text-info font-weight-bolder">{{query|safe}}</span> </h1>
         {% else%}
-        <h1 class="trending-post-title" style="background: white; padding-right: 50px ">Search here</h1>
+        <h1 class="trending-post-title bg-white" style="padding-right: 50px ">Search here</h1>
         {% endif%}
 
         {% if queryset%}
@@ -47,7 +48,7 @@
         <div class="row no-result" style="margin: 20px 30px 20px 10px;">
             Sorry We could not find what you are looking for.
             <br>
-            Your search was {{ query|escape}}
+            Your search was: <span class="text-primary font-weight-bolder">{{ query|escape}}</span>
         </div>
 
         {% endif %}
@@ -58,7 +59,8 @@
         <div class="section search">
             <h2 class="section-title">Search</h2>
             <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
-                <input class="text-input" type="text-input" name="q" placeholder="Search..." value="{{ query|escape}}" id="blog_search">
+                <input class="text-input" type="text-input" name="q" placeholder="Search..." value="{{ query|escape}}"
+                    id="blog_search">
             </form>
         </div>
 
@@ -66,7 +68,7 @@
             <h2 class="section-title">Categories</h2>
             <ul>
                 {% for cat in categories%}
-                <li><a href="#">{{ cat.title}}</a></li>
+                <li><a href="{{cat.get_absolute_url}}" class="capitalize">{{ cat.title}}</a></li>
                 {% endfor%}
 
             </ul>
@@ -78,5 +80,5 @@
 <!-- //content -->
 {% endblock%}
 {% block extra_java %}
-    <script src="{% static 'js/forestry.js' %}"></script>
+<script src="/static/js/forestry.js"></script>
 {% endblock extra_java %}

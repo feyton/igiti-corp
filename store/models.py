@@ -9,6 +9,8 @@ from django_countries.fields import CountryField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
+from forestry.models import BlogPost
+
 from .utils import photo_path
 
 User = get_user_model()
@@ -136,6 +138,9 @@ class SeedProduct(models.Model):
                                   options={'quality': 120})
     image2_thumb = ImageSpecField(source='image2', processors=[
                                   ResizeToFill(100, 200)], format='JPEG', options={'quality': 100})
+
+    related_post = models.ForeignKey(
+        BlogPost, null=True, blank=True, on_delete=models.SET_NULL)
 
     # FUNCTIONS
 

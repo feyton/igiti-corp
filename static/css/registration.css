@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.hero {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/static/img/slide2.jpg) fixed;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+
+/* *************
+GENERAL
+***************/
+.btn {
+    padding: .4rem 1rem;
+    background: rgba(12, 156, 149, 0.74);
+    color: white;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    color: white;
+    background: rgba(13, 58, 56, 0.74);
+    transition: 0.5s;
+}
+
+.text-left {
+    text-align: left;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.form-box {
+    width: 380px;
+    height: 500px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
+    padding: 5px;
+    overflow-y: scroll;
+}
+
+.button-box {
+    width: 280px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+
+.toggle-btn {
+    width: 100%;
+    text-transform: uppercase;
+
+}
+
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #1048ff, #06b0ff);
+    border-radius: 30px;
+    transition: .5s;
+}
+
+/* SOCIAL ICONS */
+
+.social-icons {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.social-icons a {
+    width: 30px;
+    margin: 0 12px;
+    box-shadow: 0 0 20px 0 #7f7f7f3d;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+.social-icons a {
+    color: rgb(35, 123, 224);
+    font-size: 1.7rem;
+    transition: all 0.3s;
+}
+
+.social-icons a:hover {
+    color: #456;
+}
+
+.social-icons a:before,
+.social-icons a:after {
+    content: attr(data-tip);
+    color: #000;
+    background: rgb(193, 230, 225);
+    font-size: 14px;
+    padding: 5px 10px;
+    white-space: nowrap;
+    display: none;
+    position: absolute;
+    transition: all 0.3s;
+    margin: 40px auto;
+}
+
+.social-icons a:after {
+    content: '';
+    background: linear-gradient(-45deg, #fff 49%, transparent 50%);
+    width: 10px;
+    height: 10px;
+    top: 40%;
+    right: 20px;
+}
+
+.social-icons a:hover:before,
+.social-icons a:hover:after {
+    display: inline-block;
+}
+
+
+
+
+.input-group {
+    position: relative;
+    width: 280px;
+    transition: .5s;
+    margin: 5px auto;
+
+}
+
+.input-field {
+    width: 100%;
+    padding: 5px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+    font-family: 'Oswald';
+    font-weight: 600;
+}
+
+.submit-btn {
+    width: 85%;
+    cursor: pointer;
+    padding: 10px 30px;
+    display: block;
+    margin: 10px auto;
+    background: linear-gradient(to right, #10b3ff, #166b60);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+    transition: all .3s;
+    font-family: 'Oswald';
+    text-transform: uppercase;
+}
+
+.submit-btn:hover {
+    color: white;
+    background: linear-gradient(to left, #10b3ff, #166b60);
+    transition: .3s;
+}
+
+
+.message-box {
+    margin: 10px auto;
+    color: rgb(46, 44, 44);
+    text-align: center;
+    font-family: Geneva;
+    list-style: square;
+    text-align: left;
+    background: none;
+    text-transform: capitalize;
+    font-size: 15px;
+}
+
+.message-box:hover {
+    color: rgb(39, 34, 34);
+    background: none;
+    transition: 0.5s;
+}
+
+.action-box {
+    margin: 10px auto;
+    position: relative;
+    text-align: center;
+}
+
+.action-box a {
+    font-family: 'Oswald';
+    transition: .3s;
+}
+
+.action-box a:hover {
+    padding-left: 5px;
+    transition: .3s;
+}
+
+span {
+    color: #777;
+    font-size: 12px;
+    bottom: 68px;
+    position: absolute;
+}
+
+
+@media only screen and (max-width: 918px) {
+    .form-box {
+        margin-top: 55px;
+    }
+
+    .hero {
+        height: fit-content;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .form-box {
+        width: 90%;
+    }
+
+    .submit-btn {
+        width: 60%;
+    }
+
+    .chech-box {
+        margin: 30px 0px 30px 0px;
+    }
+
+    .hero {
+        height: fit-content;
+    }
+}

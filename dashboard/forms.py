@@ -5,9 +5,6 @@ from .models import Nursery, Task, Workers
 
 
 class AddTaskForm(ModelForm):
-    deadline = forms.DateTimeField(
-        input_formats=["%d/%m/%Y %H:%M"], required=False)
-
     class Meta:
         model = Task
         exclude = ['user']

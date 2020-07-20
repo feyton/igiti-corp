@@ -258,30 +258,6 @@ class PaymentView(View):
             save = self.request.POST.get('save')
             use_default = self.request.POST.get('use_default')
 
-            # HANDLING BILLING ADDRESS
-            # first_name = form.cleaned_data.get('first_name')
-            # last_name = form.cleaned_data.get('last_name')
-            # street_address = form.cleaned_data.get('street_address')
-            # city = form.cleaned_data.get('city')
-            # district = form.cleaned_data.get('district')
-            # mobile = form.cleaned_data.get('mobile')
-            # post_code = form.cleaned_data.get('postal_code')
-            # email = form.cleaned_data.get('email')
-
-            # billing_address = Address(
-            #     user=self.request.user,
-            #     street_address=street_address,
-            #     city=city,
-            #     district=district,
-            #     address_type='B',
-            #     postal_code=post_code,
-            # )
-            # billing_address.save()
-
-            # order.billing_address = billing_address
-            # order.save()
-            # print(email)
-
             if save:
                 if userprofile.stripe_customer_id != '' and userprofile.stripe_customer_id is not None:
                     customer = stripe.Customer.retrieve(

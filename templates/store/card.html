@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layout/base.html' %}
 {% load static %}
 {% load humanize %}
 
@@ -8,7 +8,7 @@
 
 
 {% block title %}
-<link rel="stylesheet" href="{% static 'style/store/card.css' %}" class="css">
+<link rel="stylesheet" href="/static/css/card.css" class="css">
 {% endblock title %}
 
 
@@ -86,18 +86,18 @@
                 <p>This storage guide is pureley bsed on the seed type of <strong>{{ item.scientific_name}}</strong>
                     which is <strong>{{item.seed_type.get_name_display}}</strong></p>
                 <p>
-                    <ul>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Storage
-                                type:&nbsp;</span>{{item.seed_type.get_storage_type_display}}</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
-                                years:&nbsp;</span>{{item.seed_type.max_years}} years</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
-                                years:&nbsp;</span>{{item.seed_type.min_years}} years</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
-                                moisture:&nbsp;</span>{{item.seed_type.max_moisture}}&#8451;</li>
-                        <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
-                                moisture:&nbsp;</span>{{item.seed_type.min_moisture}}&#8451;</li>
-                    </ul>
+                <ul>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Storage
+                            type:&nbsp;</span>{{item.seed_type.get_storage_type_display}}</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
+                            years:&nbsp;</span>{{item.seed_type.max_years}} years</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
+                            years:&nbsp;</span>{{item.seed_type.min_years}} years</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
+                            moisture:&nbsp;</span>{{item.seed_type.max_moisture}}&#8451;</li>
+                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
+                            moisture:&nbsp;</span>{{item.seed_type.min_moisture}}&#8451;</li>
+                </ul>
                 </p>
                 {{ item.seed_type.overview|safe}}
                 {% else %}
@@ -111,7 +111,7 @@
                 <p class="process">
                     {{item.pre_treatment.process|safe}}
                 </p>
-                
+
                 {% else %}
                 <p>Pre-treatment not determined or it doesn't need one</p>
                 {% endif %}

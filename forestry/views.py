@@ -62,15 +62,13 @@ def search(request):
     categories = Category.objects.all()
     if query:
         queryset = query_set.filter(
-            Q(title__icontains=query) |
-            Q(text__icontains=query)
-        ).distinct()
+            Q(title__icontains=query) | Q(text__icontains=query) | Q(category__title__icontains=query) | Q(tag__name__icontains=query)).distinct()
+        context = {
+            'queryset': queryset,
+            'query': query,
+            'categories': categories
+        }
+        return render(request, 'blog/search.html', context)
     else:
         messages.error(request, "Type a valid term")
         return redirect('forestry:list')
-    context = {
-        'queryset': queryset,
-        'query': query,
-        'categories': categories
-    }
-    return render(request, 'blog/search.html', context)

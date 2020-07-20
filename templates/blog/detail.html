@@ -1,13 +1,21 @@
-{% extends 'base.html'%} {% load i18n %}
+{% extends 'layout/base.html'%}
+{% load i18n %}
 {% load static %}
 {% load hitcount_tags %}
 
 {% block extra_style %}
-<link rel="stylesheet" href="{% static 'style/forestry.css' %}">
+<link rel="stylesheet" href="/static/css/forestry.css">
 {% endblock extra_style %}
 {% block site_name %}
 {{blog_post.title}}
 {% endblock site_name %}
+
+
+{% block extra_head %}
+<meta name="description" content="{{post.description|truncatechars:100}}">
+<meta name="robots" content="index, follow" />
+{% endblock extra_head %}
+
 
 {%block content%}
 <!-- Content -->
@@ -26,8 +34,6 @@
 
         <div class="post-preview single">
             {{ blog_post.text|safe }}
-
-
         </div>
         <div class="author">
             <div class="author-image">
@@ -63,7 +69,8 @@
         <div class="section search">
             <h2 class="section-title">Search</h2>
             <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
-                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|escape}}" id="blog_search">
+                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|escape}}"
+                    id="blog_search">
             </form>
         </div>
         <div class="section popular">
@@ -99,6 +106,5 @@
 
 
 {% block extra_java %}
-    <script src="{% static 'js/forestry.js' %}"></script>
+<script src="/static/js/forestry.js"></script>
 {% endblock extra_java %}
-    

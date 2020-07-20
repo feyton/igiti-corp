@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/gif" href="{% static 'images/404.jpg' %}" />
+    <link rel="icon" type="image/gif" href="/static/img/profile.png" />
 
     <title>404 Not Found | Igiti Corp</title>
 
@@ -15,18 +15,18 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700,900" rel="stylesheet">
 
     <!-- Fontawesome -->
-    <script src="https://kit.fontawesome.com/8d71393779.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/fontawesome-all.css">
     <!--<link rel="stylesheet" href="{% static 'style/fontawesome/css/all.css' %}">-->
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{% static 'style/404.css' %}" />
+    <link type="text/css" rel="stylesheet" href="/static/css/404.css" />
 
 </head>
 
 <body>
 
     <div id="notfound">
-        <div class="notfound-bg" style="background-image: url({% static 'images/2.jpg' %});"></div>
+        <div class="notfound-bg" style="background-image: url(/static/img/2.jpg);"></div>
         <div class="notfound">
             <div class="notfound-404">
                 <h1>404</h1>
@@ -39,7 +39,7 @@
                 <a href="https://twitter.com/igiticorp"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
-        <div class="panel panel-right show" id="form" style="background-image: url({% static 'images/1.jpg' %});">
+        <div class="panel panel-right show" id="form" style="background-image: url(/static/img/1.jpg);">
             <div class="back" id="back" onclick="contact_form()"><i class="fas fa-reply-all"></i></div>
             <div class="panel-content">
                 <form action="{% url 'error' %}" method="post">

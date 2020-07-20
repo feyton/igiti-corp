@@ -15,7 +15,8 @@ class NurseryManager(models.Model):
 
 
 class Species(models.Model):
-    scientific_name = models.CharField(blank=False, unique=True, max_length=255)
+    scientific_name = models.CharField(
+        blank=False, unique=True, max_length=255)
     seeds_kg = models.IntegerField(blank=True)
 
 
@@ -40,9 +41,10 @@ class SowingBed(models.Model):
 class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
-    deadline = models.DateTimeField(blank=True, null=True)
     action = models.CharField(max_length=255, blank=False, null=False)
-    date_completed = models.DateTimeField(blank=True, null=True, auto_now_add=False)
+    date_completed = models.DateTimeField(
+        blank=True, null=True, auto_now_add=False)
+    created = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.user.first_name
@@ -56,7 +58,6 @@ class Task(models.Model):
 
 class Workers(models.Model):
     # CHOICES
-
     # DATABASE
     account_number = models.CharField(max_length=20, blank=True)
     full_name = models.CharField(max_length=255, )

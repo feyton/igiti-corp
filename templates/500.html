@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/gif" href="{% static 'images/error_500.jpg' %}" />
+    <link rel="icon" type="image/gif" href="/static/img/profile.png" />
 
     <title>500 Server Error| Igiti Corp</title>
 
@@ -15,24 +15,24 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700,900" rel="stylesheet">
 
     <!-- Fontawesome -->
-    <script src="https://kit.fontawesome.com/8d71393779.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/fontawesome-all.css" class="css">
     <!--<link rel="stylesheet" href="{% static 'style/fontawesome/css/all.css' %}">-->
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{% static 'style/404.css' %}" />
+    <link type="text/css" rel="stylesheet" href="/static/css/404.css" />
 
 </head>
 
 <body>
 
     <div id="notfound">
-        <div class="notfound-bg" style="background-image: url({% static 'images/2.jpg' %});"></div>
-        <div class="notfound">
+        <div class="notfound-bg" style="background-image: url(/static/img/2.jpg
+        <div class=" notfound">
             <div class="notfound-404">
                 <h1>500</h1>
             </div>
             <h2>we are sorry, but something <span style="color: red;"> went wrong on our end.</span> </h2>
-            <a href="{% url 'home' %}" class="home-btn">Go Home</a>
+            <a href="{% url 'home' %}" class="home-btn">Home</a>
             <a class="contact-btn" id="contact">We have been notified!</a>
             <div class="notfound-social">
                 <a href="https://facebook.com/igiticorp"><i class="fab fa-facebook"></i></a>

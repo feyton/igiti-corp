@@ -1,11 +1,11 @@
-from django.contrib import admin
-from django.urls import path, include
-from .views import home, terms, privacy, subscribe, error
+from django.urls import path
+
+from .views import error, home, privacy, subscribe, terms
 
 urlpatterns = [
     path('', home, name='home'),
     path('terms/', terms, name='terms'),
     path('privacy/', privacy, name='privacy'),
-    path('subscribe/', subscribe, name='subscribe'),
+    path('subscribe/igiti/corp/new/', subscribe, name='subscribe'),
     path('error/', error, name='error')
 ]

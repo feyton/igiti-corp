@@ -1,3 +1,5 @@
+from django.contrib.auth import logout
+from django.contrib.auth import get_user_model
 from datetime import datetime
 
 from django.contrib import messages
@@ -6,11 +8,9 @@ from django.db.models import Sum
 from django.db.models.functions import Trunc
 from django.shortcuts import get_object_or_404, redirect
 from store.models import SeedProduct
-
 from .models import Task, Workers
 
-
-# Create your views here.
+User = get_user_model()
 
 
 @login_required
@@ -53,7 +53,3 @@ def delete_worker(request, pk):
     worker.delete()
     messages.warning(request, '{} - Has been removed'.format(name))
     return redirect('notification')
-
-
-product_data = SeedProduct.objects.annotate(created=Trunc(
-    'created_on', 'month')).values('created').annotate(products=Sum('id'))

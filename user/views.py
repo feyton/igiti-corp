@@ -20,7 +20,7 @@ from .decorators import nursery_manager, staff_only
 from .forms import (NurseryManagerRegistration, UpdateAddressForm,
                     UpdateProfileForm, UpdateUserForm)
 from .models import UserProfile
-
+from django.core.exceptions import PermissionDenied
 User = get_user_model()
 
 staff = [login_required, staff_only]
@@ -282,3 +282,20 @@ class NurseryView(View):
 
 def test(request):
     return render(request, '500.html')
+
+
+@login_required
+def delete_user(request, email):
+    user = User.objects.get(email__iexact=email)
+    if user:
+        # user.is_active = False
+        # user.save()
+        # user.logout()
+        messages.error(
+            request, 'Your account will be deleted in 90 days\n Sorry to see you go!!!')
+        data = {
+            'response': 'Account deleted'
+        }
+        return JsonResponse(data)
+    else:
+        raise PermissionDenied

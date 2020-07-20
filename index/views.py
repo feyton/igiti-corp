@@ -1,20 +1,29 @@
+from .forms import SignUpForm
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from forestry.models import BlogPost
 from store.models import SeedProduct
-
+from django.views.generic import View
 from .models import SignUp, ErrorReport
+from django.contrib import messages
+from django.views.decorators.http import require_GET, require_POST
+from django.utils.decorators import method_decorator
 
 
-def home(request):
-    context = {
-        'blog': BlogPost.objects.filter(published=True).order_by('-created')[:5],
-        'seed': SeedProduct.objects.filter(available=True)
+@method_decorator(require_GET, name='dispatch')
+class HomeView(View):
+    def get(self, *args, **kwargs):
+        context = {
+            'blog': BlogPost.objects.filter(published=True).order_by('-created')[:5],
+            'seed': SeedProduct.objects.filter(available=True)
 
-    }
-    return render(request, 'index.html', context)
+        }
+        return render(self.request, 'index.html', context)
+
+
+home = HomeView.as_view()
 
 
 def species(request):
@@ -22,39 +31,40 @@ def species(request):
 
 
 def terms(request):
-    return render(request, 'terms.html')
+    return render(request, 'pages/terms.html')
 
 
 def privacy(request):
-    return render(request, 'privacy.html')
+    return render(request, 'pages/privacy.html')
 
 
+@require_POST
 def subscribe(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        new = SignUp()
-        try:
-            new.full_name = name
-            new.email = email
-            new.save()
-            subject = 'Welcome to Igiti Corp'
-            message = 'Thank you for subscribing to our weekly newsletter'
-            recepient = email
-            send_mail(subject,
-                      message, settings.EMAIL_HOST_USER, [recepient], fail_silently=True)
-            context = {
-                'name': name,
-                'email': email
-            }
+    form = SignUpForm(request.POST)
+    if form.is_valid():
+        email = form.cleaned_data.get('email')
+        form.save()
 
-            return render(request, 'success/sub.html', context)
-        except Exception as e:
-            return HttpResponse('Sorry, You are already subscribed. <br>Thank You. <br><br><a href"/">GO HOME</a>')
+        # signup.save()
+        subject = 'Welcome to Igiti Corp'
+        message = 'Thank you for subscribing to our weekly newsletter'
+        recepient = email
+        send_mail(subject, message, settings.EMAIL_HOST_USER,
+                  [recepient], fail_silently=True)
+
+        messages.success(request, 'You have subscribed successfully')
+        return redirect("home")
+
+        #
+    elif not form.is_valid() and request.POST['email'] is not None:
+        return HttpResponse('Sorry, You are already subscribed. <br>Thank You. <br><br><a href="/">GO HOME</a>')
+
     else:
+        messages.error(request, 'Fill all fields in form')
         return redirect('home')
 
 
+@require_POST
 def error(request):
     if request.method == 'POST':
         sender_ip = request.META['REMOTE_ADDR']
@@ -79,7 +89,7 @@ def error(request):
             subject = 'Error report from Igiti Corp'
             recipient = 'tumbafabruce@gmail.com'
             send_mail(subject,
-                      message, settings.EMAIL_HOST_USER, [recepient], fail_silently=True)
+                      message, settings.EMAIL_HOST_USER, [recipient], fail_silently=True)
 
         report = ErrorReport()
         report.email = email
@@ -89,10 +99,7 @@ def error(request):
         report.spam = spam
         report.save()
 
-        context = {
-            'email': email,
-            'message': success
-        }
-        return render(request, 'success/simple.html', context)
+        messages.success(request, 'Thank you for the update!!!')
+        return redirect('home')
     else:
         return redirect('home')

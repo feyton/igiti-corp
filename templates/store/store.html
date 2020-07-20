@@ -1,5 +1,11 @@
-{% extends 'base.html'%} {% load i18n %} {% load static %} {% load humanize %} {% block extra_style%}
-<link rel="stylesheet" href="{% static 'style/store.css' %}"> {% endblock extra_style%} {% block site_name %} Store {% endblock site_name %} {%block content%}
+{% extends 'layout/base.html'%}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block extra_style%}
+<link rel="stylesheet" href="/static/css/store.css">
+{% endblock extra_style%}
+{% block site_name %} Store {% endblock site_name %} {%block content%}
 
 <div class="content clearfix">
 
@@ -30,7 +36,8 @@
                         </ul>
                     </div>
                     <div class="product-content">
-                        <h3 class="title font-italic"> <a href="{{ seed.get_absolute_url }}">{{seed.scientific_name}}</a> </h3>
+                        <h3 class="title font-italic"> <a
+                                href="{{ seed.get_absolute_url }}">{{seed.scientific_name}}</a> </h3>
                         <div class="price">Rwf {{seed.price|intcomma}}</div>
                     </div>
 
