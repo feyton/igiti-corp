@@ -13,12 +13,10 @@ django-ckeditor==5.9.0
 django-countries==6.1.2
 django-decouple==2.1
 django-js-asset==1.2.2
-django-tracking @ git+https://github.com/bashu/django-tracking.git@f6883f8759bc645a3aeb7b77cced8e95b84e46de
 django-widget-tweaks==1.4.8
 djangorestframework==3.11.0
 html5lib==1.0.1
 idna==2.9
-mysqlclient==2.0.0.dev1
 oauthlib==3.1.0
 Pillow==7.0.0
 pycparser==2.20

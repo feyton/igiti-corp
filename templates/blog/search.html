@@ -19,7 +19,7 @@
 
 <!-- Content -->
 <div class="content clearfix">
-    <div class="main-content">
+    <div class="main-content" id="post-list">
         {% if queryset%}
         <h1 class="trending-post-title">Search Results for&nbsp;<span
                 class="text-info font-weight-bolder">{{query|safe}}</span> </h1>
@@ -68,7 +68,7 @@
             <h2 class="section-title">Categories</h2>
             <ul>
                 {% for cat in categories%}
-                <li><a href="{{cat.get_absolute_url}}" class="capitalize">{{ cat.title}}</a></li>
+                <li><a href="{{cat.get_absolute_url}}" class="post-categories text-capitalize">{{ cat.title}}</a></li>
                 {% endfor%}
 
             </ul>
@@ -81,4 +81,22 @@
 {% endblock%}
 {% block extra_java %}
 <script src="/static/js/forestry.js"></script>
+<script>
+    $(document).ready(function (e) {
+        $('.post-categories').click(function (e) {
+            e.preventDefault();
+            var endpoint = $(this).attr('href');
+            $.ajax({
+                url: endpoint,
+                method: 'GET',
+                success: function (data) {
+                    $('#post-list').html(data)
+                },
+                error: function (error_data) {
+                    consol.log(error_data)
+                }
+            })
+        });
+    })
+</script>
 {% endblock extra_java %}

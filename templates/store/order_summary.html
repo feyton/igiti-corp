@@ -70,10 +70,11 @@ Cart
                                                         <div class="quantity buttons_added" data-children-count="1"><a
                                                                 href="{% url 'store:remove-single-item-from-cart' order_item.item.slug%}"
                                                                 class="minus">-</a>
-                                                            <input type="text" id="quantity_5ea093f3a2b82"
-                                                                class="input-text qty text" step="1" min="1" max=""
-                                                                name="quantity" value="{{order_item.quantity}}"
-                                                                title="Qty" size="4" placeholder="" inputmode="numeric">
+                                                            <input type="text" pattern="[0-9]"
+                                                                class="input-text qty text item-quantity" step="0.5"
+                                                                min="0" max="10" name="quantity"
+                                                                value="{{order_item.quantity}}" title="Qty" size="4"
+                                                                inputmode="numeric" data-pk="{{order_item.pk}}">
                                                             <a href="{% url 'store:add-to-cart' order_item.item.slug%}"
                                                                 class="plus">+</a>
                                                         </div>
@@ -141,24 +142,8 @@ Cart
 
                     <!-- SECTION -->
                     <div class="col-md-12 col-lg-4">
-                        <div class="summary">
-                            <a href="{% url 'store:store' %}" class="back-button"><i class="fas fa-reply-all"></i></a>
-                            <h3>Summary</h3>
-                            <div class="summary-item"><span class="text">Subtotal</span><span
-                                    class="price">{{ object.subtotal|intcomma}}&nbsp;Rwf</span>
-                            </div>
-
-                            {% if object.get_total_amount_saved %}
-                            <div class="summary-item"><span class="text">Amount Saved</span><span
-                                    class="price">{{ object.get_total_amount_saved|intcomma}}</span>
-                            </div>
-                            {% endif %}
-                            <div class="summary-item"><span class="text">Shipping</span><span class="price">0 Rwf</span>
-                            </div>
-                            <div class="summary-item"><span class="text">Total</span><span
-                                    class="price">{{ object.get_total|intcomma}}&nbsp;Rwf</span>
-                            </div>
-                            <a href="{% url 'store:checkout' %}" class="btn btn-primary btn-lg btn-block">Checkout</a>
+                        <div class="summary" id="order-summary">
+                            {% include "snippets/order-summary.html" with order=object%}
                         </div>
                     </div>
                     <!-- //SECTION -->
@@ -168,6 +153,36 @@ Cart
 
 {% endblock content %}
 {% block extra_java %}
+<script>
+    $('.item-quantity').change(function (e) {
+        var pk = $(this).data('pk');
+        var quantity = $(this).val();
+        if (quantity >= 9.1) {
+            alert("Quantity can not exceed 9");
+            $(this).val(9);
+            var q = 9
+
+        } else if (quantity <= 0) {
+            alert("Quantity can't be 0'");
+            $(this).val(1);
+
+        }
+        $.ajax({
+            url: "{% url 'store:update-item-cart-quantity' %}",
+            method: 'GET',
+            data: { 'pk': pk, 'q': quantity },
+            success: function (data) {
+                $.notify({
+                    title: 'Quantity updated',
+                    message: 'Quantity has been changed successfully'
+                }, {
+                    type: 'success',
+                    delay: 3000
+                })
+            }
+        })
+    })
+</script>
 
 {% endblock extra_java %}
 

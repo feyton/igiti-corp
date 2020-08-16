@@ -184,7 +184,7 @@ class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
     item = models.ForeignKey(SeedProduct, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.DecimalField(default=1, max_digits=2, decimal_places=1)
 
     def __str__(self):
         return f'{self.quantity} of {self.item.scientific_name}'

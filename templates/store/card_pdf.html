@@ -9,65 +9,74 @@
 
     <link rel="icon" type="image/gif" href="/static/img/profile.png" />
     <title>{{ item.scientific_name}}</title>
-    <link rel="stylesheet" href="/static/css/plugin/bootstrap.min.css">
 
     <style>
         @page {
-            size: letter;
-            margin: 2cm;
-
-            @frame footer_frame {
-                /* Another static Frame */
-                -pdf-frame-content: footer_content;
-                left: 50pt;
-                width: 512pt;
-                top: 760pt;
-                height: 50px;
-            }
-
-            table {
-                -pdf-keep-with-next: true;
-            }
+            size: Letter;
+            margin-left: 2cm;
+            margin-right: 2cm;
+            margin-bottom: 0.5cm;
+            margin-top: 1cm;
         }
 
-        ul {
-            list-style-type: none;
+        :root {
+            --title_color: rgb(11, 55, 97)
         }
 
-        ul li span {
+        * {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .bold {
             font-weight: bold;
         }
 
-        h1 {
-            font-size: 24pt;
+        .bolder {
             font-weight: bolder;
         }
 
-        h3 {
-            font-size: 18px;
-            color: rgb(15, 28, 44);
-            font-weight: 600;
-            padding: 0;
+        h1 {
+            font-size: 20pt;
+            margin: 3pt;
         }
 
-        #district {
-            width: 80%;
-            border-collapse: collapse;
-            padding-left: 20px;
-            margin-left: 20px;
-            border-radius: 10px;
+        h2 {
+            font-size: 18pt;
+            margin: 2pt
         }
 
-        #table_head {
-            background: cadetblue;
+        p {
+            font-size: 15pt;
+            padding: 0px;
+            margin: 1pt;
         }
 
-        thead {
-            background-color: cadetblue;
+        a {
+            text-decoration: none;
+            color: whitesmoke
+        }
+
+        .header {
+            margin-bottom: 10pt;
+        }
+
+
+
+
+
+        .row {
+            display: block;
+        }
+
+        .logo {
+            position: relative;
+            height: 50px;
         }
 
         table {
             border: 1px solid rgb(111, 111, 201);
+            border-collapse: collapse;
+            width: 100%;
         }
 
         th {
@@ -79,17 +88,67 @@
             background-color: cadetblue;
         }
 
+        table tr {
+            border-bottom: 1px solid cyan;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        ul .no-style {
+            list-style: none;
+        }
+
+        /* ICONS */
+
+        .arrow {
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+        }
+
+        .right {
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+
+        h3 {
+            font-weight: 17pt;
+            margin: 2pt;
+            color: var(--title_color)
+        }
+
+        .up {
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+        }
+
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+        li {
+            list-style: none;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+
         td,
         li,
         p {
-            font-size: 13px;
+            font-size: 15px;
         }
 
-        p {
-            font-size: 14px;
-            padding: 0px;
-            margin-bottom: 0px;
-        }
 
         td,
         th {
@@ -97,25 +156,19 @@
             padding-top: 5px;
         }
 
-        .name-title {
-            text-decoration: underline;
-            margin-bottom: 5px;
-            color: cornflowerblue;
-            text-decoration-color: rgb(45, 130, 133);
-        }
-
-        #date {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        #top {
+        .footer {
+            height: 30px;
             text-align: center;
-            color: rgb(0, 34, 107);
+            position: absolute;
+            bottom: 10pt;
+            vertical-align: middle;
+            padding-top: 10pt;
             width: 100%;
-            height: 50px;
-            background: rgb(129, 180, 159);
-            padding-top: 10px;
+            font-size: 13pt;
+            background-color: rgb(36, 53, 53);
+            color: white;
+
+
         }
     </style>
 </head>
@@ -123,19 +176,15 @@
 <body>
 
     <div class="page-card">
-        <div class="row">
-            <div class="card-header" id="card-header">
-                <div class="head-logo" id="head-logo">
-                    <h1 style="font-size: 25px; padding-bottom: 0px; margin: 0px;"><span
-                            style="color: green; font-size: 25px;">Igiti</span>&nbsp;Corp</h1>
-                    <h5 id="date"> {% now "jS F Y H:i" %}</h5>
-                </div>
-            </div>
+        <div class="row header">
+            <img src="/static/img/logo.png" alt="" class="logo">
+            <h2>Rulindo, Rwanda</h2>
         </div>
         <div class="row">
             <div class="body-content">
                 <div class="title name">
-                    <h1 class="name-title" style="text-align: center;">{{ item.scientific_name}}</h1>
+                    <h1 class="name-title" style="text-align: center;">Scientific name: <span
+                            class="italic">{{ item.scientific_name}}</span></h1>
                 </div>
                 {% if item.common_name %}
 
@@ -146,14 +195,14 @@
                 <p>{{item.short_note}}</p>
                 <h3 class="title-content">Management and Properties</h3>
                 <ul>
-                    <li><span>Seeds per
+                    <li><i class="arrow right"></i><span>Seeds per
                             Kilogram</span>:&nbsp;{{item.seeds_kg|intcomma}} seeds</li>
-                    <li><span class="desc-title">Germination
+                    <li><i class="arrow right"></i><span class="desc-title">Germination
                             rate</span>:&nbsp;{{item.germination_rate}} %</li>
 
                     {% if item.seed_source %}
 
-                    <li><span class="desc-title">Seed
+                    <li><i class="arrow right"></i><span class="desc-title">Seed
                             source</span>:&nbsp;{{item.seed_source}}</li>
                     {% endif %}
 
@@ -198,16 +247,16 @@
                     which is <strong>{{item.seed_type.get_name_display}}</strong></p>
                 <p>
                 <ul>
-                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Storage
+                    <li><i class="arrow right"></i><span class="desc-title">Storage
                             type:&nbsp;</span>{{item.seed_type.get_storage_type_display}}</li>
-                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
+                    <li><i class="arrow right"></i><span class="desc-title">Max-storage
                             years:&nbsp;</span>{{item.seed_type.max_years}} years</li>
-                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
+                    <li><i class="arrow right"></i><span class="desc-title">Min-storage
                             years:&nbsp;</span>{{item.seed_type.min_years}} years</li>
-                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Max-storage
-                            moisture:&nbsp;</span>{{item.seed_type.max_moisture}} degree Celsius</li>
-                    <li><i class="fa fa-check-double"></i>&nbsp;<span class="desc-title">Min-storage
-                            moisture:&nbsp;</span>{{item.seed_type.min_moisture}} degree Celsius</li>
+                    <li><i class="arrow right"></i><span class="desc-title">Max-storage
+                            moisture:&nbsp;</span>{{item.seed_type.max_moisture}} &deg;C</li>
+                    <li><i class="arrow right"></i><span class="desc-title">Min-storage
+                            moisture:&nbsp;</span>{{item.seed_type.min_moisture}} &deg;C</li>
                 </ul>
                 </p>
                 {{ item.seed_type.overview|safe}}
@@ -229,12 +278,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="foot-close" id="footer_content">
-                <div class="top" id="top">
-                    &copy;{% now "Y" %} - Igiti Corp | Powered by Feyton Inc
+            <div class="footer">
+                <div class="top">
+                    &copy;Igiti Corp-{% now "Y" %} | Powered by Feyton Inc |<span><a
+                            href="mailto:info@igiti.co.rw">&nbsp;info@igiti.co.rw</a></span>
                 </div>
+
+
             </div>
         </div>
+    </div>
+
     </div>
 
 </body>

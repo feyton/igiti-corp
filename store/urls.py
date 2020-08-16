@@ -4,9 +4,10 @@ from user.views import edit_product
 
 from .views import (AddCouponView, CheckoutView, HomeView, OrderSummaryView,
                     PaymentView, RequestRefundView, SeedProductDetailView,
-                    add_to_cart, delete_product, download_pdf, generate_card,
-                    order_detail, remove_from_cart,
-                    remove_single_item_from_cart, cancel_order, request_refund_view, order_received_view)
+                    add_to_cart, cancel_order, delete_product, download_pdf,
+                    generate_card, order_detail, order_received_view,
+                    remove_from_cart, remove_single_item_from_cart,
+                    request_refund_view, update_item_cart_quantity)
 
 app_name = 'store'
 
@@ -32,4 +33,6 @@ urlpatterns = [
     path('cancel-order/<pk>/', cancel_order, name='cancel-order'),
     path('received-order/<pk>/', order_received_view, name='received-order'),
     path('refund/<pk>/', request_refund_view, name='request-refund'),
+    path('update/cart/item/quantity/', update_item_cart_quantity,
+         name="update-item-cart-quantity")
 ]

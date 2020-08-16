@@ -404,7 +404,7 @@ class SeedProductDetailView(DetailView):
 def add_to_cart(request, slug):
     get_quantity = request.GET.get('quantity')
     try:
-        quantity = int(get_quantity)
+        quantity = float(get_quantity)
     except TypeError as e:
         quantity = 1
     item = get_object_or_404(SeedProduct, slug=slug)
@@ -609,7 +609,8 @@ def order_detail(request, pk):
         order_items = order.items.all()
         all_items = []
         for item in order_items:
-            item_name = '%s X %s (%s)' % (item.quantity, item.item.scientific_name, item.get_final_price())
+            item_name = '%s X %s (%s)' % (
+                item.quantity, item.item.scientific_name, item.get_final_price())
             all_items.append(item_name)
         # all_items = serializers.serialize("json", order_items)
         total = order.get_total()
@@ -648,7 +649,8 @@ def cancel_order(request, pk):
             order.ordered = False
             order_reference = order.ref_code
             order.delete()
-            messages.success(request, f'Order with ref code {order_reference} has been cancelled and deleted')
+            messages.success(
+                request, f'Order with ref code {order_reference} has been cancelled and deleted')
             return redirect('orders')
 
 
@@ -658,3 +660,17 @@ def order_received_view(request, pk):
 
 def request_refund_view(request, pk):
     pass
+
+
+def update_item_cart_quantity(request):
+    pk = request.GET.get('pk')
+    q = request.GET.get('q')
+    item = get_object_or_404(OrderItem, pk=pk)
+
+    if item:
+        item.quantity = q
+        item.save()
+        data = {'message': 'Item exist',
+                'quantity': item.quantity}
+
+        return JsonResponse(data)

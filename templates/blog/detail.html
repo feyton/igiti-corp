@@ -89,14 +89,17 @@
 
         </div>
 
+        {% if blog_post.tags %}
+
         <div class="section topics">
-            <h2 class="section-title">Categories</h2>
+            <h2 class="section-title">Post tags</h2>
             <ul>
-                {% for cat in categories%}
-                <li><a href="{{ cat.get_absolute_url}}">{{cat.title}}</a></li>
+                {% for tag in blog_post.tags.all%}
+                <li>{{tag.name}}</a></li>
                 {% endfor %}
             </ul>
         </div>
+        {% endif %}
     </div>
     <!-- //SIDEBAR -->
 </div>
@@ -107,4 +110,22 @@
 
 {% block extra_java %}
 <script src="/static/js/forestry.js"></script>
+<script>
+    $(document).ready(function (e) {
+        $('.post-categories').click(function (e) {
+            e.preventDefault();
+            var endpoint = $(this).attr('href');
+            $.ajax({
+                url: endpoint,
+                method: 'GET',
+                success: function (data) {
+                    $('#post-list').html(data)
+                },
+                error: function (error_data) {
+                    consol.log(error_data)
+                }
+            })
+        });
+    })
+</script>
 {% endblock extra_java %}

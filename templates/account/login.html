@@ -2,7 +2,7 @@
 {% load socialaccount %}
 {% providers_media_js %}
 {% load widget_tweaks %}
-
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +32,7 @@
             {%endif%}
             {%endif%}
             <div class="button-box">
-                <button type="button" class="btn toggle-btn">Log In with</button>
+                <button type="button" class="btn toggle-btn">{% trans 'Log In with' %}</button>
 
             </div>
             <div class="social-icons">
@@ -44,7 +44,7 @@
                         class="fab fa-twitter"></i></a>
             </div>
             <div class="button-box">
-                <button class="btn toggle-btn btn-or">OR</button>
+                <button class="btn toggle-btn btn-or">{% trans 'OR' %}</button>
             </div>
             <form id="login" action="{% url 'account_login' %}" method="post" class="input-group">
                 {% csrf_token%}
@@ -70,12 +70,14 @@
                 </p>
                 {% endfor %}
                 {% endif %}
-                <button class="submit-btn" type="submit">Log In</button>
+                <button class="submit-btn" type="submit">{% trans 'Log In' %}</button>
             </form>
             <div class="action-box">
-                <p class="text-left">You don't have account?&nbsp; <a href="{% url 'account_signup'%}">Sign Up Here</a>
+                <p class="text-left">{% trans "You don't have acount" %}?&nbsp; <a
+                        href="{% url 'account_signup'%}">{% trans 'Sign Up Here' %}</a>
                 </p>
-                <p class="text-left">Forgot password?&nbsp;<a href="{% url 'account_reset_password' %}">Reset</a></p>
+                <p class="text-left">{% trans 'Forgot password' %}?&nbsp;<a
+                        href="{% url 'account_reset_password' %}">{% trans 'Reset' %}</a></p>
             </div>
 
 

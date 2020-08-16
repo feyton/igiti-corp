@@ -2,7 +2,7 @@ import os
 
 from django.contrib.messages import constants as messages
 from django.core.exceptions import ImproperlyConfigured
-
+from django.utils.translation import ugettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -71,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # `allauth` needs this from django
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n'
             ],
         },
     },
@@ -118,6 +120,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LANGUAGES = (
+    ('en-us', _('English')),
+    ('rw', _('Kinyarwanda'))
+
+)
 
 # All Auth SETTINGS
 SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
@@ -176,3 +184,16 @@ SOCIALACCOUNT_PROVIDERS = {
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
+
+
+def ugettext(s):
+    return s
+
+
+LANGUAGES = (
+    ('en', ugettext('English')),
+    ('rw', ugettext('Kinyarwanda')),
+)

@@ -1,0 +1,20 @@
+{% load humanize %}
+
+
+<a href="{% url 'store:store' %}" class="back-button"><i class="fas fa-reply-all"></i></a>
+<h3>Summary</h3>
+<div class="summary-item"><span class="text">Subtotal</span><span
+        class="price">{{ order.subtotal|intcomma}}&nbsp;Rwf</span>
+</div>
+
+{% if order.get_total_amount_saved %}
+<div class="summary-item"><span class="text">Amount Saved</span><span
+        class="price">{{ order.get_total_amount_saved|intcomma}}</span>
+</div>
+{% endif %}
+<div class="summary-item"><span class="text">Shipping</span><span class="price">0 Rwf</span>
+</div>
+<div class="summary-item"><span class="text">Total</span><span
+        class="price">{{ order.get_total|intcomma}}&nbsp;Rwf</span>
+</div>
+<a href="{% url 'store:checkout' %}" class="btn btn-primary btn-lg btn-block">Checkout</a>

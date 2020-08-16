@@ -1,8 +1,11 @@
 from django.contrib import messages
 from django.db.models import Q
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from hitcount.views import HitCountDetailView
+
+from store.models import OrderItem
 
 from .models import BlogPost, Category
 
@@ -42,18 +45,17 @@ class BlogPostDetailView(HitCountDetailView):
 def category_view(request, pk):
     category = get_object_or_404(Category, pk=pk)
     qs = BlogPost.objects.filter(published=True, category=category)
-    if qs.exists():
-        categories = Category.objects.all()
-        context = {
-            'blog_posts': qs,
-            'categories': categories,
-            'category': category
-        }
-        return render(request, 'blog/category.html', context)
+    # if qs.exists():
+    categories = Category.objects.all()
+    context = {
+        'blog_posts': qs,
+        'categories': categories,
+        'category': category
+    }
+    return render(request, 'blog/category.html', context)
 
-    else:
-        messages.info(request, 'This category does not have posts yet')
-        return redirect('forestry:list')
+    # else:
+    #     return HttpResponse('<div class="trending-post"><h5>Sorry, we do not have posts in this category yet</h5</div>')
 
 
 def search(request):
@@ -62,7 +64,7 @@ def search(request):
     categories = Category.objects.all()
     if query:
         queryset = query_set.filter(
-            Q(title__icontains=query) | Q(text__icontains=query) | Q(category__title__icontains=query) | Q(tag__name__icontains=query)).distinct()
+            Q(title__icontains=query) | Q(text__icontains=query) | Q(category__title__icontains=query) | Q(tags__name__icontains=query)).distinct()
         context = {
             'queryset': queryset,
             'query': query,
@@ -72,3 +74,6 @@ def search(request):
     else:
         messages.error(request, "Type a valid term")
         return redirect('forestry:list')
+
+
+

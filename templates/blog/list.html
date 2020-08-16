@@ -35,7 +35,7 @@ Forestry {% endblock site_name %}
 <!-- END RECENT POST -->
 <!-- Content -->
 <div class="content clearfix">
-    <div class="main-content">
+    <div class="main-content" id="post-list">
         <h1 class="trending-post-title">Trending Posts</h1>
         <!-- Trending post -->
         {% for post in blog_posts %}
@@ -85,7 +85,7 @@ Forestry {% endblock site_name %}
             <h2 class="section-title">Categories</h2>
             <ul>
                 {% for cat in categories%}
-                <li><a href="{{ cat.get_absolute_url}}">{{ cat.title}}</a></li>
+                <li><a href="{{ cat.get_absolute_url}}" class="post-categories">{{ cat.title}}</a></li>
                 {% endfor%}
             </ul>
         </div>
@@ -103,5 +103,23 @@ Forestry {% endblock site_name %}
 <script src="/static/js/script.js"></script>
 
 <script src="/static/js/forestry.js"></script>
+<script>
+    $(document).ready(function (e) {
+        $('.post-categories').click(function (e) {
+            e.preventDefault();
+            var endpoint = $(this).attr('href');
+            $.ajax({
+                url: endpoint,
+                method: 'GET',
+                success: function (data) {
+                    $('#post-list').html(data)
+                },
+                error: function (error_data) {
+                    consol.log(error_data)
+                }
+            })
+        });
+    })
+</script>
 
 {% endblock extra_java%}
