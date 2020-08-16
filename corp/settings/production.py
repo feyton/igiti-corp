@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['notes.igiti.co.rw',
                  'www.notes.igiti.co.rw', "127.0.0.1", "localhost", '198.54.116.172']
