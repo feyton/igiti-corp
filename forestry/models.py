@@ -118,3 +118,33 @@ class BlogPost(models.Model):
     def get_author_image(self):
         if self.author.image:
             return self.author.image.url
+
+
+class Comment(models.Model):
+    full_name = models.CharField(_("full name"), max_length=255)
+    email = models.EmailField(_('Email'), max_length=255)
+    message = models.TextField(_("Comment"))
+    post = models.ForeignKey(
+        BlogPost, on_delete=models.CASCADE, related_name="comments")
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["approved", "-created_on"]
+
+    def __str__(self):
+        return self.full_name
+
+
+class CommentReply(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField(_("Reply"))
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["approved", "-created_on"]
+
+    def __str__(self):
+        return self.full_name

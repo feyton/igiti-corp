@@ -1,0 +1,27 @@
+<div class="col-md-10 align-content-center pt-2 mt-1">
+    <h4 class="title text-center mb-4">Leave a comment</h4>
+    <form action="{% url 'forestry:reply-comment' pk=pk %}" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="row">
+            <div class="col-md-8 offset-3">
+                <div class="form-group row">
+                    <label for="{{field.id_for_label}}"
+                        class="col-sm-4 col-form-label {% if field.field.required %}required{%endif %}">{{field.label}}</label>
+                    <div class="col-sm-8">
+                        {{field}}
+                    </div>
+                    {% if field.errors %}
+                    {% for error in field.errors %}
+                    <label id="{{field.id_for_label}}-error" class="error"
+                        for="{{field.id_for_label}}">{{error}}</label>
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <input type="submit" class="btn btn-primary btn-round offset-6" value="Post">
+    </form>
+</div>

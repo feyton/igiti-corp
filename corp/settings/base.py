@@ -185,7 +185,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale/'),
+    os.path.join(BASE_DIR, 'locale'),
 )
 
 

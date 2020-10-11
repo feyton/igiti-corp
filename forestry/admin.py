@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import BlogPost
-from .models import Author
-from .models import Category
+
+from .models import Author, BlogPost, Category, Comment, CommentReply
 
 
 @admin.register(BlogPost)
@@ -11,3 +10,5 @@ class BlogPostAdmin(admin.ModelAdmin):
 
 admin.site.register(Author)
 admin.site.register(Category)
+admin.site.register(Comment)
+admin.site.register(CommentReply)

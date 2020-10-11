@@ -1,13 +1,16 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, View
 from hitcount.views import HitCountDetailView
-
 from store.models import OrderItem
 
-from .models import BlogPost, Category
+from .forms import CommentForm, CommentReplyForm, UserCommentForm
+from .models import BlogPost, Category, Comment, CommentReply
 
 
 class BlogPostListView(ListView):
@@ -39,6 +42,10 @@ class BlogPostDetailView(HitCountDetailView):
         context.update({
             'popular_posts': BlogPost.objects.filter(published=True).order_by('-hit_count_generic__hits')[:5],
         })
+        if not self.request.user.is_authenticated:
+            context['form'] = CommentForm
+        else:
+            context['form'] = UserCommentForm
         return context
 
 
@@ -76,4 +83,52 @@ def search(request):
         return redirect('forestry:list')
 
 
+def add_comment(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    if request.user.is_authenticated:
+        form = UserCommentForm(request.POST or None)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.full_name = request.user.get_full_name()
+            comment.email = request.user.email
+            comment.post = post
+            comment.approved = True
+            comment.save()
+            messages.success(request, "Thank you for commenting")
+            return redirect(post)
+    form = CommentForm(request.POST or None)
 
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.save()
+        messages.success(request, "Thank you for your contribution")
+        return redirect(post)
+    messages.error(request, "Please fill the form correctly")
+    return redirect(post)
+
+
+def reply_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post = comment.post
+    return redirect(post)
+
+
+@method_decorator(login_required, name='dispatch')
+class CommentReplyView(View):
+    def get(self, *args, **kwargs):
+        pk = self.kwargs['pk']
+        context = {'pk': pk, 'form': CommentReplyForm}
+        return render(self.request, "blog/reply-form.html", context)
+
+    def post(self, *args, **kwargs):
+        pk = self.kwargs['pk']
+        comment = get_object_or_404(Comment, pk=pk)
+        post = comment.post
+        form = CommentReplyForm(self.request.POST or None)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.user = self.request.user
+            reply.save()
+            return redirect(post)
+        return redirect(post)
