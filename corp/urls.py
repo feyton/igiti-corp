@@ -5,7 +5,6 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import include, path
 from django.utils.translation import ugettext_lazy as _
-
 from index.views import home, species
 from user.views import Dashboard
 
@@ -21,9 +20,9 @@ urlpatterns = [
     path('dashboard/', Dashboard.as_view(), name='profile'),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
     path('dashboad/', include(('dashboard.urls', 'dashboard'), namespace='dashboard')),
-    path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+        static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

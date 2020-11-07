@@ -164,34 +164,7 @@
                 </div>
             </div>
             {% else %}
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4">
-                        <img src="/static/img/default-avatar.png" alt="" class="thumbnail round">
-                    </div>
-                    <div class="col-md-6 col-sm-8">
-                        <div class="row">
-                            Posted by: &nbsp; <span
-                                class="font-weight-bolder text-capitalize">{{comment.full_name}}</span>&nbsp; Date:
-                            &nbsp;
-                            <span class="font-weight-bolder">{{comment.created_on|date:"d M Y"}}</span>
-                        </div>
-                        <div class="row">
-                            <p class="mt-2 ml-3 p-2 text-danger font-weight-bolder">Comment still pending approval.</p>
 
-                            {% if not user.is_authenticated %}
-
-
-
-                            <p>For direct approval <a href="{% url 'account_signup' %}">create</a> or <a
-                                    href="{% url 'account_login' %}">Login</a> with your account, you will reply to
-                                comments too.</p>{% endif %}
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
             {% endif %}
 
             {% empty %}
