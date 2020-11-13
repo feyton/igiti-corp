@@ -6,8 +6,8 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['notes.igiti.co.rw',
-                 'www.notes.igiti.co.rw', "127.0.0.1", "localhost", '198.54.116.172']
+ALLOWED_HOSTS = ['igiti.co.rw',
+                 'www.igiti.co.rw', "127.0.0.1", "localhost", '198.54.116.172']
 
 # Environment Wrapper
 
@@ -74,12 +74,12 @@ CSRF_COOKIE_SECURE = True
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = '/home/igityopp/notes.igiti.co.rw/static'
+STATIC_ROOT = '/home/igityopp/public_html/static'
 STATIC_URL = '/static/'
 
 
 # media root folder
-MEDIA_ROOT = '/home/igityopp/notes.igiti.co.rw/media'
+MEDIA_ROOT = '/home/igityopp/public_html/media'
 MEDIA_URL = '/media/'
 
 SITE_ID = 1

@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
-PUBLIC_ROOT = '/home/igityopp/notes.igiti.co.rw/'
+PUBLIC_ROOT = '/home/igityopp/public_html/'
 
 # Application definition
 
