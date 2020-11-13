@@ -100,5 +100,4 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SECURE_SSL_REDIRECT = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-ADMINS = (('Feyton', 'info@igiti.co.rw'),
-          ('Fabrice', 'tumbafabruce@gmail.com'))
+ADMINS = (('Feyton', 'info@igiti.co.rw'),)
