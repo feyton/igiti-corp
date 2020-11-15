@@ -7,6 +7,8 @@ from django.urls import include, path
 from django.utils.translation import ugettext_lazy as _
 from index.views import home, species
 from user.views import Dashboard
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('123FEYTON/', admin.site.urls),
@@ -20,6 +22,7 @@ urlpatterns = [
     path('dashboard/', Dashboard.as_view(), name='profile'),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
     path('dashboad/', include(('dashboard.urls', 'dashboard'), namespace='dashboard')),
+    path("ads.txt", RedirectView.as_view(url=staticfiles_storage.url("ads.txt")),),
 ]
 
 
