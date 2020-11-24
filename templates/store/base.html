@@ -1,0 +1,85 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+    <!-- Style links -->
+    <!-- BOOTSTRAP CSS-->
+    {% include 'include/style.html' %}
+
+    {% block title %}
+    {% endblock title%}
+
+    {% block extra_style %}
+
+    {% endblock extra_style %}
+    <link rel="icon" type="image/gif" href="/static/img/favicon.png" />
+    <title>Igiti Corp|{% block site_name %}Home{% endblock site_name %}
+    </title>
+    <meta name="description" content="Browse through a collection of different tree seeds and other forest product. 
+        Use our website to read more details and make a purchase decision">
+    <meta name="keywords" content="trees, forest, store, buy, seeds, rwanda">
+
+    {% block ads %}
+    <script data-ad-client="ca-pub-6915471549017592" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    {% endblock ads %}
+
+    {% block extra_head %}
+    <meta name="description" content="Browse through a collection of different tree seeds and other forest product. 
+        Use our website to read more details and make a purchase decision">
+    <meta name="keywords" content="trees, forest, store, buy, seeds, rwanda">
+    {% endblock extra_head %}
+
+</head>
+
+<body>
+    {% include 'include/nav.html' %}
+
+    {% block content %}
+
+
+    {% endblock %}
+    {% block footer_content %}
+    <!-- Footer -->
+    {% include 'include/footer.html' %}
+    <!-- end footer -->
+    {% endblock footer_content %}
+    {% include 'include/script.html' %}
+    <script>
+        var menu = document.getElementById("menu-show");
+        var nav = document.getElementById("nav-bar");
+
+        function menu_show() {
+            nav.classList.toggle('showing')
+        }
+        {% if messages %}
+
+        {% for message in messages %}
+        $.notify({
+            title: "<b>Message</b><br>",
+            message: '<strong>{{ message }}</strong>'
+        }, {
+			{% if message.tags %}type: "{{ message.tags }}", {% else %}type: 'danger', {% endif %}
+        delay: 3000,
+            allow_dismiss: true,
+                newest_on_top: false,
+                    showProgressbar: false,})
+        {% endfor %}
+        {% endif %}
+    </script>
+    {% block extra_java %}
+    {% endblock extra_java %}
+
+    {% block footer %}
+    {% endblock %}
+
+</body>
+
+</html>

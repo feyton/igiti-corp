@@ -3,6 +3,9 @@
 {% load humanize %}
 {% block extra_style %}
 <link rel="stylesheet" href="/static/css/store.css" />
+<style>
+
+</style>
 {% endblock extra_style %}
 {% block site_name %} Home{% endblock site_name %}
 {% block content %}
@@ -111,9 +114,9 @@
                                 </div>
 
                                 <div class="intro_content">
-                                    <div class="intro_title">Amazing Services</div>
+                                    <div class="intro_title">Amazing Community</div>
                                     <div class="intro_subtitle">
-                                        <p>We are here for you. Not the other way around.</p>
+                                        <p>Get your chance to assit others in our forum</p>
                                     </div>
                                 </div>
                             </div>
@@ -149,15 +152,6 @@
                                     <a href="">
                                         {% if product.image1%}
                                         <img class="pic-1" src="{{product.image1_thumb.url}}"
-                                            alt="{{ product.scientific_name}}" />
-                                        {% else %}
-                                        <img class="pic-1" src="/static/img/products/destination_1.jpg' %}"
-                                            alt="{{ product.scientific_name}}" />
-                                        {%endif%} {% if product.image2 %}
-                                        <img class="pic-2" src="{{product.image2_thumb.url}}"
-                                            alt="{{ product.scientific_name}}" />
-                                        {% else %}
-                                        <img class="pic-2" src="{% static 'images/products/destination_2.jpg' %}"
                                             alt="{{ product.scientific_name}}" />
                                         {% endif %}
                                     </a> {% if product.recommended %}
@@ -246,27 +240,36 @@
 
                 <!-- News Sidebar -->
                 <div class="col-xl-4 col-md-4 col-sm-12 mt-2">
-                    <div class="fb-page" data-href="https://www.facebook.com/igiticorp/" data-tabs="" data-width=""
-                        data-height="" data-small-header="false" data-adapt-container-width="true"
-                        data-hide-cover="false" data-show-facepile="true">
-                        <blockquote cite="https://www.facebook.com/igiticorp/" class="fb-xfbml-parse-ignore">
-                            <a href="https://www.facebook.com/igiticorp/">Igiti Corp</a>
-                        </blockquote>
-                    </div>
-                    <div class="travello" style="background-image: url(/static/img/nursery.jpg);">
-                        <div class="background_image"></div>
-                        <div class="travello_content">
-                            <div class="travello_content_inner">
-                                <div></div>
-                                <div></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="fb-page" data-href="https://www.facebook.com/igiticorp/" data-tabs=""
+                                data-width="" data-height="" data-small-header="false" data-adapt-container-width="true"
+                                data-hide-cover="false" data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/igiticorp/" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/igiticorp/">Igiti Corp</a>
+                                </blockquote>
                             </div>
                         </div>
-                        <div class="travello_container">
-                            <a href="{% url 'update-profile' %}">
-                                <div class="d-flex flex-column align-items-center justify-content-end">
-                                    <span class="travello_title">Register Today</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="banner-sidebar">
+
+
+                                <div id="banner">
+                                    <div class="active bannerItem">
+                                        <span class="banner-header display-1">
+                                            Modern Nursery Management
+                                        </span>
+                                        <div class="banner-text">
+                                            Manage your nursery with us. Schedule your activities and manage all
+                                            resources
+                                            effectively with Igiti Corp.
+                                        </div>
+                                        <a href="{% url 'update-profile' %}" class="btn btn-outline btn-lg">Join Now</a>
+                                    </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ body {
   font-family: "Oswald", Georgia, "Times New Roman", Times, serif;
   background: whitesmoke;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 a:hover {
@@ -74,6 +75,7 @@ p {
 /* ************************
 //DECLARATIONS
 **************************/
+
 .hide-desktop {
   display: none;
 }
@@ -96,6 +98,7 @@ header ul {
 }
 
 /* Navigation ba design */
+
 header ul li {
   float: left;
   position: relative;
@@ -139,6 +142,10 @@ header ul li ul li a:hover {
   border-right: 2px solid rgb(82, 57, 57);
   transition: 0.5s;
   color: white;
+}
+
+header ul li a .active {
+  border-bottom: 1px solid white;
 }
 
 .logout a {
@@ -196,8 +203,7 @@ header ul li:hover ul {
   border-radius: 10px;
   margin-left: -140px;
   margin-right: auto;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   opacity: 0;
   cursor: default;
   display: none;
@@ -224,21 +230,17 @@ header ul li:hover ul {
   0% {
     opacity: 0;
   }
-
   10% {
     opacity: 1;
   }
-
   90% {
     opacity: 1;
     transform: translateY(0px);
   }
-
   99% {
     opacity: 0;
     transform: translateY(-30px);
   }
-
   100% {
     opacity: 0;
   }
@@ -249,15 +251,13 @@ header ul li:hover ul {
     width: 0%;
     background: rgba(255, 255, 255, 0.3);
   }
-
   100% {
     width: 98%;
     background: rgba(255, 255, 255, 1);
   }
 }
 
-.notification.box-color:hover,
-.notification:hover .progress {
+.notification.box-color:hover, .notification:hover .progress {
   animation-play-state: paused;
 }
 
@@ -283,6 +283,7 @@ header ul li:hover ul {
 /* end */
 
 /* Carousel */
+
 .carousel .carousel-caption a {
   background: rgb(0, 56, 121);
   color: white;
@@ -306,6 +307,7 @@ header ul li:hover ul {
 /********************************************
             Our services 
 ********************************************/
+
 .intro {
   width: 100%;
   background: #ffffff;
@@ -353,6 +355,7 @@ header ul li:hover ul {
 /* *******************************
     Featured products
 **********************************/
+
 .destinations {
   width: 100%;
   background: #ffffff;
@@ -554,7 +557,6 @@ header ul li:hover ul {
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
 
 .travello_content {
@@ -640,6 +642,7 @@ header ul li:hover ul {
 /* ***********************
  FOOTER
 **************************/
+
 footer {
   width: 100%;
   background: #303036;
@@ -662,8 +665,7 @@ footer {
   padding: 25px;
 }
 
-.footer-content h1,
-.footer-content h2 {
+.footer-content h1, .footer-content h2 {
   color: white;
 }
 
@@ -767,6 +769,183 @@ footer {
   padding: 0px;
 }
 
+/* **********************
+  BANNER STYLING
+*************************/
+
+#banner {
+  overflow: hidden;
+}
+
+.banner-sidebar .bannerItem {
+  padding-top: 10px;
+  width: auto;
+  margin: auto;
+  margin-top: 50px;
+  min-height: 400px !important;
+}
+
+.banner-sidebar .banner-header {
+  margin: 0;
+  color: #fff;
+  padding-top: 0px;
+  font-size: 42px;
+  font-family: lato;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: -190px;
+  font-weight: 100;
+}
+
+.banner-sidebar .banner-text {
+  margin: 0;
+  color: #fff;
+  margin-top: 10px;
+  padding-bottom: 0px;
+  font-family: lato;
+  font-weight: 100;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
+
+.banner-sidebar .bannerItem {
+  background: #333;
+  text-align: center;
+  height: 100% !important;
+  border-radius: 6px;
+  /* rounded corners */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%), url("http://source.unsplash.com/1500x500/?forest,seedlings");
+  background-width: 100%;
+  background-attachment: fixed;
+  image-repeat: none;
+  max-height: 0%;
+  background-size: 100%;
+}
+
+/* button CSS */
+
+.banner-sidebar .btn.btn-outline {
+  margin-top: 10px;
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+  padding-left: 90px;
+  padding-right: 90px;
+  font-family: lato;
+  font-weight: 300;
+  margin-bottom: 40px;
+  border-radius: 5px;
+}
+
+.banner-sidebar .btn.btn-outline:hover {
+  background-color: black;
+  border-color: black;
+  color: #fff;
+}
+
+.banner-sidebar .btn.btn-outline.a {
+  background-color: black;
+  border-color: black;
+  color: #fff;
+}
+
+.banner-sidebar .btn.btn-outline:active {
+  font-weight: 300;
+  font-size: 20px;
+  color: #fff;
+}
+
+/* BANNER LG */
+
+.banner-lg .bannerItem {
+  /* white below banner - delete it */
+  padding-top: 10px;
+  /* padding above the header */
+  width: 100%;
+  margin: auto;
+  margin-top: 55px;
+  /* white above banner - delete it */
+  max-height: 180px !important;
+}
+
+.banner-lg .banner-header {
+  margin: 0;
+  color: #fff;
+  padding-top: 0px;
+  font-size: 42px;
+  font-family: lato;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: -190px;
+  font-weight: 100;
+}
+
+.banner-lg .banner-text {
+  margin: 0;
+  color: #fff;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  font-family: lato;
+  font-weight: 100;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.banner-lg .bannerItem {
+  background: #333;
+  text-align: center;
+  height: 100% !important;
+  border-radius: 6px;
+  /* rounded corners */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%), url("http://source.unsplash.com/1500x500/?nature");
+  background-width: 100%;
+  background-attachment: fixed;
+  image-repeat: none;
+  max-height: 0%;
+  background-size: 100%;
+}
+
+.banner-lg .banner-example {
+  margin: 20px;
+  /*padding around banner - delete for full width*/
+}
+
+/* button CSS */
+
+.banner-lg .btn.btn-outline {
+  margin-top: 10px;
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+  padding-left: 90px;
+  padding-right: 90px;
+  font-family: lato;
+  font-weight: 300;
+  margin-bottom: 40px;
+  border-radius: 0px;
+}
+
+.banner-lg .btn.btn-outline:hover {
+  background-color: black;
+  border-color: black;
+  color: #fff;
+}
+
+.banner-lg .btn.btn-outline.a {
+  background-color: black;
+  border-color: black;
+  color: #fff;
+}
+
+.banner-lg .btn.btn-outline:active {
+  font-weight: 300;
+  font-size: 20px;
+  color: rgb(145, 121, 121);
+}
+
 /* ***********************
   MEDIA QUERIES
 ***************************/
@@ -781,16 +960,13 @@ footer {
   header {
     position: relative;
   }
-
   .fixed-logo {
     left: 50%;
   }
-
   .container {
     width: 100%;
     padding: 0px 1px;
   }
-
   .menu-toggle {
     display: block;
     position: absolute;
@@ -799,7 +975,6 @@ footer {
     font-size: 1.5em;
     cursor: pointer;
   }
-
   header ul {
     position: absolute;
     width: 100%;
@@ -810,70 +985,56 @@ footer {
     max-height: auto;
     overflow: hidden;
   }
-
   .showing {
     display: none;
   }
-
   header ul li {
     width: 100%;
   }
-
   .fixed-logo {
     display: block;
   }
-
   header ul li ul {
     position: static;
     display: block;
     width: 100%;
   }
-
   header ul li ul li a {
     background: inherit;
     color: white;
     padding-left: 50px;
   }
-
   footer {
     height: auto;
     position: relative;
     margin: 10px 0px;
   }
-
   .footer-content {
     height: auto;
     flex-direction: column;
   }
-
   .footer-section {
     padding: 10px 20px;
   }
-
   .footer-section:last-child {
     padding-right: 50px;
   }
-
   .footer-section:first-child {
     padding-left: 20px;
     padding-right: 100px;
   }
-
   .footer-bottom {
     position: absolute;
     bottom: 0px;
     left: auto;
     bottom: auto;
   }
-
   .contact-form {
     display: block;
   }
-
   .contact-btn {
     width: 40%;
   }
-
   /* *********
     NEWS RESPONSIVE
     *********** */
@@ -881,16 +1042,13 @@ footer {
     width: 100%;
     border-radius: 5px;
   }
-
   .news_post_image img {
     border-radius: 5px;
     width: 100%;
   }
-
   .news_post_text {
     width: 100%;
   }
-
   .news_post_content {
     width: 100%;
   }
@@ -900,13 +1058,11 @@ footer {
   .footer-section:last-child {
     padding-right: 20px;
   }
-
   .footer-section:first-child {
     padding-left: 20px;
     padding-right: 30px;
     padding-bottom: 20px;
   }
-
   .footer-section {
     font-size: 1.3em;
   }
@@ -929,8 +1085,6 @@ footer {
     display: none;
   }
 }
-
-
 
 .alert {
   border: 0;

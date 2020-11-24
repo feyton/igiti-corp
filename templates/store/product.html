@@ -12,7 +12,11 @@
 {% block site_name %}
 {{product.scientific_name}}
 {% endblock site_name %}
-
+{% block extra_head %}
+<meta name=”robots” content=”index, follow”>
+<meta name="description" content="{{product.short_note|truncatechars:200}}">
+<meta name="keywords" content="trees, forest, store, buy, seeds, rwanda">
+{% endblock extra_head %}
 
 {% block content %}
 
@@ -55,7 +59,7 @@
 						<p>{{product.short_note|truncatechars:200}}</p>
 
 						{% endif %}
-						<a href="{% url 'store:generate-card' product.slug%}" class="btn card">Generate a card</a>
+						<a href="{% url 'store:generate-card' product.slug%}" class="btn card">View Product Details</a>
 
 					</div>
 
@@ -129,7 +133,7 @@
 		</div>
 
 		<div class="section topics">
-			<h2 class="section-title text-center">What's new!!!</h2>
+			<h2 class="section-title text-center">Check out new products</h2>
 
 			{% for product in new_products %}
 
@@ -155,7 +159,7 @@
 </div>
 
 <div class="related-products">
-	<h1 class="title related">Related Products</h1>
+	<h1 class="title related">Other products recommended for you</h1>
 	<!-- Product -->
 	{% for item in related %}
 
@@ -169,9 +173,6 @@
 					<img class="pic-1" src="{{item.image1.url}}" alt="{{item.scientific_name}} image">
 					{% endif %}
 
-					{% if item.image2 %}
-					<img class="pic-2" src="{{item.image2.url}}" alt="{{item.scientific_name}} image">
-					{% endif %}
 				</a>
 
 				{% if item.recommended %}

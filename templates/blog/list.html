@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/static/css/forestry.css">
 {% endblock extra_style %}
 {% block site_name %}
-Forestry {% endblock site_name %}
+Blog {% endblock site_name %}
 {%block content%}
 
 <!-- RECENT POST SLIDER -->
@@ -33,6 +33,25 @@ Forestry {% endblock site_name %}
     </div>
 </div>
 <!-- END RECENT POST -->
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="banner-lg">
+            <div id="banner">
+                <div class="active bannerItem">
+                    <span class="banner-header display-1">AMAZING TREE SEEDS!</span>
+                    <div class="banner-text">Igiti Corp aims to serve you like never before. Get information about
+                        different tree species, their distribution and more.
+                    </div>
+
+                    <a class="btn btn-outline btn-lg" href="{% url "store:store" %}">Check Out Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Content -->
 <div class="content clearfix">
     <div class="main-content" id="post-list">

@@ -6,14 +6,14 @@
                 class="fixed-logo"></a>
         <i class="fa fa-bars menu-toggle" id="menu-show" onclick="menu_show()"></i>
         <ul class="nav-bar showing" id="nav-bar">
-            <li><a href="/">HOME</a></li>
-            <li><a href="{% url 'forestry:list' %}">FORESTRY&nbsp;<i class="fas fa-chevron-down"></i></a>
+            <li><a href="{% url "home" %}" class="active">Home</a></li>
+            <li><a href="{% url 'forestry:list' %}">Publications&nbsp;<i class="fas fa-chevron-down"></i></a>
                 <ul>
-                    <li><a href="{% url 'forestry:list' %}">Species</a></li>
+                    <li><a href="{% url 'forestry:list' %}">Blog</a></li>
                     <li><a href="{% url 'notification' %}">Events</a></li>
                 </ul>
             </li>
-            <li><a href="{% url 'store:store' %}">STORE&nbsp;<i class="fas fa-chevron-down"></i></a>
+            <li><a href="{% url 'store:store' %}">Store&nbsp;<i class="fas fa-chevron-down"></i></a>
                 {%if user.is_authenticated%}
                 <ul>
                     <li><a href="{% url 'store:order-summary' %}">Cart <span
@@ -31,7 +31,7 @@
                 </ul>
             </li>
             {% else %}
-            <li><a href="#">ACCOUNT&nbsp;<i class="fas fa-chevron-down"></i></a>
+            <li><a href="#">Account&nbsp;<i class="fas fa-chevron-down"></i></a>
                 <ul>
                     <li><a href="{% url 'account_login' %}">Login</a> </li>
                     <li><a href="{% url 'account_signup' %}">Register</a></li>

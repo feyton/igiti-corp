@@ -1,14 +1,10 @@
 .container {
-    background: #fff;
+    /* background: #fff; */
     padding: 0px;
     margin-bottom: 0px;
-
 }
 
-p,
-h1,
-h2,
-h3 {
+p, h1, h2, h3 {
     margin-top: 5px;
     margin-left: 10px;
     padding: 5px;
@@ -18,27 +14,24 @@ ul {
     list-style: none;
 }
 
-h1,
-h2,
-h2,
-h4 {
+h1, h2, h2, h4 {
     padding-left: 20px;
     color: rgb(0, 112, 192);
 }
 
-
 .link {
     text-decoration: none;
     font-weight: bolder;
-
 }
 
 .link.link-hover:hover {
     text-decoration: none;
 }
+
 .link.link-info {
     color: rgb(20, 64, 185);
 }
+
 span:first {
     color: rgb(6, 134, 38);
 }

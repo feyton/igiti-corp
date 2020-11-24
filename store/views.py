@@ -2,7 +2,9 @@ import random
 import string
 
 import stripe
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -12,12 +14,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, View
-
 from user.models import UserProfile
 
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
-from .models import *
-from .models import SeedProduct
+from .models import (Address, Coupon, Order, OrderItem, Payment, Refund,
+                     SeedProduct)
 from .utils import generate_pdf_weasy
 
 stripe.api_key = settings.STRIPE_SECRET_KEY

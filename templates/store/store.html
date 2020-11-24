@@ -1,11 +1,73 @@
-{% extends 'layout/base.html'%}
+{% extends 'store/base.html'%}
 {% load i18n %}
 {% load static %}
 {% load humanize %}
 {% block extra_style%}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="/static/css/store.css">
+<style>
+    .banner-lg .bannerItem {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        overflow: hidden;
+    }
+</style>
 {% endblock extra_style%}
 {% block site_name %} Store {% endblock site_name %} {%block content%}
+
+
+<div class="container-fluid p-0">
+    <div class="site-slider">
+        <div class="slider-one">
+            {% for product in tree_seeds %}
+
+            {% if product.recommended %}
+            <div class="slide">
+                <img src="{{product.image1.url}}" alt="" class="image-fluid product-image">
+                <div class="quote">
+                    <span class="quote-text text-left"><strong class="text-primary">{{product.scientific_name}}</strong>
+                        is here.</span>
+                    <div class="link">
+                        <a href="{{product.get_absolute_url}}" class="btn btn-lg btn-outline shop-now">Buy Now at only
+                            <span class="text-dark font-weight-bolder">{{product.price|intcomma}} Rwf
+                            </span>&nbsp;Rwf</a>
+                    </div>
+                </div>
+
+            </div>
+
+            {% endif %}
+
+            {% endfor %}
+        </div>
+        <div class="slider-btn">
+            <span class="prev position-top"><i class="fas fa-chevron-left"></i></span>
+            <span class="next position-top right-0"><i class="fas fa-chevron-right"></i></span>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid p-0">
+    <div class="row mb-1">
+        <div class="col-md-12">
+
+            <div class="banner-lg p-0 m-0">
+                <div id="banner">
+                    <div class="active bannerItem">
+                        <span class="banner-header display-1">AMAZING TREE SEEDS!</span>
+                        <div class="banner-text">Igiti Corp aims to serve you like never before. Get information about
+                            different tree species, their distribution and more.
+                        </div>
+
+                        <a class="btn btn-outline btn-lg" href="{% url "store:store" %}">Check Out Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="content clearfix">
 
@@ -20,9 +82,12 @@
                             {% if seed.image1 %}
                             <img class="pic-1" src="{{ seed.image1_thumb.url }}" alt="">
                             {%endif%}
+                            {% comment %}
+
+
                             {% if seed.image2%}
                             <img class="pic-2" src="{{ seed.image2_thumb.url}}" alt="">
-                            {% endif %}
+                            {% endif %} {% endcomment %}
                         </a> {% if seed.recommended%}
                         <span class="product-trend-label">RECOMMENDED</span> {% endif%} {% if seed.discount_price%}
                         <span class="product-discount-label">{{ seed.get_discount_percent}}%</span> {% endif%}
@@ -69,5 +134,25 @@
     </div>
 </div>
 
-
 {% endblock%}
+
+{% block extra_java %}
+<!-- <script src="/static/js/plugins/slick.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+    $(document).ready(function (e) {
+        $(".slider-one")
+            .not(".slick-initialized").slick(
+                {
+                    autoplay: true,
+                    autoplaySpeed: 3000,
+                    dots: true,
+                    prevArrow: ".prev",
+                    nextArrow: ".next",
+                }
+            );
+    })
+</script>
+
+{% endblock extra_java%}
