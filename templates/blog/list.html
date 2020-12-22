@@ -5,13 +5,12 @@
 {% block extra_style %}
 <link rel="stylesheet" href="/static/css/forestry.css">
 {% endblock extra_style %}
-{% block site_name %}
-Blog {% endblock site_name %}
+{% block site_name %} {% trans "Publications" %} {% endblock site_name %}
 {%block content%}
 
 <!-- RECENT POST SLIDER -->
 <div class="post-slider">
-    <h2 class="slider-title">Recent Posts</h2>
+    <h2 class="slider-title">{% trans "Recent Posts" %}</h2>
     <i class="fas fa-chevron-left prev" id="prev"></i>
     <i class="fas fa-chevron-right next" id="next"></i>
     <div class="post-wrapper">
@@ -45,7 +44,7 @@ Blog {% endblock site_name %}
                         different tree species, their distribution and more.
                     </div>
 
-                    <a class="btn btn-outline btn-lg" href="{% url "store:store" %}">Check Out Now</a>
+                    <a class="btn btn-outline btn-lg" href="{% url 'store:store' %}">Check Out Now</a>
                 </div>
             </div>
         </div>
@@ -55,7 +54,7 @@ Blog {% endblock site_name %}
 <!-- Content -->
 <div class="content clearfix">
     <div class="main-content" id="post-list">
-        <h1 class="trending-post-title">Trending Posts</h1>
+        <h1 class="trending-post-title">{% trans "Trending Posts" %}</h1>
         <!-- Trending post -->
         {% for post in blog_posts %}
         <div class="trending-post clearfix">
@@ -67,7 +66,7 @@ Blog {% endblock site_name %}
                     class="far fa-calendar"></i>&nbsp;<span>{{ post.pub_date|date }}</span>&nbsp;<i class="fa fa-eye"
                     aria-hidden="true"></i> &nbsp;<span>{% get_hit_count for post %}</span>
                 <p class="preview-text">{{ post.description|truncatechars:220 }}</p>
-                <a href="{{ post.get_absolute_url }}" class="btn readmore">Read More</a>
+                <a href="{{ post.get_absolute_url }}" class="btn readmore">{% trans "Read More" %}</a>
             </div>
         </div>
         {% endfor %}
@@ -93,7 +92,7 @@ Blog {% endblock site_name %}
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="section search">
-            <h2 class="section-title">Search</h2>
+            <h2 class="section-title">{% trans "Search" %}</h2>
             <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
                 <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|escape}}"
                     id="blog_search" />
@@ -101,7 +100,7 @@ Blog {% endblock site_name %}
         </div>
 
         <div class="section topics">
-            <h2 class="section-title">Categories</h2>
+            <h2 class="section-title">{% trans "Categories" %}</h2>
             <ul>
                 {% for cat in categories%}
                 <li><a href="{{ cat.get_absolute_url}}" class="post-categories">{{ cat.title}}</a></li>

@@ -66,10 +66,10 @@
         <br>
         <div class="published">
             <ul>
-                <li><span>Category:</span>&nbsp;{{ blog_post.category }}</li>
-                <li><span>Author:</span>&nbsp;{{blog_post.author}}</li>
-                <li><span>Published:</span>&nbsp;{{ blog_post.pub_date|date }}</li>
-                <li><span>Views:</span>&nbsp;{% get_hit_count for blog_post %}</li>
+                <li><span>{% trans "Category" %}:</span>&nbsp;{{ blog_post.category }}</li>
+                <li><span>{% trans "Author" %}:</span>&nbsp;{{blog_post.author}}</li>
+                <li><span>{% trans "Published" %}:</span>&nbsp;{{ blog_post.pub_date|date }}</li>
+                <li><span>{% trans "Views" %}:</span>&nbsp;{% get_hit_count for blog_post %}</li>
             </ul>
         </div>
 
@@ -84,7 +84,7 @@
             <div class="info">
 
                 <p class="bio">{{ blog_post.get_bio}}</p>
-                <b>Follow me:</b>
+                <b>{% trans "Follow me" %}:</b>
                 <br>
                 <ul class="social-author">
                     {% if blog_post.author.telephone%}
@@ -103,11 +103,11 @@
 
             </div>
         </div>
-        <h3 class="title text-center">Add or View comments</h3>
+        <h3 class="title text-center">{% trans "Add or View comments" %}</h3>
         <hr>
         <div class="row">
             <div class="col-md-10 align-content-center pt-2 mt-1">
-                <h4 class="title text-center mb-4">Leave a comment</h4>
+                <h4 class="title text-center mb-4">{% trans "Leave a comment" %}</h4>
                 <form action="{% url 'forestry:add-comment' pk=blog_post.pk %}" method="POST">
                     {% csrf_token %}
                     {% for field in form %}
@@ -149,7 +149,8 @@
                     <div class="col-md-6 col-sm-8">
                         <div class="row">
                             Posted by: &nbsp; <span
-                                class="font-weight-bolder text-capitalize">{{comment.full_name}}</span>&nbsp; Date:
+                                class="font-weight-bolder text-capitalize">{{comment.full_name}}</span>&nbsp;
+                            {% trans "Date" %}:
                             &nbsp;
                             <span class="font-weight-bolder">{{comment.created_on|date:"d M Y"}}</span>
                         </div>
@@ -158,7 +159,8 @@
                         </div>
                         <div class="row">
                             <strong class="reply-comment"
-                                data-comment="{% url 'forestry:reply-comment' pk=comment.pk %}">Reply</strong>
+                                data-comment="{% url 'forestry:reply-comment' pk=comment.pk %}">
+                                {% trans "Reply"%}</strong>
                         </div>
                     </div>
                 </div>
@@ -169,7 +171,7 @@
 
             {% empty %}
             <div class="col-md-12">
-                <p class="font-weight-bolder">Be the first to comment</p>
+                <p class="font-weight-bolder">{% trans "Be the first to comment" %}</p>
             </div>
 
             {% endfor %}
@@ -179,14 +181,14 @@
     <!-- Sidebar -->
     <div class="sidebar single">
         <div class="section search">
-            <h2 class="section-title">Search</h2>
+            <h2 class="section-title">{% trans "Search" %}</h2>
             <form action="{% url 'forestry:search' %}" method="get" id="blog_search_form">
-                <input class="text-input" type="text" name="q" placeholder="Search..." value="{{ query|escape}}"
-                    id="blog_search">
+                <input class="text-input" type="text" name="q" placeholder="{% trans 'Search' %}..."
+                    value="{{ query|escape}}" id="blog_search">
             </form>
         </div>
         <div class="section popular">
-            <h2 class="section-title">Popular Posts</h2>
+            <h2 class="section-title">{% trans "Popular Posts" %}</h2>
             {% for i in popular_posts %}
             <div class="post-popular clearfix">
 

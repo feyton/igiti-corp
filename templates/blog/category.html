@@ -1,3 +1,4 @@
+{% load i18n %}
 <h1 class="trending-post-title">{{category|title}}</h1>
 <!-- Trending post -->
 {% for post in blog_posts %}
@@ -10,12 +11,12 @@
         <i class="far fa-user"></i>&nbsp;<span>{{post.author}}</span> &nbsp;<i
             class="far fa-calendar"></i>&nbsp;<span>{{ post.pub_date|date }}</span>
         <p class="preview-text">{{ post.description|truncatechars:220 }}</p>
-        <a href="{{ post.get_absolute_url }}" class="btn btn-outline-info">Read More</a>
+        <a href="{{ post.get_absolute_url }}" class="btn btn-outline-info">{% trans "Read more" %}</a>
     </div>
 </div>
 {% empty%}
 <div class="trending-post m-auto text-center">
-    <h3 class="m-auto">Sorry, we do not have posts in this category yet</h3>
+    <h3 class="m-auto">{% trans "Sorry, we do not have posts in this category yet" %}</h3>
 </div>
 {% endfor %}
 

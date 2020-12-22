@@ -1,11 +1,14 @@
+{% load i18n %}
 <footer>
     <div class="container">
         <div class="footer-content">
             <div class="footer-section about">
                 <h1 class="logo-text"><span>Igiti</span>&nbsp;Corp</h1>
                 <br>
-                <p>Igiti Corp is an organization aiming to ensure sustainable management of forestry resources,
-                    distribution and access to forestry information.</p>
+                <p>{% blocktrans %}
+                    Igiti Corp is an organization aiming to ensure sustainable management of forestry resources,
+                    distribution and access to forestry information.
+                    {% endblocktrans %}</p>
                 <div class="contact">
                     <span><i class="fas fa-phone"></i>&nbsp;<a href="tel:+25078724147">+250787241457</a></span>
                     <span><i class="fas fa-envelope"></i>&nbsp;<a
@@ -21,31 +24,29 @@
                 <h2>Quick Links</h2>
                 <br>
                 <ul>
-                    <li><a href="{% url 'forestry:list' %}"><i class="fas fa-link"></i>&nbsp;Forestry</a></li>
-
-                    <li><a href="{% url 'store:store' %}"><i class="fas fa-link"></i>&nbsp;Store</a></li>
-
-
-
-                    <li><a href="{% url 'terms' %}"><i class="fas fa-link"></i>&nbsp;Terms and Conditions</a></li>
-
-                    <li><a href="{% url 'privacy' %}"><i class="fas fa-link"></i>&nbsp;Privacy Policy</a></li>
+                    <li><a href="{% url 'forestry:list' %}"><i class="fas fa-link"></i>&nbsp;
+                            {% trans "Publications"%}</a></li>
+                    <li><a href="{% url 'store:store' %}"><i class="fas fa-link"></i>&nbsp;{% trans "Store" %}</a></li>
+                    <li><a href="{% url 'terms' %}"><i class="fas fa-link"></i>&nbsp;
+                            {% trans "Terms and Conditions"%}</a></li>
+                    <li><a href="{% url 'privacy' %}"><i class="fas fa-link"></i>&nbsp;{% trans "Privacy Policy" %}</a>
+                    </li>
                 </ul>
             </div>
             <div class="footer-section contact">
-                <h2>Subscribe to our newsletter</h2>
+                <h2>{% trans "Subscribe to our newsletter" %}</h2>
                 <br>
                 <form action="{% url 'subscribe' %}" method="post" class="contact-form">
                     {% csrf_token %}
                     <input type="text" name="full_name" placeholder="Full Name..." class="text-input contact-input">
                     <input type="email" name="email" placeholder="E-mail..." class="text-input contact-input">
-                    <button type="submit" class="btn btn-big contact-btn"><i
-                            class="far fa-paper-plane"></i>&nbsp;Subscribe</button>
+                    <button type="submit" class="btn btn-big contact-btn"><i class="far fa-paper-plane"></i>&nbsp;
+                        {%trans "Subscribe" %}</button>
                 </form>
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; Igiti Corp | Powered by <a href="https://feyton.co.rw" target="_blank">Feyton Inc</a>
+            &copy; Igiti Corp | {% trans "Powered by" %} <a href="https://feyton.co.rw" target="_blank">Feyton Inc</a>
         </div>
     </div>
 </footer>

@@ -131,13 +131,13 @@ header ul li ul li {
   width: 100%;
 }
 
-header ul li ul li a {
+header ul li ul li a, .language {
   padding: 10px;
   color: #444;
   background: white;
 }
 
-header ul li ul li a:hover {
+header ul li ul li a:hover, .language:hover {
   background: rgb(43, 44, 43);
   border-right: 2px solid rgb(82, 57, 57);
   transition: 0.5s;

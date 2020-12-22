@@ -1,5 +1,6 @@
 {% load static%}
 {% load widget_tweaks %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="/static/css/fontawesome-all.css" class="css">
     <link rel="stylesheet" href="/static/css/registration.css" type="text/css">
     <link rel="icon" type="image/gif" href="/static/img/profile.png" />
-    <title>Igiti Corp| Register</title>
+    <title>Igiti Corp| {% trans "Register" %}</title>
 </head>
 
 <body>
@@ -22,21 +23,21 @@
         <div class="panel-header panel-header-lg"></div>
         <div class="form-box">
             <div class="button-box ">
-                <button type="button" class="btn toggle-btn">REGISTER HERE</button>
+                <button type="button" class="btn toggle-btn">{% trans "REGISTER HERE" %}</button>
             </div>
 
             <form id="login" action="{% url 'account_signup' %}" method="post" class="input-group"
                 data-url="{% url 'validate_email' %}">
                 {% csrf_token%}
-                {% render_field form.email class="input-field" placeholder="Enter Valid Email"  %}
+                {% render_field form.email class="input-field" placeholder="Enter Valid Email" %}
                 {% render_field form.first_name class="input-field" placeholder="First name" %}
                 {% render_field form.last_name class="input-field" placeholder="Last name" %}
                 {% render_field form.password1 class="input-field" placeholder="Password" %}
                 {% render_field form.password2 class="input-field" placeholder="Confirm password" %}
                 <div class="action-box agree">
-                    <p>I agree with <a href="{% url 'terms' %}">Terms and Conditions</a></p>
+                    <p>{% trans "I agree with" %} <a href="{% url 'terms' %}">{% trans "Terms and Conditions" %}</a></p>
                 </div>
-                <button class="submit-btn" type="submit" disabled>REGISTER</button>
+                <button class="submit-btn" type="submit" disabled>{% trans "REGISTER" %}</button>
 
                 {% if form.errors %}
                 {% for field in form %}
@@ -55,7 +56,8 @@
 
             </form>
             <div class="action-box">
-                <p>Already Have An Account?&nbsp; <a href="{% url 'account_login'%}">Login Here</a></p>
+                <p>{% trans "Already Have An Account?" %}&nbsp; <a href="{% url 'account_login'%}">
+                        {% trans "Login Here"%}</a></p>
             </div>
 
 

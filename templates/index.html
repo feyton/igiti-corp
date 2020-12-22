@@ -8,7 +8,7 @@
 
 </style>
 {% endblock extra_style %}
-{% block site_name %} Home{% endblock site_name %}
+{% block site_name %} {% trans "Home" %}{% endblock site_name %}
 {% block content %}
 {% include 'snippet/facebook.html' %}
 
@@ -23,34 +23,34 @@
         <div class="carousel-item active">
             <img src="/static/img/slide1.jpg" class="d-block w-100" alt="slide_image1" />
             <div class="carousel-caption d-none d-md-block">
-                <h5>You want to explore the forest. Don't miss out!</h5>
+                <h5>{% trans "You want to explore the forest. Don't miss out!" %}</h5>
                 {%if not user.is_authenticated%}
                 <p>
-                    We will take you to the place you will like the most. Create account and join us.
+                    {% trans "We will take you to the place you will like the most. Create account and join us." %}
                 </p>
-                <a href="{% url 'account_login' %}">Create account| Log In</a> {% else%}
-                <p>Thank You for creating the account.</p>
-                <a href="{% url 'update-profile' %}">Update your profile</a> {% endif %}
+                <a href="{% url 'account_login' %}">{% trans "Create account" %}| {% trans "Log In" %}</a> {% else%}
+                <p>{% trans "Thank You for creating the account." %}</p>
+                <a href="{% url 'update-profile' %}">{% trans "Update your profile" %}</a> {% endif %}
             </div>
         </div>
         <div class="carousel-item">
             <img src="/static/img/slide2.jpg" class="d-block w-100" alt="slide_image2" />
             <div class="carousel-caption d-none d-md-block">
-                <h5>Welcome to Igiti Corp</h5>
+                <h5>{% trans "Welcome to Igiti Corp" %}</h5>
                 <p>
-                    Visit our library and get the best out of our website. Don't forget calculators.
+                    {% trans "Visit our library and get the best out of our website. Don't forget calculators." %}
                 </p>
-                <a href="{% url 'forestry:list' %}">Visit our Library</a>
+                <a href="{% url 'forestry:list' %}">{% trans "Visit our Library" %}</a>
             </div>
         </div>
         <div class="carousel-item">
             <img src="/static/img/slide3.jpg" class="d-block w-100" alt="slide_image3" />
             <div class="carousel-caption d-none d-md-block">
-                <h5>Check out our store for seeds and seedlings.</h5>
+                <h5>{% trans "Check out our store for seeds and seedlings." %}</h5>
                 <p>
-                    Order seeds or seedlings and get them delivered to your desired place.
+                    {% trans "Order seeds or seedlings and get them delivered to your desired place." %}
                 </p>
-                <a href="{% url 'store:store' %}">Visit store</a>
+                <a href="{% url 'store:store' %}">{% trans "Visit store" %}</a>
             </div>
         </div>
     </div>
@@ -80,10 +80,10 @@
                                     <img src="/static/img/mountain.svg" alt="service" />
                                 </div>
                                 <div class="intro_content">
-                                    <div class="intro_title">Top Choices</div>
+                                    <div class="intro_title">{% trans "Top Choices" %}</div>
                                     <div class="intro_subtitle">
                                         <p>
-                                            We got you covered on each category of forestry information.
+                                            {% trans "We got you covered on each category of forestry information." %}
                                         </p>
                                     </div>
                                 </div>
@@ -97,10 +97,10 @@
                                     <img src="/static/img/envelope.png" alt="service" />
                                 </div>
                                 <div class="intro_content">
-                                    <div class="intro_title">The Best Services</div>
+                                    <div class="intro_title">{% trans "The Best Services" %}</div>
                                     <div class="intro_subtitle">
                                         <p>
-                                            We are always looking forward to make best out of your time
+                                            {% trans "We are always looking forward to make best out of your time" %}
                                         </p>
                                     </div>
                                 </div>
@@ -117,7 +117,9 @@
                                 <div class="intro_content">
                                     <div class="intro_title">Amazing Community</div>
                                     <div class="intro_subtitle">
-                                        <p>Get your chance to assit others in our forum</p>
+                                        <p>{% blocktrans %}
+                                            Get your chance to assit others in our forum
+                                            {% endblocktrans %}</p>
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +233,8 @@
                                     <p>{{i.description|truncatechars:100}} </p>
                                 </div>
                                 <div class="button-group">
-                                    <a href="{{i.get_absolute_url}}" class="btn btn-info btn-round">Read More</a>
+                                    <a href="{{i.get_absolute_url}}" class="btn btn-info btn-round">
+                                        {% trans "Read More"%}</a>
                                 </div>
                             </div>
                         </div>
@@ -261,14 +264,18 @@
                                 <div id="banner">
                                     <div class="active bannerItem">
                                         <span class="banner-header display-1">
-                                            Modern Nursery Management
+                                            {% trans "Modern Nursery Management" %}
                                         </span>
                                         <div class="banner-text">
+                                            {% blocktrans %}
                                             Manage your nursery with us. Schedule your activities and manage all
                                             resources
                                             effectively with Igiti Corp.
+                                            {% endblocktrans %}
                                         </div>
-                                        <a href="{% url 'update-profile' %}" class="btn btn-outline btn-lg">Join Now</a>
+                                        <a href="{% url 'update-profile' %}" class="btn btn-outline btn-lg">
+                                            {% trans "Join Now" %}
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/static/css/fontawesome-all.css" class="css">
     <link rel="stylesheet" href="/static/css/registration.css" type="text/css">
     <link rel="icon" type="image/gif" href="/static/img/profile.png" />
-    <title>Igiti Corp| Login</title>
+    <title>Igiti Corp| {% trans "Log In" %}</title>
 </head>
 
 <body>
@@ -25,9 +25,9 @@
             {% if redirect_field_value %}
 
             {% if user.is_authenticated %}
-            <p class="text-left">Account permission required.</p>
+            <p class="text-left">{% trans "Account permission required." %}</p>
             {% else %}
-            <p class="text-left">Login to continue</p>
+            <p class="text-left">{% trans "Login to continue" %}</p>
 
             {%endif%}
             {%endif%}
@@ -37,7 +37,7 @@
             </div>
             <div class="social-icons">
 
-                <a href="{% provider_login_url "google" process="login" %}" data-tip="Google"><i
+                <a href="{% provider_login_url 'google' process='login' %}" data-tip="Google"><i
                         class="fab fa-google"></i></a>
             </div>
             <div class="button-box">
@@ -70,11 +70,11 @@
                 <button class="submit-btn" type="submit">{% trans 'Log In' %}</button>
             </form>
             <div class="action-box">
-                <p class="text-left">{% trans "You don't have acount" %}?&nbsp; <a
-                        href="{% url 'account_signup'%}">{% trans 'Sign Up Here' %}</a>
+                <p class="text-left">{% trans "You don't have acount" %}?&nbsp;
+                    <a href="{% url 'account_signup'%}">{% trans 'Sign Up Here' %}</a>
                 </p>
-                <p class="text-left">{% trans 'Forgot password' %}?&nbsp;<a
-                        href="{% url 'account_reset_password' %}">{% trans 'Reset' %}</a></p>
+                <p class="text-left">{% trans 'Forgot password' %}?&nbsp;<a href="{% url 'account_reset_password' %}">
+                        {%trans 'Reset' %}</a></p>
             </div>
 
 

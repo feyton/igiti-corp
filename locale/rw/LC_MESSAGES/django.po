@@ -1,0 +1,692 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-22 23:44+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\corp\settings\base.py:193
+msgid "English"
+msgstr "Icyongereza"
+
+#: .\corp\settings\base.py:194
+msgid "Kinyarwanda"
+msgstr "Kinyarwanda"
+
+#: .\forestry\models.py:20 .\templates\blog\list.html:103
+msgid "Categories"
+msgstr "Ibyiciro"
+
+#: .\forestry\models.py:32
+msgid "author facebook"
+msgstr "konti ya facebook y'umwanditsi"
+
+#: .\forestry\models.py:33
+msgid "author twitter"
+msgstr "konti ya twitter y'umwanditsi"
+
+#: .\forestry\models.py:34
+msgid "telephone"
+msgstr "Nimero ya telefoni y'umwanditsi"
+
+#: .\forestry\models.py:36
+msgid "Author Image"
+msgstr "ifoto y'umwanditsi"
+
+#: .\forestry\models.py:37
+msgid "author biography"
+msgstr "Ubuzima bw'umwanditsi"
+
+#: .\forestry\models.py:66
+msgid "title"
+msgstr "umutwe"
+
+#: .\forestry\models.py:67 .\store\models.py:113
+msgid "slug"
+msgstr "impine"
+
+#: .\forestry\models.py:68
+msgid "image"
+msgstr "ifoto"
+
+#: .\forestry\models.py:70
+msgid "text"
+msgstr "ibirimo"
+
+#: .\forestry\models.py:71 .\store\models.py:85
+msgid "description"
+msgstr "imiterere"
+
+#: .\forestry\models.py:72
+msgid "published"
+msgstr "yashyizwe hanze"
+
+#: .\forestry\models.py:73
+msgid "created"
+msgstr "yakozwe"
+
+#: .\forestry\models.py:74
+msgid "modified"
+msgstr "yahinduwe"
+
+#: .\forestry\models.py:75
+msgid "publish date"
+msgstr "igihe yashyiriwe hanze"
+
+#: .\forestry\models.py:89
+msgid "blog post"
+msgstr "inkuru"
+
+#: .\forestry\models.py:90
+msgid "blog posts"
+msgstr "inkuru"
+
+#: .\forestry\models.py:124
+msgid "full name"
+msgstr "Amazina yose"
+
+#: .\forestry\models.py:125
+msgid "Email"
+msgstr "Imeyili"
+
+#: .\forestry\models.py:126
+msgid "Comment"
+msgstr "igitekerezo"
+
+#: .\forestry\models.py:142 .\templates\blog\detail.html:163
+msgid "Reply"
+msgstr "Igisubizo"
+
+#: .\store\models.py:57
+msgid "storage type"
+msgstr "ubwoko bw'ububiko"
+
+#: .\store\models.py:58
+msgid "Max storage years"
+msgstr ""
+
+#: .\store\models.py:59
+msgid "Min storage years"
+msgstr "imyaka myinshi yabikwa"
+
+#: .\store\models.py:64
+msgid "overview"
+msgstr "mu buryo burambuye"
+
+#: .\store\models.py:106
+msgid "scientific name"
+msgstr "izina "
+
+#: .\store\models.py:108
+msgid "common name"
+msgstr "izina rusange"
+
+#: .\store\models.py:115
+msgid "image1"
+msgstr "ifoto ya 1"
+
+#: .\store\models.py:117
+msgid "image2"
+msgstr "ifoto ya 2"
+
+#: .\store\models.py:123
+msgid "price"
+msgstr "ikiguzi"
+
+#: .\store\models.py:124
+msgid "discount"
+msgstr "igabanya"
+
+#: .\store\models.py:131
+msgid "Seeds per Kilogram"
+msgstr "Imbuto ziri mu kilo"
+
+#: .\store\models.py:138
+msgid "Short description"
+msgstr "Incamake"
+
+#: .\store\models.py:336
+msgid "mobile number"
+msgstr "nimero ya telefoni"
+
+#: .\templates\account\account_inactive.html:5
+msgid "Account Inactive"
+msgstr "Konti irafubze"
+
+#: .\templates\account\account_inactive.html:13
+msgid "This account is inactive."
+msgstr "Iyi konti irafunze"
+
+#: .\templates\account\base.html:5
+#| msgid "discount"
+msgid "Account"
+msgstr "Konti"
+
+#: .\templates\account\login.html:18 .\templates\account\login.html:70
+#: .\templates\index.html:31
+msgid "Log In"
+msgstr "Injira"
+
+#: .\templates\account\login.html:28
+msgid "Account permission required."
+msgstr "Uburenganzira burakenewe"
+
+#: .\templates\account\login.html:30
+msgid "Login to continue"
+msgstr "Injira muri konti yawe"
+
+#: .\templates\account\login.html:35
+msgid "Log In with"
+msgstr "Injira ukoresheje"
+
+#: .\templates\account\login.html:44
+msgid "OR"
+msgstr "Cyangwa"
+
+#: .\templates\account\login.html:73
+msgid "You don't have acount"
+msgstr "Nta konti ufite?"
+
+#: .\templates\account\login.html:74
+msgid "Sign Up Here"
+msgstr "Iyandikishe hano"
+
+#: .\templates\account\login.html:76
+msgid "Forgot password"
+msgstr "Wibagiwe ijambo ry'ibanga"
+
+#: .\templates\account\login.html:77
+#| msgid "Reset"
+msgid "Reset"
+msgstr "Saba irishya"
+
+#: .\templates\account\logout.html:5 .\templates\account\logout.html:8
+#: .\templates\account\logout.html:17
+msgid "Sign Out"
+msgstr "Gusohoka"
+
+#: .\templates\account\logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr "Ushaka gusohoka kurubuga?"
+
+#: .\templates\account\password_change.html:7
+#: .\templates\account\password_change.html:17
+#: .\templates\account\password_reset_from_key.html:4
+#: .\templates\account\password_reset_from_key.html:16
+#: .\templates\account\password_reset_from_key_done.html:4
+#: .\templates\account\password_reset_from_key_done.html:11
+msgid "Change Password"
+msgstr "Hindura ijambo banga"
+
+#: .\templates\account\password_change.html:25
+#| msgid "Forgot password"
+msgid "Current Password"
+msgstr "Wibagiwe ijambo ry'ibanga"
+
+#: .\templates\account\password_change.html:33
+#| msgid "Forgot password"
+msgid "Password"
+msgstr "Wibagiwe ijambo ry'ibanga"
+
+#: .\templates\account\password_change.html:41
+#, fuzzy
+#| msgid "Forgot password"
+msgid "Comfirm Password"
+msgstr "Wibagiwe ijambo ry'ibanga"
+
+#: .\templates\account\password_change.html:68
+#| msgid "Forgot password"
+msgid "Change password"
+msgstr "Wibagiwe ijambo ry'ibanga"
+
+#: .\templates\account\password_reset.html:7
+#: .\templates\account\password_reset.html:15
+#: .\templates\account\password_reset_done.html:6
+#: .\templates\account\password_reset_done.html:16
+msgid "Password Reset"
+msgstr "Hindura ijambo banga"
+
+#: .\templates\account\password_reset.html:17
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Wibagiwe ijambo banga? Injiza imeyili yawe ahakurikira ubone ubutumwa "
+"bukwemerera kurihindura"
+
+#: .\templates\account\password_reset.html:36
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Tumenyeshe mugihe ugize ikibazo uhindura ijambo banga"
+
+#: .\templates\account\password_reset_done.html:22
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few\n"
+"                minutes."
+msgstr ""
+
+#: .\templates\account\password_reset_from_key.html:16
+msgid "Bad Token"
+msgstr "Code ntabwo yemewe"
+
+#: .\templates\account\password_reset_from_key.html:19
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.\n"
+"                    Please request a\n"
+"                    <a href=\"%(passwd_reset_url)s\" class=\"btn btn-primary"
+"\">new password reset</a>."
+msgstr ""
+
+#: .\templates\account\password_reset_from_key.html:28
+msgid "change password"
+msgstr "hindura ijambo banga"
+
+#: .\templates\account\password_reset_from_key.html:31
+#: .\templates\account\password_reset_from_key_done.html:12
+msgid "Your password is now changed."
+msgstr "Ijambo banga ryahindutse"
+
+#: .\templates\account\password_set.html:6
+#: .\templates\account\password_set.html:37
+msgid "Set Password"
+msgstr "Ongeraho ijambo banga"
+
+#: .\templates\account\signup.html:17 .\templates\include\nav.html:39
+#| msgid "Reset"
+msgid "Register"
+msgstr "Saba irishya"
+
+#: .\templates\account\signup.html:26
+msgid "REGISTER HERE"
+msgstr "IYANDIKISHE HANO"
+
+#: .\templates\account\signup.html:38
+msgid "I agree with"
+msgstr ""
+
+#: .\templates\account\signup.html:38 .\templates\include\footer.html:31
+msgid "Terms and Conditions"
+msgstr "Amategeko n'amabwiriza"
+
+#: .\templates\account\signup.html:40
+#| msgid "REGISTER HERE"
+msgid "REGISTER"
+msgstr "IYANDIKISHE HANO"
+
+#: .\templates\account\signup.html:59
+msgid "Already Have An Account?"
+msgstr ""
+
+#: .\templates\account\signup.html:60
+#| msgid "Log In"
+msgid "Login Here"
+msgstr "Injira"
+
+#: .\templates\account\signup_closed.html:5
+#: .\templates\account\signup_closed.html:19
+msgid "Sign Up Closed"
+msgstr "Kwiyandikisha byarahagaze"
+
+#: .\templates\account\signup_closed.html:21
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Ihangane, kwiyandikisha byarahagaritswe"
+
+#: .\templates\account\verification_sent.html:5
+#: .\templates\account\verification_sent.html:8
+#: .\templates\account\verified_email_required.html:5
+#: .\templates\account\verified_email_required.html:13
+msgid "Verify Your E-mail Address"
+msgstr "Emeza imeyili yawe"
+
+#: .\templates\account\verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification.\n"
+"    Follow the link provided to finalize the signup process.\n"
+"    Please contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: .\templates\account\verified_email_required.html:17
+msgid ""
+"This part of the site requires us to verify that\n"
+"                    you are who you claim to be. For this purpose, we "
+"require that you\n"
+"                    verify ownership of your e-mail address. "
+msgstr ""
+
+#: .\templates\account\verified_email_required.html:21
+msgid ""
+"We have sent an e-mail to you for\n"
+"                    verification. Please click on the link inside this e-"
+"mail. Please\n"
+"                    contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: .\templates\account\verified_email_required.html:25
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail\n"
+"                        address</a>."
+msgstr ""
+
+#: .\templates\blog\category.html:14
+msgid "Read more"
+msgstr "Soma ibikurikira"
+
+#: .\templates\blog\category.html:19
+msgid "Sorry, we do not have posts in this category yet"
+msgstr "Ihangane, nta nkuri ziri muriki kiciro"
+
+#: .\templates\blog\detail.html:69
+#| msgid "Categories"
+msgid "Category"
+msgstr "Ikiciro"
+
+#: .\templates\blog\detail.html:70
+#| msgid "Author Image"
+msgid "Author"
+msgstr "ifoto y'umwanditsi"
+
+#: .\templates\blog\detail.html:71
+#| msgid "published"
+msgid "Published"
+msgstr "yashyizwe hanze"
+
+#: .\templates\blog\detail.html:72
+msgid "Views"
+msgstr "Abayisomye"
+
+#: .\templates\blog\detail.html:87
+msgid "Follow me"
+msgstr "Nkurikira"
+
+#: .\templates\blog\detail.html:106
+msgid "Add or View comments"
+msgstr "Ongera cyangwa urebe ibitekerezo"
+
+#: .\templates\blog\detail.html:110
+msgid "Leave a comment"
+msgstr "Tanga igitekerezo"
+
+#: .\templates\blog\detail.html:153
+#| msgid "active"
+msgid "Date"
+msgstr "itariki"
+
+#: .\templates\blog\detail.html:174
+msgid "Be the first to comment"
+msgstr "Ba uwambere gutanga igitekerezo"
+
+#: .\templates\blog\detail.html:184 .\templates\blog\detail.html:186
+#: .\templates\blog\list.html:95
+msgid "Search"
+msgstr "Shakisha"
+
+#: .\templates\blog\detail.html:191
+msgid "Popular Posts"
+msgstr "Inkuru zasomwe cyane"
+
+#: .\templates\blog\list.html:8 .\templates\include\footer.html:28
+#: .\templates\include\nav.html:11
+msgid "Publications"
+msgstr "Inkuru"
+
+#: .\templates\blog\list.html:13
+msgid "Recent Posts"
+msgstr "Inkuru nshya"
+
+#: .\templates\blog\list.html:57
+msgid "Trending Posts"
+msgstr "Inkuru zikunzwe"
+
+#: .\templates\blog\list.html:69 .\templates\index.html:237
+msgid "Read More"
+msgstr "Soma"
+
+#: .\templates\blog\list.html:80
+#, python-format
+msgid ""
+"\n"
+"            <li class=\"active_page\"><a>%(num)s</a></li>\n"
+"            "
+msgstr ""
+
+#: .\templates\include\footer.html:8
+#| msgid ""
+#| "                    Igiti Corp is an organization aiming to ensure "
+#| "sustainable management of forestry resources,\n"
+#| "                    distribution and access to forestry information.\n"
+#| "                    "
+msgid ""
+"\n"
+"                    Igiti Corp is an organization aiming to ensure "
+"sustainable management of forestry resources,\n"
+"                    distribution and access to forestry information.\n"
+"                    "
+msgstr ""
+
+#: .\templates\include\footer.html:29 .\templates\include\nav.html:18
+msgid "Store"
+msgstr "Iduka"
+
+#: .\templates\include\footer.html:32
+msgid "Privacy Policy"
+msgstr "Ikoresha ry'amakuru"
+
+#: .\templates\include\footer.html:37
+msgid "Subscribe to our newsletter"
+msgstr "Iyandikishe kwakira imeyili zacu"
+
+#: .\templates\include\footer.html:44
+msgid "Subscribe"
+msgstr "Iyandikishe"
+
+#: .\templates\include\footer.html:49
+msgid "Powered by"
+msgstr "Bikorwa na"
+
+#: .\templates\include\nav.html:10 .\templates\index.html:11
+msgid "Home"
+msgstr "Ahabanza"
+
+#: .\templates\include\nav.html:14
+msgid "Blog"
+msgstr "Inkuru"
+
+#: .\templates\include\nav.html:15
+msgid "Events"
+msgstr "Ibikorwa"
+
+#: .\templates\include\nav.html:21
+msgid "Cart"
+msgstr "Cart"
+
+#: .\templates\include\nav.html:23
+msgid "Checkout"
+msgstr "Haha"
+
+#: .\templates\include\nav.html:31
+msgid "Dashboard"
+msgstr "Page yanjye"
+
+#: .\templates\include\nav.html:32
+msgid "Logout"
+msgstr "Sohoka"
+
+#: .\templates\include\nav.html:38
+#, fuzzy
+#| msgid "Log In"
+msgid "Login"
+msgstr "Injira"
+
+#: .\templates\index.html:26
+msgid "You want to explore the forest. Don't miss out!"
+msgstr "Ushaka kumenya ibijyanye n'ishyamba. Ntucikwe!"
+
+#: .\templates\index.html:29
+msgid ""
+"We will take you to the place you will like the most. Create account and "
+"join us."
+msgstr "Turakugeza ahantu uzakunda kurushaho. Fungura konti udacikwa."
+
+#: .\templates\index.html:31
+msgid "Create account"
+msgstr "Fungura konti"
+
+#: .\templates\index.html:32
+msgid "Thank You for creating the account."
+msgstr "Wakoze kwiyandikisha."
+
+#: .\templates\index.html:33
+msgid "Update your profile"
+msgstr "Shyira amakuru kugihe"
+
+#: .\templates\index.html:39
+msgid "Welcome to Igiti Corp"
+msgstr "Urakaza neza"
+
+#: .\templates\index.html:41
+msgid ""
+"Visit our library and get the best out of our website. Don't forget "
+"calculators."
+msgstr "Sura inkuru twanditse. Ntiwibagirwe kureba udushya twakuzaniye"
+
+#: .\templates\index.html:43
+msgid "Visit our Library"
+msgstr "Soma inkuru"
+
+#: .\templates\index.html:49
+msgid "Check out our store for seeds and seedlings."
+msgstr "Reba ibicuruzwa biri mwiduka ryacu."
+
+#: .\templates\index.html:51
+msgid "Order seeds or seedlings and get them delivered to your desired place."
+msgstr "Tumiza imbuto cyangwa ingemwe uzishyikirire aho wahisemo."
+
+#: .\templates\index.html:53
+msgid "Visit store"
+msgstr "Sura iduka"
+
+#: .\templates\index.html:83
+msgid "Top Choices"
+msgstr "Amahitamo meza"
+
+#: .\templates\index.html:86
+msgid "We got you covered on each category of forestry information."
+msgstr "Urahasanga amakuru atandukanye ajyanye n'ishyamba"
+
+#: .\templates\index.html:100
+msgid "The Best Services"
+msgstr "Serivisi nziza"
+
+#: .\templates\index.html:103
+msgid "We are always looking forward to make best out of your time"
+msgstr ""
+
+#: .\templates\index.html:120
+msgid ""
+"\n"
+"                                            Get your chance to assit others "
+"in our forum\n"
+"                                            "
+msgstr ""
+
+#: .\templates\index.html:207
+msgid "Simply the Largest library"
+msgstr "Ikusanyirizo rinini ry'amakuru"
+
+#: .\templates\index.html:267
+msgid "Modern Nursery Management"
+msgstr "Iterambere mukwita kubiti"
+
+#: .\templates\index.html:270
+msgid ""
+"\n"
+"                                            Manage your nursery with us. "
+"Schedule your activities and manage all\n"
+"                                            resources\n"
+"                                            effectively with Igiti Corp.\n"
+"                                            "
+msgstr ""
+
+#: .\templates\index.html:277
+msgid "Join Now"
+msgstr "Iyandikishe nonaha"
+
+#: .\templates\store\store.html:122
+#, python-format
+msgid ""
+"\n"
+"                <li class=\"active_page\"><a>%(num)s</a></li>\n"
+"                "
+msgstr ""
+
+#: .\user\models.py:19
+msgid "User must have an email address"
+msgstr "Uwiyandikisha agomba kuba afite imeyili"
+
+#: .\user\models.py:21
+msgid "User must have a first name"
+msgstr "Uwiyandikisha agomba kuzuza izina ry'idini"
+
+#: .\user\models.py:23
+msgid "User must have a last name"
+msgstr "Uwiyandikisha agomba kuzuza izina ry'ababyeyi"
+
+#: .\user\models.py:56
+msgid "email address"
+msgstr "imeyili"
+
+#: .\user\models.py:60
+msgid "first name"
+msgstr "Izina ry'idini"
+
+#: .\user\models.py:61
+msgid "last name"
+msgstr "Izina ry'umuryango"
+
+#: .\user\models.py:64
+msgid "active"
+msgstr "ikora"
+
+#: .\user\models.py:67
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: .\user\models.py:72
+msgid "staff status"
+msgstr "icyiciro cy'ukoresha urubuga"
+
+#: .\user\models.py:75
+msgid "Designates whether the user can log into this admin site."
+msgstr "Bigena niba usuye urubuga yemerewe kwinjira muri konti isumba izindi"
+
+#: .\user\models.py:83
+msgid "date joined"
+msgstr "itariki wiyandikishije"
+
+#: .\user\models.py:93
+msgid "user"
+msgstr "ukoresha urubuga"
+
+#: .\user\models.py:94
+msgid "users"
+msgstr "abakoresha urubuga"
+
+#~ msgid " Search"
+#~ msgstr "Shakisha"
