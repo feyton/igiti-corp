@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load i18n %}
 {% load static %}
 {% load humanize %}
 {% block extra_style %}
@@ -201,7 +202,8 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col text-center">
-                    <div class="section_subtitle mt-1">Simply the Largest library</div>
+                    <div class="section_subtitle mt-1">{% blocktrans %}Simply the Largest library{% endblocktrans %}
+                    </div>
                     <div class="section_title">
                         <h3>Trending Posts</h3>
                     </div>

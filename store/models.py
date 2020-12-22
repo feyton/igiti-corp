@@ -16,6 +16,12 @@ from .utils import photo_path
 User = get_user_model()
 
 
+
+def get_product_map(product):
+    districts = []
+    for district in product.districts.all():
+        districts.append(district.name)
+
 class District(models.Model):
     # CHOICES
     ecological_zones = (('HIGH', 'Highland'),

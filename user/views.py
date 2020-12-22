@@ -1,6 +1,9 @@
+from dashboard.forms import AddTaskForm, AddWorker
+from dashboard.models import Task, Workers
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
@@ -10,9 +13,6 @@ from rest_framework.authentication import (BasicAuthentication,
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from dashboard.forms import AddTaskForm, AddWorker
-from dashboard.models import Task, Workers
 from store.forms import AddProductForm
 from store.models import Address, Order, SeedProduct
 
@@ -20,7 +20,7 @@ from .decorators import nursery_manager, staff_only
 from .forms import (NurseryManagerRegistration, UpdateAddressForm,
                     UpdateProfileForm, UpdateUserForm)
 from .models import UserProfile
-from django.core.exceptions import PermissionDenied
+
 User = get_user_model()
 
 staff = [login_required, staff_only]
@@ -39,7 +39,7 @@ class Dashboard(View):
     def get(self, *args, **kwargs):
         add_task_form = AddTaskForm
         add_worker_form = AddWorker
-        tasks = Task.objects.filter(user=self.request.user)
+        tasks = Task.objects.filter(user=self.request.user, status=False)
         workers = Workers.objects.all()
         context = {
             'active': 'dashboard',

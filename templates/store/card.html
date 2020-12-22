@@ -54,32 +54,9 @@
                 </ul>
                 <p></p>
                 <h3 class="title-content">Plantation districts</h3>
-                <table class="table table-bordered districts">
-                    <thead>
-                        <tr>
-                            <th>
-                                District
-                            </th>
-                            <th>
-                                Ecological Zone
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        {% for district in item.plantation_districts.all %}
-
-                        <tr>
-                            <td>
-                                {{district.name}}
-                            </td>
-                            <td>
-                                {{district.get_ecelogical_zone_display}}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        <img src="http://127.0.0.1:8000/media/maps/7c2a8g73vx.png" alt="" class="map">
+                    
                 <h3 class="title-content">Storage Guide</h3>
 
                 {% if item.seed_type %}

@@ -49,9 +49,6 @@ class Task(models.Model):
     def __str__(self):
         return self.user.first_name
 
-    def remove_task(self):
-        return reverse('dashboard:remove_task', kwargs={'pk': self.id})
-
     def complete_url(self):
         return reverse('dashboard:complete_task', kwargs={'pk': self.id})
 

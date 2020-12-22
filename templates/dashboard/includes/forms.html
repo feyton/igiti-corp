@@ -1,0 +1,45 @@
+{% for field in form %}
+{% if field.field.widget.input_type == 'file' %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group row">
+
+            <div class="col-sm-12">
+                <div class="custom-file">
+
+                    <label for="{{field.id_for_label}}" class="custom-file-label">{{field.label}}</label>
+                    {{field}}
+                    {% if field.errors %}
+                    {% for error in field.errors %}
+                    <label id="{{field.id_for_label}}-error" class="error"
+                        for="{{field.id_for_label}}">{{error}}</label>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group row">
+            <label for="{{field.id_for_label}}"
+                class="col-sm-4 col-form-label {% if field.field.required %}required{%endif %}">{{field.label}}</label>
+            <div class="col-sm-8">
+                {{field}}
+            </div>
+            {% if field.errors %}
+            {% for error in field.errors %}
+            <label id="{{field.id_for_label}}-error" class="error" for="{{field.id_for_label}}">{{error}}</label>
+            {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endif%}
+
+{% endfor %}
+

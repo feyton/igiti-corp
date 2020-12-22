@@ -3,6 +3,7 @@ import os
 from django.contrib.messages import constants as messages
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
@@ -121,12 +122,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-LANGUAGES = (
-    ('en-us', _('English')),
-    ('rw', _('Kinyarwanda'))
-
-)
-
 # All Auth SETTINGS
 SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
@@ -189,9 +184,10 @@ LOCALE_PATHS = (
 )
 
 
-def ugettext(s):
-    return s
+# def ugettext(s):
+#     return s
 
+ugettext = lambda s:s
 
 LANGUAGES = (
     ('en', ugettext('English')),
