@@ -4,6 +4,8 @@ from django.core.exceptions import ImproperlyConfigured
 
 from .base import *
 
+from decouple import config
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['igiti.co.rw',
@@ -21,7 +23,7 @@ def get_env_value(env_variable):
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.environ['SECRET_KEY'])
+SECRET_KEY = config("SECRET_KEY", cast=str)
 
 
 # Database
@@ -32,7 +34,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'igityopp_corp',
         'USER': 'igityopp_fahrer',
-        'PASSWORD': get_env_value('DB_PASS'),
+        'PASSWORD': config('DB_PASS'),
         'HOST': '127.0.0.1',
         'PORT': '',
         'OPTIONS': {
@@ -63,7 +65,7 @@ AUTH_PASSWORD_VALIDATORS = [
 STRIPE_PUBLISHABLE_KEY = 'LIVE KEYS'
 STRIPE_SECRET_KEY = 'LIVE KEYS'
 
-PREPEND_WWW = True
+PREPEND_WWW = False
 APPEND_SLASH = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -88,7 +90,7 @@ SITE_ID = 1
 # EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = 'admin@igiti.co.rw'
-EMAIL_HOST_PASSWORD = 'v1p3k,h@@t'
+EMAIL_HOST_PASSWORD = config("HOST_PASS")
 EMAIL_HOST = '198.54.116.172'
 EMAIL_PORT = '465'
 EMAIL_USE_TLS = False
