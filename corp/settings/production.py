@@ -1,25 +1,14 @@
 import os
 
+from decouple import config
 from django.core.exceptions import ImproperlyConfigured
 
 from .base import *
-
-from decouple import config
 
 DEBUG = False
 
 ALLOWED_HOSTS = ['igiti.co.rw',
                  'www.igiti.co.rw', "127.0.0.1", "localhost", '198.54.116.172']
-
-# Environment Wrapper
-
-
-def get_env_value(env_variable):
-    try:
-        return os.environ[env_variable]
-    except KeyError:
-        error_msg = 'Set the {} environment variable'.format(var_name)
-        raise ImproperlyConfigured(error_msg)
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -33,7 +22,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'igityopp_corp',
-        'USER': 'igityopp_fahrer',
+        'USER': config("DB_USER", cast=str),
         'PASSWORD': config('DB_PASS'),
         'HOST': '127.0.0.1',
         'PORT': '',
@@ -89,9 +78,9 @@ SITE_ID = 1
 
 # EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = 'admin@igiti.co.rw'
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("HOST_PASS")
-EMAIL_HOST = '198.54.116.172'
+EMAIL_HOST = config("EMAIL_HOST")
 EMAIL_PORT = '465'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
