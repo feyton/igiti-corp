@@ -35,3 +35,4 @@ corp/wsgi.py
 .env
 env
 corp/settings/development.py
+stderr.log

@@ -1,6 +1,7 @@
 {% extends 'dashboard/layouts/base.html' %}
 {% load humanize %}
 {% load widget_tweaks %}
+{% load static %}
 
 {% block title %} Nurseries {% endblock title %}
 
@@ -94,7 +95,7 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"
     integrity="sha256-QOE02Glo1C1gHzP96JOaxyIMt4XSFv/exZaYLY4dwO0=" crossorigin="anonymous"></script>
-<script src="/static/js/dashboard.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 
 <script>
     $(document).ready(function () {

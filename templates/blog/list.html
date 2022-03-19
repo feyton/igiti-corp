@@ -3,7 +3,7 @@
 {% load static %}
 {% load hitcount_tags %}
 {% block extra_style %}
-<link rel="stylesheet" href="/static/css/forestry.css">
+<link rel="stylesheet" href="{% static 'css/forestry.css'%}">
 {% endblock extra_style %}
 {% block site_name %} {% trans "Publications" %} {% endblock site_name %}
 {%block content%}
@@ -117,10 +117,7 @@
 </div>
 <!-- //content -->
 {% endblock%} {% block extra_java %}
-<script src="/static/js/plugins/slick.min.js"></script>
-<script src="/static/js/script.js"></script>
-
-<script src="/static/js/forestry.js"></script>
+<script src="{% static 'js/plugins/slick.min.js' %}"></script>
 <script>
     $(document).ready(function (e) {
         $('.post-categories').click(function (e) {
@@ -137,6 +134,17 @@
                 }
             })
         });
+      
+            $("#blog_search_form").submit(function (e) {
+                var query = $("#blog_search").val();
+                if (query != '') {
+                    console.log(query)
+        
+                } else {
+                    e.preventDefault();
+                }
+            })
+      
     })
 </script>
 

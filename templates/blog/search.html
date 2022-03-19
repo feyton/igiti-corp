@@ -3,7 +3,7 @@
 
 
 {% block extra_style%}
-<link rel="stylesheet" href="/static/css/forestry.css">
+<link rel="stylesheet" href="{% static 'css/forestry.css'%}">
 {% endblock extra_style%}
 
 {% block site_name %}
@@ -80,7 +80,7 @@
 <!-- //content -->
 {% endblock%}
 {% block extra_java %}
-<script src="/static/js/forestry.js"></script>
+<script defer src=" {% static 'js/forestry.js' %}"></script>
 <script>
     $(document).ready(function (e) {
         $('.post-categories').click(function (e) {

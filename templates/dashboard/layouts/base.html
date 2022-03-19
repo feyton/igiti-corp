@@ -8,7 +8,7 @@
   <meta charset="utf-8" />
 
   <!-- Favicon - loaded as static -->
-  <link href="/static/img/profile.png" rel="icon" type="image/png">
+  <link href="{%static 'img/profile.png' %}" rel="icon" type="image/png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 
@@ -18,14 +18,14 @@
   <!--     Fonts and icons     -->
   <!-- fontawesome scripts -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/css/fontawesome-all.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- CSS Files -->
   <!-- BOOTSTRAP CSS-->
-  <link rel="stylesheet" href="/static/css/plugin/bootstrap.min.css">
+  <link rel="stylesheet" href="{%static 'css/plugin/bootstrap.min.css' %}">
 
-  <link href="/static/css/plugin/now-ui-dashboard.css" rel="stylesheet" />
+  <link href="{%static 'css/plugin/now-ui-dashboard.css' %}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/static/css/demo.css" rel="stylesheet" />
+  <link href="{%static 'css/demo.css' %}" rel="stylesheet" />
   <title>Igiti Corp - {% block title %} Dashboard {% endblock title%}</title>
 
   <!-- Specific CSS goes HERE -->
