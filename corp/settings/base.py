@@ -1,5 +1,7 @@
+from email.policy import default
 import os
 
+from decouple import config
 from django.contrib.messages import constants as messages
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
@@ -7,10 +9,12 @@ from django.utils.translation import ugettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
-PUBLIC_ROOT = '/home/igityopp/public_html/'
 
 # Application definition
-
+DEBUG = config("DEBUG", default=True)
+SECRET_KEY = config('SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_TEST_PUBLIC")
+STRIPE_SECRET_KEY = config("STRIPE_TEST_SECRET")
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_countries',
     # HIT COUNT
-    'hitcount'
+    'hitcount',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -187,9 +192,37 @@ LOCALE_PATHS = (
 # def ugettext(s):
 #     return s
 
-ugettext = lambda s:s
+def ugettext(s): return s
+
 
 LANGUAGES = (
     ('en', ugettext('English')),
     ('rw', ugettext('Kinyarwanda')),
 )
+
+# AMAZON S3 SETTINGS
+USE_S3 = config("USE_S3")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+if USE_S3:
+    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = 'feytoninc'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_LOCATION = 'static'
+
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    STATICFILES_STORAGE = 'corp.storage_backends.StaticStorage'
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'corp.storage_backends.PublicMediaStorage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = (os.path.join(BASE_DIR, 'asset'))
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'

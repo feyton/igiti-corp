@@ -6,7 +6,7 @@
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-<link rel="stylesheet" href="/static/assets/demo/form.css" class="css">
+<link rel="stylesheet" href="{% static 'assets/demo/form.css' %}" class="css">
 {% endblock stylesheets %}
 
 
@@ -202,7 +202,7 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-<script src="/static/js/dashboard.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 
 <script>
   $("input[type=file]").change(function () {

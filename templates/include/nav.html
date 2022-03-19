@@ -3,7 +3,7 @@
 {% load cart_template_tags %}
 <header>
     <div class="container">
-        <a href="{% url 'home' %}"><img src="/static/img/fixed-logo.png" alt="logo" width="275" height="60"
+        <a href="{% url 'home' %}"><img src="{% static 'img/fixed-logo.png' %}" alt="logo" width="275" height="60"
                 class="fixed-logo"></a>
         <i class="fa fa-bars menu-toggle" id="menu-show" onclick="menu_show()"></i>
         <ul class="nav-bar showing" id="nav-bar">

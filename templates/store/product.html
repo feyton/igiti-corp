@@ -4,8 +4,8 @@
 
 
 {% block extra_style %}
-<link rel="stylesheet" href="/static/css/store.css">
-<link rel="stylesheet" href="/static/css/product.css">
+<link rel="stylesheet" href="{% static 'css/store.css' %}">
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
 {% endblock extra_style %}
 <!-- icon and site title -->
 
@@ -210,6 +210,6 @@
 
 
 {% block extra_java %}
-<script src="/static/js/store.js"></script>
+<script src="{% static 'js/store.js' %}"></script>
 
 {% endblock extra_java %}

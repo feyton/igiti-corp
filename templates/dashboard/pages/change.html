@@ -170,7 +170,7 @@
     <div class="col-md-4">
       <div class="card card-user">
         <div class="image">
-          <img src="/static/img/bg5.jpg" alt="...">
+          <img src="{% static 'img/bg5.jpg' %}" alt="...">
         </div>
         <div class="card-body">
           <div class="author">
@@ -180,7 +180,7 @@
               <img class="avatar border-gray" src="{{ profile.image.url}}" alt="...">
 
               {% else %}
-              <img class="avatar border-gray" src="/static/assets/img/mike.jpg" alt="...">
+              <img class="avatar border-gray" src="{% static 'assets/img/mike.jpg'%}" alt="...">
               {% endif %}
               <h5 class="title">
                 {{ request.user.get_full_name }}
@@ -208,7 +208,7 @@
 {% block javascripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"
   integrity="sha256-QOE02Glo1C1gHzP96JOaxyIMt4XSFv/exZaYLY4dwO0=" crossorigin="anonymous"></script>
-<script src="/static/js/dashboard.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 
 <script>
   $(document).ready(function () {

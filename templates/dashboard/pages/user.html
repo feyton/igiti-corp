@@ -1,6 +1,7 @@
 {% extends 'dashboard/layouts/base.html' %}
 {% load widget_tweaks %}
 {% load socialaccount %}
+{% load static %}
 {% providers_media_js %}
 
 {% block title %} Profile Page {% endblock title %}
@@ -110,7 +111,7 @@
     <div class="col-md-4">
       <div class="card card-user">
         <div class="image">
-          <img src="/static/img/bg5.jpg" alt="bg-user">
+          <img src="{% static 'img/bg5.jpg' %}" alt="bg-user">
         </div>
         <div class="card-body">
           <div class="author">
@@ -120,7 +121,7 @@
               <img class="avatar border-gray" src="{{ profile.image.url}}" alt="...">
 
               {% else %}
-              <img class="avatar border-gray" src="/static/img/default-avatar.png" alt="...">
+              <img class="avatar border-gray" src="{% static 'img/default-avatar.png' %}" alt="...">
               {% endif %}
               <h5 class="title">
                 {{ request.user.get_full_name }}
