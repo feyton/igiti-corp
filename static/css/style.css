@@ -230,17 +230,21 @@ header ul li:hover ul {
   0% {
     opacity: 0;
   }
+
   10% {
     opacity: 1;
   }
+
   90% {
     opacity: 1;
     transform: translateY(0px);
   }
+
   99% {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   100% {
     opacity: 0;
   }
@@ -251,6 +255,7 @@ header ul li:hover ul {
     width: 0%;
     background: rgba(255, 255, 255, 0.3);
   }
+
   100% {
     width: 98%;
     background: rgba(255, 255, 255, 1);
@@ -816,10 +821,8 @@ footer {
   height: 100% !important;
   border-radius: 6px;
   /* rounded corners */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%), url("http://source.unsplash.com/1500x500/?forest,seedlings");
-  background-width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%), url("https://source.unsplash.com/1500x500/?forest,seedlings");
   background-attachment: fixed;
-  image-repeat: none;
   max-height: 0%;
   background-size: 100%;
 }
@@ -900,7 +903,7 @@ footer {
   height: 100% !important;
   border-radius: 6px;
   /* rounded corners */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%), url("http://source.unsplash.com/1500x500/?nature");
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%), url("https://source.unsplash.com/1500x500/?nature");
   background-width: 100%;
   background-attachment: fixed;
   image-repeat: none;
@@ -960,13 +963,16 @@ footer {
   header {
     position: relative;
   }
+
   .fixed-logo {
     left: 50%;
   }
+
   .container {
     width: 100%;
     padding: 0px 1px;
   }
+
   .menu-toggle {
     display: block;
     position: absolute;
@@ -975,6 +981,7 @@ footer {
     font-size: 1.5em;
     cursor: pointer;
   }
+
   header ul {
     position: absolute;
     width: 100%;
@@ -985,56 +992,70 @@ footer {
     max-height: auto;
     overflow: hidden;
   }
+
   .showing {
     display: none;
   }
+
   header ul li {
     width: 100%;
   }
+
   .fixed-logo {
     display: block;
   }
+
   header ul li ul {
     position: static;
     display: block;
     width: 100%;
   }
+
   header ul li ul li a {
     background: inherit;
     color: white;
     padding-left: 50px;
   }
+
   footer {
     height: auto;
     position: relative;
     margin: 10px 0px;
   }
+
   .footer-content {
     height: auto;
     flex-direction: column;
   }
+
   .footer-section {
     padding: 10px 20px;
   }
+
   .footer-section:last-child {
     padding-right: 50px;
   }
+
   .footer-section:first-child {
     padding-left: 20px;
     padding-right: 100px;
   }
+
   .footer-bottom {
     position: absolute;
     bottom: 0px;
     left: auto;
     bottom: auto;
   }
+
   .contact-form {
     display: block;
   }
+
   .contact-btn {
     width: 40%;
   }
+
   /* *********
     NEWS RESPONSIVE
     *********** */
@@ -1042,13 +1063,16 @@ footer {
     width: 100%;
     border-radius: 5px;
   }
+
   .news_post_image img {
     border-radius: 5px;
     width: 100%;
   }
+
   .news_post_text {
     width: 100%;
   }
+
   .news_post_content {
     width: 100%;
   }
@@ -1058,11 +1082,13 @@ footer {
   .footer-section:last-child {
     padding-right: 20px;
   }
+
   .footer-section:first-child {
     padding-left: 20px;
     padding-right: 30px;
     padding-bottom: 20px;
   }
+
   .footer-section {
     font-size: 1.3em;
   }
