@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
+from modeltranslation.admin import TranslationAdmin
 
 from .models import Author, BlogPost, Category, Comment, CommentReply
 
@@ -18,9 +19,11 @@ def remove_comments(ModelAdmin, request, queryset):
 remove_comments.set_description = 'Delete comments'
 
 
-@admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'image', 'published', 'pub_date')
+
+
+admin.site.register(BlogPost, BlogPostAdmin)
 
 
 @admin.register(Comment)
