@@ -13,13 +13,14 @@ from user.views import Dashboard
 admin.autodiscover()
 
 urlpatterns = [
-    path('123FEYTON/', admin.site.urls),
+
     path("ads.txt", RedirectView.as_view(
         url=staticfiles_storage.url("ads.txt")),),
     path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
     path('', include('index.urls')),
     path('species/', species),
     path('user/', include('user.urls')),

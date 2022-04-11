@@ -1,5 +1,5 @@
-from email.policy import default
 import os
+from email.policy import default
 
 from decouple import config
 from django.contrib.messages import constants as messages
@@ -16,6 +16,7 @@ SECRET_KEY = config('SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = config("STRIPE_TEST_PUBLIC")
 STRIPE_SECRET_KEY = config("STRIPE_TEST_SECRET")
 INSTALLED_APPS = [
+    "modeltranslation",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -61,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'corp.urls'
@@ -117,7 +120,7 @@ AUTHENTICATION_BACKENDS = (
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Paris'
 
@@ -200,6 +203,9 @@ LANGUAGES = (
     ('rw', ugettext('Kinyarwanda')),
 )
 
+MODELTRANSLATION_FALLBACK_LANGUAGES = ("en", "rw")
+MODELTRANSLATION_AUTO_POPULATE = True
+
 # AMAZON S3 SETTINGS
 USE_S3 = config("USE_S3")
 STATICFILES_DIRS = [
@@ -226,3 +232,15 @@ else:
     STATIC_ROOT = (os.path.join(BASE_DIR, 'asset'))
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "my_cache_table",
+        "TIMEOUT": 86000,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
