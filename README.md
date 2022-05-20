@@ -29,6 +29,19 @@ The following features will be added in the future and are being worked
 - Moving to Djang-Rest-Framework
 - Payment integration with Flutterwave
 
+## Running the application
+```
+git clone https://github.com/feyton/igiti.git
+cd igiti
+cp .env.sample .env
+python -m venv env
+source ./env/Scripts/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+open http://localhost:8000
+```
+
 ## Conclusion
 This is an ongoing project that will continue to receive future improvements.
 

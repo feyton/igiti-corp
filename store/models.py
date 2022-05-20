@@ -4,23 +4,22 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
+from forestry.models import BlogPost
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-
-from forestry.models import BlogPost
 
 from .utils import photo_path
 
 User = get_user_model()
 
 
-
 def get_product_map(product):
     districts = []
     for district in product.districts.all():
         districts.append(district.name)
+
 
 class District(models.Model):
     # CHOICES

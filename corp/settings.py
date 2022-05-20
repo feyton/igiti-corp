@@ -1,3 +1,4 @@
+import django_heroku
 import dj_database_url
 import cloudinary.uploader
 import cloudinary.api
@@ -98,7 +99,7 @@ WSGI_APPLICATION = 'corp.wsgi.application'
 LOGIN_URL = 'account_login'
 LOGOUT_URL = 'account_logout'
 LOGIN_REDIRECT_URL = 'home'
-
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
@@ -137,7 +138,7 @@ USE_TZ = True
 SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
@@ -279,3 +280,6 @@ else:
         'NAME': BASE_DIR/'db.sqlite3',
     }
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+django_heroku.settings(locals())
