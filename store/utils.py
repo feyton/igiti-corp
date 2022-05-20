@@ -4,9 +4,8 @@ from datetime import datetime
 from io import BytesIO
 
 from django.http import HttpResponse
-from django.template.loader import get_template, render_to_string
-from weasyprint import HTML
-from weasyprint.fonts import FontConfiguration
+from django.template.loader import get_template
+
 from xhtml2pdf import pisa
 
 
@@ -31,16 +30,7 @@ def render_to_pdf(template_src, context_dict={}):
     # PDF
     pdf = pisa.pisaDocument(BytesIO(html.encode("utf-8")), result)
     if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
+        return HttpResponse(
+            result.getvalue(), content_type='application/pdf')
+
     return None
-
-
-def generate_pdf_weasy(request, template, file_name, context):
-    response = HttpResponse(content_type="application/pdf")
-    response['Content-Disposition'] = "inline; filename=%s.pdf" % file_name
-    html = render_to_string(template, context)
-
-    font_config = FontConfiguration()
-    pdf = HTML(string=html, base_url=request.build_absolute_uri()
-               ).write_pdf(response, font_config=font_config)
-    return response

@@ -19,7 +19,7 @@ from user.models import UserProfile
 from .forms import CheckoutForm, CouponForm, PaymentForm, RefundForm
 from .models import (Address, Coupon, Order, OrderItem, Payment, Refund,
                      SeedProduct)
-from .utils import generate_pdf_weasy
+from .utils import render_to_pdf
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -583,7 +583,8 @@ def download_pdf(request, slug):
         }
         file_name = '%s-%s' % (item.scientific_name, item.id)
         template_name = 'store/card_pdf.html'
-        pdf = generate_pdf_weasy(request, template_name, file_name, context)
+        # pdf = generate_pdf_weasy(request, template_name, file_name, context)
+        pdf = render_to_pdf(template_name, context)
         return pdf
 
     else:

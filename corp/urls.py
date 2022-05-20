@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import RedirectView
 from index.views import home, species
 from user.views import Dashboard
+from django.urls import re_path
 
 admin.autodiscover()
 
@@ -16,7 +17,7 @@ urlpatterns = [
 
     path("ads.txt", RedirectView.as_view(
         url=staticfiles_storage.url("ads.txt")),),
-    path(r'^i18n/', include('django.conf.urls.i18n')),
+    re_path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 urlpatterns += i18n_patterns(

@@ -1,20 +1,25 @@
+import dj_database_url
+import cloudinary.uploader
+import cloudinary.api
+import cloudinary
 import os
-from email.policy import default
-
+from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__))))
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Application definition
 DEBUG = config("DEBUG", default=True)
 SECRET_KEY = config('SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = config("STRIPE_TEST_PUBLIC")
 STRIPE_SECRET_KEY = config("STRIPE_TEST_SECRET")
+ALLOWED_HOSTS = ["*"]
+
+
 INSTALLED_APPS = [
     "modeltranslation",
     'django.contrib.admin',
@@ -190,9 +195,6 @@ LOCALE_PATHS = (
 )
 
 
-# def ugettext(s):
-#     return s
-
 def ugettext(s): return s
 
 
@@ -207,8 +209,11 @@ MODELTRANSLATION_AUTO_POPULATE = True
 # AMAZON S3 SETTINGS
 USE_S3 = config("USE_S3")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    BASE_DIR/'static'
 ]
+
+cloudinary.config(cloud_name=config("cloud_name"), api_key=config(
+    "api_key"), api_secret=config("api_secret"))
 
 if USE_S3:
     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
@@ -231,7 +236,6 @@ else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 
-
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
@@ -242,3 +246,36 @@ CACHES = {
         }
     }
 }
+
+DATABASES = {
+    'default': {
+
+    }
+}
+
+MODE = config("MODE", default="dev")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("HOST_PASS")
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_PORT = '465'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+if MODE == 'production':
+    DATABASES["default"] = dj_database_url.parse(config("DATABASE_URL"))
+    PREPEND_WWW = False
+    APPEND_SLASH = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    ADMINS = (('Feyton', 'info@igiti.co.rw'),)
+
+else:
+    DATABASES["default"] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/'db.sqlite3',
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
