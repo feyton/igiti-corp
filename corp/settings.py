@@ -1,16 +1,11 @@
-import django_heroku
-import dj_database_url
-import cloudinary.uploader
-import cloudinary.api
-import cloudinary
-import os
 from pathlib import Path
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
 from decouple import config
 from django.contrib.messages import constants as messages
-from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
-
-
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Application definition
@@ -248,12 +243,6 @@ CACHES = {
     }
 }
 
-DATABASES = {
-    'default': {
-
-    }
-}
-
 MODE = config("MODE", default="dev")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("HOST_PASS")
@@ -264,7 +253,19 @@ EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 if MODE == 'production':
-    DATABASES["default"] = dj_database_url.parse(config("DATABASE_URL"))
+    DATABASES = {
+        'default': {
+            'ENGINE': 'mysql.connector.django',
+            'NAME': config("DB_NAME"),
+            'USER': config("DB_USER"),
+            'PASSWORD': config('DB_PASS'),
+            'HOST': '127.0.0.1',
+            'PORT': '',
+            'OPTIONS': {
+                'sql_mode': 'STRICT_TRANS_TABLES',
+            }
+        }
+    }
     PREPEND_WWW = False
     APPEND_SLASH = True
     SESSION_COOKIE_SECURE = True
@@ -275,11 +276,11 @@ if MODE == 'production':
     ADMINS = (('Feyton', 'info@igiti.co.rw'),)
 
 else:
-    DATABASES["default"] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR/'db.sqlite3',
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
-django_heroku.settings(locals())

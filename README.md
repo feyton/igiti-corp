@@ -38,6 +38,7 @@ python -m venv env
 source ./env/Scripts/activate
 pip install -r requirements.txt
 python manage.py migrate
+python manage.py createcachetable
 python manage.py runserver
 open http://localhost:8000
 ```
